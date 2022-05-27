@@ -15,7 +15,13 @@
 //功  能：		设置变量ID列表
 //参  数：		vector<unsigned int>&
 //返回值：		无
-void CFactor::SetFactorVariableIDs(vector<unsigned int>& VariableIDs)
+void CFactor::SetFactorVariableIDs(const fidlist& VariableIDs)
+{
+	//初始化因子中变量ID的列表
+	m_VariableIDs = VariableIDs;
+}
+
+void CFactor::SetFactorVariableIDs(fidlist&& VariableIDs)
 {
 	//初始化因子中变量ID的列表
 	m_VariableIDs = VariableIDs;
@@ -25,16 +31,14 @@ void CFactor::SetFactorVariableIDs(vector<unsigned int>& VariableIDs)
 //功  能：		设置因子行
 //参  数：		vector<unsigned int>&,double&
 //返回值：		无
-void CFactor::SetFactorRow(vector<unsigned int>& ValueIDs, double& fRowValue)
+void CFactor::SetFactorRow(const fidlist& ValueIDs, fval_t fRowValue)
 {
-	//定义因子行
-	FACTOR_ROW factor_row;
-	
-	//设置值ID的列表
-	factor_row.ValueIDs = ValueIDs;
-	//设置因子行的值
-	factor_row.fValue = fRowValue;
-
 	//添加到因子行的列表
-	m_FactorRows.push_back(factor_row);
+	m_FactorRows.push_back(FACTOR_ROW(ValueIDs, fRowValue));
+}
+
+void CFactor::SetFactorRow(fidlist&& ValueIDs, fval_t fRowValue)
+{
+	//添加到因子行的列表
+	m_FactorRows.push_back(FACTOR_ROW(ValueIDs, fRowValue));
 }

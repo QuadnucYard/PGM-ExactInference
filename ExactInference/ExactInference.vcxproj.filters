@@ -67,6 +67,9 @@
     <Filter Include="源文件\Factor\操作符重载相关">
       <UniqueIdentifier>{184a1438-f5dd-4ab4-b77a-9c1fe5a9c895}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\myutils">
+      <UniqueIdentifier>{39ff0a65-1722-4a3a-8707-14c5c76ce804}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -104,6 +107,12 @@
     </ClInclude>
     <ClInclude Include="CFactor.h">
       <Filter>源文件\Factor</Filter>
+    </ClInclude>
+    <ClInclude Include="stl_utils.h">
+      <Filter>源文件\myutils</Filter>
+    </ClInclude>
+    <ClInclude Include="xiterator.h">
+      <Filter>源文件\myutils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

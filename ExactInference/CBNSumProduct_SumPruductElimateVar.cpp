@@ -29,9 +29,9 @@ void CBNSumProduct::Sum_Product_Eliminate_Var(unsigned int nVariableID,vector<CF
 		//定义给定变量位置
 		unsigned int nPos;
 		//定义并初始化因子的变量ID列表
-		vector<unsigned int> VariableIDs = it->GetFactorVariableIDs();
+		fidlist VariableIDs = it->GetFactorVariableIDs();
 		//检查因子的变量中是否包含给定变量。如果有的话，则通过参数返回其位置
-		if (IsINTInVector(nVariableID, VariableIDs, nPos))
+		if (qy::includes(VariableIDs, nVariableID))
 		{
 			//添加到因子列表
 			NewFactors.push_back(*it);

@@ -30,21 +30,21 @@ using namespace std;					//使用标准命名空间
 
 //定义类型
 //实例化变量类型
-typedef struct
+struct GROUNDING_VARIABLE
 {
 	unsigned int nNodeID;								//01 变量ID
 	unsigned int nValueID;								//02 变量的值ID
-}GROUNDING_VARIABLE;
+};
 
 //条件概率分布表的行
-typedef struct
+struct CPT_ROW
 {
 	vector<unsigned int> ValueIDs;						//01 节点值ID的列表，包括节点的双亲、节点自己。节点ID的列表和PARENT_ID相同。最后添加节点自己
 	double fProb;										//02 概率。相当于条件概率分布表的一行中最后的概率
-}CPT_ROW;
+};
 
 //贝叶斯网络节点
-typedef struct
+struct BN_NODE
 {
 	unsigned int nID;									//01 节点ID，如0
 	string sName;										//02 节点名称，如Difficulty
@@ -54,23 +54,23 @@ typedef struct
 	vector<unsigned int> ParentIDs;						//06 父节点ID列表。遵循该顺序给定条件概率分布表
 	vector<double> CPTRowValues;						//07 条件概率分布表中每行的值
 	vector<CPT_ROW> CPTRowIDs;							//08 条件概率分布表中每行的变量ID序列
-}BN_NODE;
+};
 
 //贝叶斯网络的边
-typedef struct
+struct BN_EDGE
 {
 	unsigned int nID;									//01 边的ID。保留、未用
 	unsigned int nStartNodeID;							//02 边的起点ID
 	unsigned int nEndNodeID;							//03 边的终点ID
-}BN_EDGE;
+};
 
 //查询
-typedef struct
+struct QUERY
 {
 	vector<GROUNDING_VARIABLE> QueryVariables;								//查询的节点及其取值
 	vector<GROUNDING_VARIABLE> GivenVariables;								//给定的节点及其取值
 	vector<unsigned int> EliminateVariables;								//删除节点的顺序
-}QUERY;
+};
 
 
 //定义贝叶斯网络的精确推理类CBNSumProduct。采用和积变量消除法

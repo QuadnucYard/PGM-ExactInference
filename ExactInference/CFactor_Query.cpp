@@ -10,63 +10,36 @@
 #include "stdafx.h"									//MFC标准头文件
 #include "CFactor.h"								//因子类头文件
 #include "Helper.h"									//辅助函数头文件
-
+#include <ranges>
 
 //名  称：		Query()
 //功  能：		查询特定值
 //参  数：		vector<unsigned int>&,vector<unsigned int>&
 //返回值：		double
-double CFactor::Query(vector<unsigned int>& VariableIDs,vector<unsigned int>& ValueIDs)
+double CFactor::Query(const fidlist& VariableIDs, const fidlist& ValueIDs)
 {
 	//定义位置集合
-	vector<unsigned int> Positions;
-	
-	//遍历查询的变量ID
-	for (unsigned int i = 0; i < VariableIDs.size(); i++)
-	{
-		//遍历因子的变量ID
-		for (unsigned int j = 0; j < m_VariableIDs.size(); j++)
-		{
-			//检查变量ID是否相同
-			if (VariableIDs[i] == m_VariableIDs[j])
-			{
-				//添加到位置集合
-				Positions.push_back(j);
-			}
-		}
-	}
+	std::vector<size_t> Positions(VariableIDs.size());
+	std::transform(VariableIDs.begin(), VariableIDs.end(), Positions.begin(),
+		[&](fid_t i) {return qy::index_of(m_VariableIDs, i); });
 
-	
 	//初始化返回的概率值
 	double fProb = 0.0f;
-	
+
 	//遍历因子行，求和
-	for (unsigned int i = 0; i < m_FactorRows.size(); i++)
+	for (size_t i = 0; i < m_FactorRows.size(); i++)
 	{
 		//定义因子行
-		FACTOR_ROW factor_row = m_FactorRows[i];
-		
-		//检查位置和值是否正确
-		bool bMatch = true;
-		
-		//遍历所有位置
-		for (unsigned int j = 0; j < Positions.size(); j++)
-		{
-			//获取位置
-			unsigned int nPos=Positions[j];		//获取位置
-			unsigned int nValue = ValueIDs[j];	//获取变量值的ID
-			//如果不相等，则更新匹配结果
-			if (factor_row.ValueIDs[nPos] != nValue)
-			{
-				//更新匹配结果。这里似乎可以终止循环
-				bMatch = false;
-			}
-		}
+		const FACTOR_ROW& factor_row = m_FactorRows[i];
 
+		//检查对应位置和值是否正确
+		bool bMatch = std::ranges::all_of(std::views::iota(0, (int)Positions.size()),
+			[&](int j) { return factor_row[Positions[j]] == ValueIDs[j]; });
+		//bool bMatch = std::ranges::all_of(std::views::zip(Positions, ValueIDs),
+		//	[&](auto t) { return factor_row[std::get<0>(t)] == std::get<1>(t); };
 		//检查该行是否匹配。如果匹配的话，则需要累加概率值
-		if (bMatch == true)
+		if (bMatch)
 		{
-			//累计概率值
 			fProb += factor_row.fValue;
 		}
 	}
@@ -79,7 +52,7 @@ double CFactor::Query(vector<unsigned int>& VariableIDs,vector<unsigned int>& Va
 //功  能：		获取变量ID列表
 //参  数：		无
 //返回值：		unsigned int
-vector<unsigned int> CFactor::GetFactorVariableIDs()
+const fidlist& CFactor::GetFactorVariableIDs() const
 {
 	//返回变量ID列表
 	return m_VariableIDs;

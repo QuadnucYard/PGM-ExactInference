@@ -25,7 +25,7 @@ void CBNSumProduct::Preprocess_Factor()
 
 		//////////////////////////////////////////////////////////////
 		//步骤1：初始化因子。设置因子的变量ID的列表
-		vector<unsigned int>NodeIDs= m_Nodes[i].ParentIDs;	//父节点ID列表
+		fidlist NodeIDs= m_Nodes[i].ParentIDs;	//父节点ID列表
 		//添加本身节点的ID
 		NodeIDs.push_back(m_Nodes[i].nID);
 		//初始化因子

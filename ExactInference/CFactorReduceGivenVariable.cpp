@@ -11,35 +11,21 @@
 #include "stdafx.h"									//MFC标准头文件
 #include "CFactor.h"								//因子类头文件
 #include "Helper.h"									//辅助函数头文件
-
+#include <algorithm>
+#include "stl_utils.h"
 
 //名  称：		ReduceGivenVariable()
 //功  能：		根据给定的变量ID和值ID，化简因子
 //参  数：		unsigned int,unsigned int
 //返回值：		无
-void CFactor::ReduceGivenVariable(unsigned int nVariableID, unsigned int nValueID)
+void CFactor::ReduceGivenVariable(fid_t nVariableID, fid_t nValueID)
 {
 	//查找变量ID是否在因子中
-	unsigned int nPos = 0;
-	bool bFind = IsINTInVector(nVariableID, m_VariableIDs,nPos);//如果找到，则返回在列表中的位置nPos
-	//检查是否找到
-	if (bFind)//找到，需要进行简化
+	if (size_t nPos = qy::index_of(m_VariableIDs, nVariableID); nPos != -1)
 	{
+		//找到，需要进行简化
 		//遍历所有行。检查特定位置（列）的变量值是否相等
-		vector<FACTOR_ROW>::iterator it = m_FactorRows.begin();
-		while (it != m_FactorRows.end())
-		{
-			//检查变量值是否相等
-			if (nValueID == it->ValueIDs[nPos])
-			{
-				//保留行、更新迭代器
-				it++;
-			}
-			else
-			{
-				//删除行、并更新迭代器
-				it = m_FactorRows.erase(it);
-			}
-		}
+		//删掉 nValueID != it->ValueIDs[nPos] 的项
+		qy::remove_if(m_FactorRows, [=](const FACTOR_ROW& t) {return t[nPos] != nValueID; });
 	}
 }
