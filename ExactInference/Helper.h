@@ -27,9 +27,31 @@ std::string WS2S(const std::wstring& ws);
 void RemoveSpace(std::wstring& str);
 
 //将字符串转换为双精度数
-double TransformStringToDouble(const std::string&);
+inline double stod_(const std::string& str) {
+	return std::stod(str);
+}
 //将字符串转换为整数
-int TransformStringToInt(const std::string&);
+inline int stoi_(const std::string& str) {
+	return std::stoi(str);
+}
 
 //获取XML文件中属性的值
-std::string GetAttribute(TiXmlElement* pEle, const char* name);
+const char* GetAttribute(TiXmlElement* pEle, const char* name);
+
+inline int GetAttributeI(TiXmlElement* pEle, const char* name) {
+	return std::stoi(GetAttribute(pEle, name));
+}
+
+inline double GetAttributeD(TiXmlElement* pEle, const char* name) {
+	return std::stod(GetAttribute(pEle, name));
+}
+
+const char* GetAttribute(const TiXmlElement& pEle, const char* name);
+
+inline int GetAttributeI(const TiXmlElement& pEle, const char* name) {
+	return std::stoi(GetAttribute(pEle, name));
+}
+
+inline double GetAttributeD(const TiXmlElement& pEle, const char* name) {
+	return std::stod(GetAttribute(pEle, name));
+}

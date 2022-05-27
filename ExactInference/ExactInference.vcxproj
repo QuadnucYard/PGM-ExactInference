@@ -117,6 +117,7 @@
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="tinyxml2.h" />
+    <ClInclude Include="tinyxmliterator.h" />
     <ClInclude Include="xiterator.h" />
   </ItemGroup>
   <ItemGroup>

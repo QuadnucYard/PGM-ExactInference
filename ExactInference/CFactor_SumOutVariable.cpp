@@ -17,7 +17,7 @@
 //功  能：		根据给定变量，对因子求和
 //参  数：		unsigned int
 //返回值：		无
-void CFactor::SumOutVariable(unsigned int nVariableID)
+void CFactor::SumOutVariable(fid_t nVariableID)
 {
 	//检查是否找到变量ID
 	if (size_t nRemovePos = qy::index_of(m_VariableIDs, nVariableID); nRemovePos != -1) //找到变量ID，需要进行求和化简
@@ -29,13 +29,9 @@ void CFactor::SumOutVariable(unsigned int nVariableID)
 
 		///////////////////////////////////////////////////////////////////////
 		//步骤2：化简变量值的ID列表
-		/*for (size_t i = 0; i < m_FactorRows.size(); i++)
-		{
-			//删除行中冗余的变量值: i行的nRemovePos项
-			m_FactorRows[i].ValueIDs.erase(m_FactorRows[i].ValueIDs.begin() + nRemovePos);
-		}*/
-		std::for_each(m_FactorRows.begin(), m_FactorRows.end(),
-			[=](FACTOR_ROW& t) { t.ValueIDs.erase(t.ValueIDs.begin() + nRemovePos); });
+		//删除行中冗余的变量值: i行的nRemovePos项
+		for (FACTOR_ROW& t : m_FactorRows)
+			t.ValueIDs.erase(t.ValueIDs.begin() + nRemovePos);
 
 		//////////////////////////////////////////////////////////////////
 		//步骤3：对因子中相应的行求和
@@ -64,26 +60,17 @@ void CFactor::SumOutVariable(unsigned int nVariableID)
 //返回值：		无
 void CFactor::MergeIntoFirstRow(FACTOR_ROW& first_row)
 {
-	//遍历所有因子行
-	std::vector<FACTOR_ROW>::iterator it = m_FactorRows.begin();
-
-	//删除首行
-	it = m_FactorRows.erase(it);
-
-	//检查是否结束
+	//遍历所有因子行，累加并删除变量值ID的列表相等的项
+	auto it = m_FactorRows.begin();
+	it = m_FactorRows.erase(it); //删除首行
 	while (it != m_FactorRows.end())
 	{
-		//检查变量值ID的列表是否相等
 		if (first_row.ValueIDs == it->ValueIDs)
 		{
-			//累加因子值
 			first_row.fValue += it->fValue;
-
-			//删除、并更新迭代器
 			it = m_FactorRows.erase(it);
 		} else
 		{
-			//更新迭代器
 			it++;
 		}
 	}

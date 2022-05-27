@@ -114,6 +114,9 @@
     <ClInclude Include="xiterator.h">
       <Filter>源文件\myutils</Filter>
     </ClInclude>
+    <ClInclude Include="tinyxmliterator.h">
+      <Filter>源文件\XML</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

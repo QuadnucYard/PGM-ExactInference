@@ -77,31 +77,20 @@ void RemoveSpace(std::wstring& str)
 	str.assign(buff.begin() + buff.find_first_not_of(space), buff.begin() + buff.find_last_not_of(space) + 1);
 }
 
-//名  称：		TransformCStringToDouble()
-//功  能：		将string转换为double
-//参  数：		CString
-//返回值：		dobule
-double TransformStringToDouble(const std::string& sProbability)
-{
-	return atof(sProbability.c_str());
-}
-
-//名  称：		TransformStringToInt()
-//功  能：		将string转换为int
-//参  数：		string
-//返回值：		int
-int TransformStringToInt(const std::string& sNumber)
-{
-	return atoi(sNumber.c_str());
-}
-
 // 名  称：		GetAttribute()
 // 功  能：		获取属性值
 // 参  数：		TiXmlElement*,const char*
 // 返回值：		string
-std::string GetAttribute(TiXmlElement* pEle, const char* name)
+const char* GetAttribute(TiXmlElement* pEle, const char* name)
 {
 	const char* s = pEle->Attribute(name);
+	if (s) return s;	// 如果const char *不为空，返回字符串
+	else return "";		// 如果是空指针，返回空字符串
+}
+
+const char* GetAttribute(const TiXmlElement& ele, const char* name)
+{
+	const char* s = ele.Attribute(name);
 	if (s) return s;	// 如果const char *不为空，返回字符串
 	else return "";		// 如果是空指针，返回空字符串
 }

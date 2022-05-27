@@ -11,7 +11,7 @@
 #include "CBNSumProduct.h"							//贝叶斯网络精确推理类头文件，采用和积变量消除法
 #include "tinyxml.h"								//TinyXML头文件
 #include "Helper.h"									//辅助函数头文件
-
+#include <format>
 
 //声明外部变量
 extern CExactInferenceApp theApp;
@@ -30,32 +30,24 @@ void CBNSumProduct::OutputToXML()
 	//连接描述信息到文档
 	doc.LinkEndChild(pDecl);
 
-	//创建根元素
+	//创建根元素并连接
 	TiXmlElement *pRootElement = new TiXmlElement("Probilities");
-	//连接根元素
 	doc.LinkEndChild(pRootElement);
 
-	
 	//遍历所有查询结果
-	for (unsigned int i = 0; i < m_QueryResults.size(); i++)
+	for (fval_t qr : m_QueryResults)
 	{
-		//创建概率元素
 		TiXmlElement* pProbability = new TiXmlElement("Probability");
 
 		//设置概率取值
-		char sTemp[MAX_PATH];
-		sprintf_s(sTemp, "%.6f", m_QueryResults[i]);
-		pProbability->SetAttribute("PROBABILITY_VALUE", sTemp);
-		
+		pProbability->SetAttribute("PROBABILITY_VALUE", std::format("{:.6f}", qr).c_str());
 
 		//连接概率到概率列表
 		pRootElement->LinkEndChild(pProbability);
 	}
 
 	//获取当前工作路径
-	CString sFileName = theApp.m_sWorkPath;
-	sFileName = sFileName + _T("\\Data");
-	sFileName = sFileName + _T("\\Output.xml");
+	CString sFileName = theApp.m_sWorkPath + _T("\\Data\\Output.xml");
 
 	//保存XML文件
 	doc.SaveFile((MapCStringToString(sFileName)).c_str());

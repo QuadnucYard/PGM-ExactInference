@@ -25,6 +25,7 @@ using fval_t = double;
 using fidset = std::set<fid_t>;
 using fidmap = std::map<fid_t, fid_t>;
 using fidlist = std::vector<fid_t>;
+using fvallist = std::vector<fval_t>;
 
 //定义因子行
 struct FACTOR_ROW
@@ -80,3 +81,5 @@ private:
 	fidlist m_VariableIDs;					//因子变量ID列表
 	std::vector<FACTOR_ROW> m_FactorRows;					//因子行的列表
 };
+
+using CFactorList = std::vector<CFactor>;
