@@ -117,6 +117,12 @@
     <ClInclude Include="tinyxmliterator.h">
       <Filter>源文件\XML</Filter>
     </ClInclude>
+    <ClInclude Include="qyranges.hpp">
+      <Filter>源文件\myutils</Filter>
+    </ClInclude>
+    <ClInclude Include="xmlutils.hpp">
+      <Filter>源文件\myutils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

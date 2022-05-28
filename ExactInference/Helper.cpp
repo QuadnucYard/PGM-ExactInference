@@ -23,6 +23,12 @@ void Separate(const std::string& str, std::vector<std::string>& result)
 		std::back_inserter(result));
 }
 
+auto Separate(const std::string& str)
+{
+	std::regex re("[\\s,;，；、]+");
+	return std::sregex_token_iterator(str.begin(), str.end(), re, -1);
+}
+
 //名  称：		MapCStringToString()
 //功  能：		将CString映射到string
 //参  数：		CString&
@@ -35,7 +41,6 @@ std::string MapCStringToString(CString& sGivenCString)
 	std::string sReturnString = sTemp.GetBuffer(0);
 	sTemp.ReleaseBuffer();
 
-	//返回结果
 	return sReturnString;
 }
 
@@ -60,37 +65,5 @@ std::wstring StoWs(const std::string& s)
 //返回值：		string
 std::string WS2S(const std::wstring& ws)
 {
-	//返回结果
 	return (char*)(_bstr_t)ws.c_str();
-}
-
-//名  称：		RemoveSpace()
-//功  能：		去除空格
-//参  数：		string&
-//返回值：		无
-void RemoveSpace(std::wstring& str)
-{
-	std::wstring buff(str);
-	WCHAR space = ' ';
-	//裁剪左右空格
-	auto x1 = buff.find_first_not_of(space), x2 = buff.find_last_not_of(space);
-	str.assign(buff.begin() + buff.find_first_not_of(space), buff.begin() + buff.find_last_not_of(space) + 1);
-}
-
-// 名  称：		GetAttribute()
-// 功  能：		获取属性值
-// 参  数：		TiXmlElement*,const char*
-// 返回值：		string
-const char* GetAttribute(TiXmlElement* pEle, const char* name)
-{
-	const char* s = pEle->Attribute(name);
-	if (s) return s;	// 如果const char *不为空，返回字符串
-	else return "";		// 如果是空指针，返回空字符串
-}
-
-const char* GetAttribute(const TiXmlElement& ele, const char* name)
-{
-	const char* s = ele.Attribute(name);
-	if (s) return s;	// 如果const char *不为空，返回字符串
-	else return "";		// 如果是空指针，返回空字符串
 }

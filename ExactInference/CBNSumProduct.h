@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include "CFactor.h"
+#include "xmlutils.hpp"
 
 using std::string;
 using std::vector;

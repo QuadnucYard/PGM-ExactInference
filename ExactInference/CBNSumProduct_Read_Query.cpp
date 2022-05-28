@@ -37,7 +37,8 @@ void CBNSumProduct::Read_Query()
 	}
 
 	//打开文件
-	TiXmlDocument aDoc(MapCStringToString(sFileName).c_str());
+	USES_CONVERSION;
+	TiXmlDocument aDoc(T2A(sFileName));
 
 	//检查打开文件是否成功
 	if (!aDoc.LoadFile())
@@ -61,7 +62,7 @@ void CBNSumProduct::Read_Query()
 				GetAttributeI(pVariable, "ID"),
 				GetAttributeI(pVariable, "VALUE")
 			); });
-		
+
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//步骤2：获取给定变量指针
 		TiXmlElement* pGiven = pMarginal->NextSiblingElement();
@@ -79,10 +80,10 @@ void CBNSumProduct::Read_Query()
 			//获取删除变量ID列表
 			if (string sTemp = GetAttribute(pEliminate, "IDs"); sTemp != "")
 			{
-				//转换为字符列表
-				vector<string> IDs;
-				Separate(sTemp, IDs);
-				std::ranges::transform(IDs, std::back_inserter(query.EliminateVariables), stoi_);
+				query.EliminateVariables = sTemp
+					| qy::views::tokenize(std::regex("[\\s,;，；、]+"))
+					| std::views::transform(stoi_)
+					| qy::views::to<fidlist>;
 			}
 		}
 

@@ -7,6 +7,7 @@
 #include <regex>
 #include <iterator>
 #include <ranges>
+#include "qyranges.hpp"
 
 namespace qy {
 
@@ -92,18 +93,5 @@ namespace qy {
 		}
 	}
 
-	namespace views {
-		template <class T>
-		class _To_fn {
-		public:
-			template <std::ranges::range R>
-			friend constexpr auto operator|(R&& __r, _To_fn self) {
-				return T(std::ranges::begin(__r), std::ranges::end(__r));
-			}
-		};
-
-		template <class T>
-		inline constexpr _To_fn<T> to;
-	}
 
 }

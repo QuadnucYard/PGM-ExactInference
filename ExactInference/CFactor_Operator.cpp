@@ -22,7 +22,7 @@
 bool CFactor::IsConsistentValueID(const FACTOR_ROW& FirstRow, const FACTOR_ROW& SecondRow, const fidmap& FirstToSeconds) const
 {
 	// 检查对应位置id相等
-	return std::all_of(FirstToSeconds.begin(), FirstToSeconds.end(),
+	return std::ranges::all_of(FirstToSeconds,
 		[&](auto t) { return FirstRow[t.first] == SecondRow[t.second]; });
 }
 
@@ -39,17 +39,11 @@ CFactor CFactor::operator*(const CFactor& second) const
 	//步骤1.1：遍历首因子的变量ID
 	for (size_t i = 0; i < m_VariableIDs.size(); i++)
 	{
-		//获取首变量ID
-		fid_t nFirstVariableID = m_VariableIDs[i];
-
 		//遍历尾因子的变量ID
 		for (fid_t j = 0; j < second.m_VariableIDs.size(); j++)
 		{
-			//获取尾变量ID
-			fid_t nSecondVariableID = second.m_VariableIDs[j];
-
 			//检查两个变量ID是否相等
-			if (nFirstVariableID == nSecondVariableID)
+			if (m_VariableIDs[i] == second.m_VariableIDs[j])
 			{
 				//添加到相同变量、从首因子指向尾因子的位置映射
 				//注意：采用从位置到位置的映射，而不是从变量ID到变量ID的映射

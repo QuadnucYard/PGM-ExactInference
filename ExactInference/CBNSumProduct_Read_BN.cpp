@@ -35,7 +35,8 @@ void CBNSumProduct::Read_BN()
 	}
 
 	//打开文件
-	TiXmlDocument aDoc(MapCStringToString(sFileName).c_str());
+	USES_CONVERSION;
+	TiXmlDocument aDoc(T2A(sFileName));
 
 	//检查打开文件是否成功
 	if (!aDoc.LoadFile())
@@ -65,19 +66,20 @@ void CBNSumProduct::Read_BN()
 		//06 父节点列表
 		if (bn_node.nNumberOfParents != 0)
 		{
-			vector<string> IDs;
-			//获取双亲ID列表
-			Separate(GetAttribute(pNode, "PARENT_IDS"), IDs);
-			//转化为无符号整数
-			std::ranges::transform(IDs, std::back_inserter(bn_node.ParentIDs), stoi_);
+			std::string tmp = GetAttribute(pNode, "PARENT_IDS");
+			bn_node.ParentIDs = tmp
+				| qy::views::tokenize(std::regex("[\\s,;，；、]+"))
+				| std::views::transform(stoi_)
+				| qy::views::to<fidlist>;
 		}
 
 		//07 CPT中的概率值
-		vector<string> Probabilities;
-		//切分
-		Separate(GetAttribute(pNode, "CPT"), Probabilities);
-		//转化为双精度数
-		std::ranges::transform(Probabilities, std::back_inserter(bn_node.CPTRowValues), stod_);
+		std::string tmp = GetAttribute(pNode, "CPT");
+		bn_node.CPTRowValues = tmp
+			| qy::views::tokenize(std::regex("[\\s,;，；、]+"))
+			| std::views::transform(stod_)
+			| qy::views::to<fvallist>;
+		
 		m_Nodes.push_back(bn_node);
 	}
 

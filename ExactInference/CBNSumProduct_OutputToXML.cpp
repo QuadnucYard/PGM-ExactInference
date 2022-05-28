@@ -50,7 +50,8 @@ void CBNSumProduct::OutputToXML()
 	CString sFileName = theApp.m_sWorkPath + _T("\\Data\\Output.xml");
 
 	//保存XML文件
-	doc.SaveFile((MapCStringToString(sFileName)).c_str());
+	USES_CONVERSION;
+	doc.SaveFile(T2A(sFileName));
 
 	//释放内存
 	doc.Clear();

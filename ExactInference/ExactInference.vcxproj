@@ -57,6 +57,8 @@
       <SDLCheck>true</SDLCheck>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,6 +85,8 @@
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -110,6 +114,7 @@
     <ClInclude Include="ExactInference.h" />
     <ClInclude Include="ExactInferenceDlg.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="qyranges.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="stl_utils.h" />
@@ -119,6 +124,7 @@
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="tinyxmliterator.h" />
     <ClInclude Include="xiterator.h" />
+    <ClInclude Include="xmlutils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBNSumProduct.cpp" />
