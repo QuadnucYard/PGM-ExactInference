@@ -34,11 +34,11 @@ void CFactor::SetFactorVariableIDs(fidlist&& VariableIDs)
 void CFactor::SetFactorRow(const fidlist& ValueIDs, fval_t fRowValue)
 {
 	//添加到因子行的列表
-	m_FactorRows.push_back(FACTOR_ROW(ValueIDs, fRowValue));
+	m_FactorRows.emplace_back(ValueIDs, fRowValue);
 }
 
 void CFactor::SetFactorRow(fidlist&& ValueIDs, fval_t fRowValue)
 {
 	//添加到因子行的列表
-	m_FactorRows.push_back(FACTOR_ROW(ValueIDs, fRowValue));
+	m_FactorRows.emplace_back(ValueIDs, fRowValue);
 }

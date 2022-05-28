@@ -87,10 +87,7 @@ void CBNSumProduct::Read_Query()
 		}
 
 		//添加到查询列表
-		m_Queries.push_back(query);
-
-		//更新查询指针
-
+		m_Queries.push_back(std::move(query));
 	}//结束查询节点
 
 	//释放文件所占内存

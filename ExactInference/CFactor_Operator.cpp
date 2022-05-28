@@ -59,7 +59,8 @@ CFactor CFactor::operator*(const CFactor& second) const
 	}
 
 	//步骤1.2：获取尾因子中和首因子相同变量的位置集合
-	fidset RedundantSeconds(qy::values_begin(FirstToSeconds), qy::values_end(FirstToSeconds));
+	//fidset RedundantSeconds(qy::values_begin(FirstToSeconds), qy::values_end(FirstToSeconds));
+	fidset RedundantSeconds(std::views::values(FirstToSeconds) | qy::views::to<fidset>);
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//步骤2：直接拼接
@@ -115,7 +116,7 @@ CFactor CFactor::operator*(const CFactor& second) const
 					}
 
 					//添加因子行到因子
-					factor.m_FactorRows.push_back(factor_row);
+					factor.m_FactorRows.push_back(std::move(factor_row));
 				}
 			}
 		}

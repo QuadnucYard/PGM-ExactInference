@@ -19,19 +19,15 @@
 double CFactor::Query(const fidlist& VariableIDs, const fidlist& ValueIDs)
 {
 	//定义位置集合
-	std::vector<size_t> Positions(VariableIDs.size());
-	std::transform(VariableIDs.begin(), VariableIDs.end(), Positions.begin(),
-		[&](fid_t i) {return qy::index_of(m_VariableIDs, i); });
+	auto Positions = std::views::transform(VariableIDs,
+		[&](fid_t i) { return qy::index_of(m_VariableIDs, i); });
 
 	//初始化返回的概率值
 	double fProb = 0.0f;
 
 	//遍历因子行，求和
-	for (size_t i = 0; i < m_FactorRows.size(); i++)
+	for (const FACTOR_ROW& factor_row : m_FactorRows)
 	{
-		//定义因子行
-		const FACTOR_ROW& factor_row = m_FactorRows[i];
-
 		//检查对应位置和值是否正确
 		bool bMatch = std::ranges::all_of(std::views::iota(0, (int)Positions.size()),
 			[&](int j) { return factor_row[Positions[j]] == ValueIDs[j]; });
@@ -44,7 +40,6 @@ double CFactor::Query(const fidlist& VariableIDs, const fidlist& ValueIDs)
 		}
 	}
 
-	//返回概率
 	return fProb;
 }
 

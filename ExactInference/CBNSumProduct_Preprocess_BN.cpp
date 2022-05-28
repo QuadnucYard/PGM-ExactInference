@@ -45,7 +45,7 @@ void CBNSumProduct::Arrange(
 	if (nPos == NodeIDs.size())
 	{
 		//添加到节点的CPT
-		m_Nodes[nNodeID].CPTRowIDs.push_back(CPT_ROW(ValueIDs, m_Nodes[nNodeID].CPTRowValues[nRow]));
+		m_Nodes[nNodeID].CPTRowIDs.emplace_back(ValueIDs, m_Nodes[nNodeID].CPTRowValues[nRow]);
 		//更新行号
 		nRow++;
 		return;

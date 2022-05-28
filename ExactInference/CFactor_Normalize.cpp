@@ -24,6 +24,5 @@ void CFactor::Normalize()
 	double fNormalization = qy::sum(m_FactorRows.begin(), m_FactorRows.end(),
 		[](const FACTOR_ROW& y) { return y.fValue; });
 	//πÈ“ªªØ
-	std::for_each(m_FactorRows.begin(), m_FactorRows.end(), 
-		[=](FACTOR_ROW& r) { r.fValue /= fNormalization; });
+	std::ranges::for_each(m_FactorRows, [=](FACTOR_ROW& r) { r.fValue /= fNormalization; });
 }

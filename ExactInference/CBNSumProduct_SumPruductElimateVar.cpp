@@ -40,7 +40,7 @@ void CBNSumProduct::Sum_Product_Eliminate_Var(fid_t nVariableID, CFactorList& Ol
 		psai.SumOutVariable(nVariableID);
 
 		//步骤4：将因子积添加到因子列表
-		OldFactors.push_back(psai);
+		OldFactors.push_back(std::move(psai));
 	}
 }
 
