@@ -76,23 +76,6 @@ BOOL CExactInferenceApp::InitInstance()
 	SetRegistryKey(_T("基于和积变量消除法的贝叶斯网络精确推理"));
 
 
-	/////////////////////////////////////////////////////////////////
-	//获取全局工作路径
-	//获取当前工作路径
-	char buffer[_MAX_PATH];					//临时变量
-	//获取当前工作路径
-	if (_getcwd(buffer, _MAX_PATH) == NULL)
-	{
-		AfxMessageBox(_T("_getcwd error"));
-		return false;
-	}
-	else
-	{
-		//获取当前文件路径
-		strcpy(m_sWorkPath, buffer);
-	}
-
-
 	CExactInferenceDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();

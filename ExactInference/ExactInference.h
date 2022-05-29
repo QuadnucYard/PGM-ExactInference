@@ -26,9 +26,6 @@ public:
 	virtual BOOL InitInstance();	//初始化应用程序实例
 
 	DECLARE_MESSAGE_MAP()			//开始消息映射
-
-public:
-	char m_sWorkPath[_MAX_PATH];	//工作路径
 };
 
 extern CExactInferenceApp theApp;	//唯一的应用程序对象

@@ -9,27 +9,23 @@
 //长  度：		170行
 /////////////////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
-#include "ExactInference.h"
 #include "CBNSumProduct.h"
 #include "tinyxmliterator.h"
+#include <filesystem>
 
-extern CExactInferenceApp theApp;
 
 //读取贝叶斯网络结构和参数
 void CBNSumProduct::Read_BN()
 {
-	//获取当前工作路径
-	const char* sFileName = strcat(theApp.m_sWorkPath, "\\Data\\BayesianNetwork.xml");
-
-	//搜索文件，如果文件不存在，则直接返回
-	if (!CFileFind().FindFile(CString(sFileName)))
-	{
+	namespace fs = std::filesystem;
+	fs::path sPath = fs::current_path() / "Data" / "BayesianNetwork.xml";
+	if (!fs::exists(sPath)) {
 		AfxMessageBox(_T("贝叶斯网络结构和参数文件BayesianNetwork.xml不存在"));
 		return;
 	}
 
 	//打开文件
-	TiXmlDocument aDoc(sFileName);
+	TiXmlDocument aDoc(sPath.string().c_str());
 	if (!aDoc.LoadFile())
 	{
 		AfxMessageBox(_T("打开BayesianNetwork_Part.xml失败:"));

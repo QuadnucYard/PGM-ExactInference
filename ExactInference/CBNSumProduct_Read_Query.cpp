@@ -8,23 +8,20 @@
 //长  度：		180行
 /////////////////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
-#include "ExactInference.h"
 #include "CBNSumProduct.h"
 #include "tinyxmliterator.h"
+#include <filesystem>
 
-extern CExactInferenceApp theApp;
 
 //读取查询任务。包括查询节点、给定节点、删除节点顺序
 void CBNSumProduct::Read_Query()
 {
-	//获取当前工作路径
-	const char* sFileName = strcat(theApp.m_sWorkPath, "\\Data\\BayesianNetwork_Query.xml");
-
-	//搜索文件，如果文件不存在，则直接返回
-	if (!CFileFind().FindFile(CString(sFileName))) return;
+	namespace fs = std::filesystem;
+	fs::path sPath = fs::current_path() / "Data" / "BayesianNetwork_Query.xml";
+	if (!fs::exists(sPath)) return;
 
 	//打开文件
-	TiXmlDocument aDoc(sFileName);
+	TiXmlDocument aDoc(sPath.string().c_str());
 	if (!aDoc.LoadFile())
 	{
 		AfxMessageBox(_T("打开BayesianNetwork_Query.xml失败:"));

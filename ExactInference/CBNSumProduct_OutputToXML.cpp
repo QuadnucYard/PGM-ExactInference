@@ -7,12 +7,10 @@
 //长  度：		70行
 /////////////////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
-#include "ExactInference.h"
 #include "CBNSumProduct.h"
 #include "tinyxml.h"
 #include <format>
-
-extern CExactInferenceApp theApp;
+#include <filesystem>
 
 //输出查询结果到XML文件
 void CBNSumProduct::OutputToXML()
@@ -33,10 +31,11 @@ void CBNSumProduct::OutputToXML()
 		pRootElement->LinkEndChild(pProbability);
 	}
 
-	const char* sFileName = strcat(theApp.m_sWorkPath, "\\Data\\Output.xml");
-	doc.SaveFile();
+	namespace fs = std::filesystem;
+	fs::path sFileName = fs::current_path() / "Data" / "Output.xml";
+	doc.SaveFile(sFileName.string().c_str());
 	doc.Clear();
 
 	//自动打开文件
-	ShellExecute(NULL, _T("open"), CString(sFileName), NULL, NULL, SW_SHOWNORMAL);
+	ShellExecute(NULL, _T("open"), sFileName.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
