@@ -19,18 +19,17 @@ extern CExactInferenceApp theApp;
 void CBNSumProduct::Read_BN()
 {
 	//获取当前工作路径
-	CString sFileName = CString(theApp.m_sWorkPath) + _T("\\Data\\BayesianNetwork.xml");
+	const char* sFileName = strcat(theApp.m_sWorkPath, "\\Data\\BayesianNetwork.xml");
 
 	//搜索文件，如果文件不存在，则直接返回
-	if (!CFileFind().FindFile(sFileName))
+	if (!CFileFind().FindFile(CString(sFileName)))
 	{
 		AfxMessageBox(_T("贝叶斯网络结构和参数文件BayesianNetwork.xml不存在"));
 		return;
 	}
 
 	//打开文件
-	USES_CONVERSION;
-	TiXmlDocument aDoc(T2A(sFileName));
+	TiXmlDocument aDoc(sFileName);
 	if (!aDoc.LoadFile())
 	{
 		AfxMessageBox(_T("打开BayesianNetwork_Part.xml失败:"));

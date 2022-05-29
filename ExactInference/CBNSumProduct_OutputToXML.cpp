@@ -33,11 +33,10 @@ void CBNSumProduct::OutputToXML()
 		pRootElement->LinkEndChild(pProbability);
 	}
 
-	CString sFileName = theApp.m_sWorkPath + _T("\\Data\\Output.xml");
-	USES_CONVERSION;
-	doc.SaveFile(T2A(sFileName));
+	const char* sFileName = strcat(theApp.m_sWorkPath, "\\Data\\Output.xml");
+	doc.SaveFile();
 	doc.Clear();
 
 	//自动打开文件
-	ShellExecute(NULL, _T("open"), sFileName, NULL, NULL, SW_SHOWNORMAL);
+	ShellExecute(NULL, _T("open"), CString(sFileName), NULL, NULL, SW_SHOWNORMAL);
 }

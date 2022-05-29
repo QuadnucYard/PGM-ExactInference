@@ -83,16 +83,13 @@ BOOL CExactInferenceApp::InitInstance()
 	//获取当前工作路径
 	if (_getcwd(buffer, _MAX_PATH) == NULL)
 	{
-		//提示错误
 		AfxMessageBox(_T("_getcwd error"));
-
-		//退出
 		return false;
 	}
 	else
 	{
 		//获取当前文件路径
-		m_sWorkPath = buffer;
+		strcpy(m_sWorkPath, buffer);
 	}
 
 

@@ -1,25 +1,18 @@
-
-// ExactInferenceDlg.h : 头文件
-//
-
 #pragma once
 
 
 // CExactInferenceDlg 对话框
 class CExactInferenceDlg : public CDialogEx
 {
-// 构造
 public:
-	CExactInferenceDlg(CWnd* pParent = NULL);	// 标准构造函数
+	CExactInferenceDlg(CWnd* pParent = NULL);
 
-// 对话框数据
+	// 对话框数据
 	enum { IDD = IDD_EXACTINFERENCE_DIALOG };
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
 
-
-// 实现
 protected:
 	HICON m_hIcon;
 
@@ -29,6 +22,7 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+
 public:
 	afx_msg void OnBnClickedButtonBnInit();
 };
