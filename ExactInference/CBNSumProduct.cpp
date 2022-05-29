@@ -7,22 +7,5 @@
 //更  新：		2021年03月23日
 //长  度：		30行
 /////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"									//MFC标准头文件
-#include "CBNSumProduct.h"							//贝叶斯网络的精确推理类头文件
-
-
-//名  称：		CBNSumProduct()
-//功  能：		构造函数
-//参  数：		无
-//返回值：		无
-CBNSumProduct::CBNSumProduct()
-{
-}
-
-//名  称：		~CBNSumProduct()
-//功  能：		析构函数
-//参  数：		无
-//返回值：		无
-CBNSumProduct::~CBNSumProduct()
-{
-}
+#include "stdafx.h"
+#include "CBNSumProduct.h"

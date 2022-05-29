@@ -11,17 +11,11 @@
 #include "stdafx.h"
 #include "ExactInference.h"
 #include "CBNSumProduct.h"
-#include "Helper.h"
 #include "tinyxmliterator.h"
 
-//声明外部变量
 extern CExactInferenceApp theApp;
 
-
-//名  称：		Read_BN()
-//功  能：		读取贝叶斯网络结构和参数
-//参  数：		无
-//返回值：		无
+//读取贝叶斯网络结构和参数
 void CBNSumProduct::Read_BN()
 {
 	//获取当前工作路径
@@ -37,8 +31,6 @@ void CBNSumProduct::Read_BN()
 	//打开文件
 	USES_CONVERSION;
 	TiXmlDocument aDoc(T2A(sFileName));
-
-	//检查打开文件是否成功
 	if (!aDoc.LoadFile())
 	{
 		AfxMessageBox(_T("打开BayesianNetwork_Part.xml失败:"));
@@ -48,7 +40,7 @@ void CBNSumProduct::Read_BN()
 	//获取根结点
 	TiXmlElement* pRoot = aDoc.RootElement();
 
-	////////////////////////////////////////////////////////////////////////////////////////////////
+	////
 	//步骤1：获取节点表
 	TiXmlElement* pNodes = pRoot->FirstChildElement();
 
@@ -83,7 +75,7 @@ void CBNSumProduct::Read_BN()
 		m_Nodes.push_back(bn_node);
 	}
 
-	///////////////////////////////////////////////////////////////////////////////////////////////
+	////
 	//步骤2：获取边表
 	if (TiXmlElement* pEdges = pNodes->NextSiblingElement(); pEdges)
 	{
@@ -95,6 +87,5 @@ void CBNSumProduct::Read_BN()
 			); });
 	}
 
-	//释放文件所占内存
 	aDoc.Clear();
 }

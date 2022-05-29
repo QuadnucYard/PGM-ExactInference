@@ -7,14 +7,10 @@
 //更  新：		2021年03月23日
 //长  度：		30行
 /////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"									//MFC标准头文件
-#include "CBNSumProduct.h"							//贝叶斯网络精确推理类头文件，采用和积变量消除法
+#include "stdafx.h"
+#include "CBNSumProduct.h"
 
 
-//名  称：		Preprocess()
-//功  能：		预处理
-//参  数：		无
-//返回值：		无
 void CBNSumProduct::Preprocess()
 {
 	//预处理贝叶斯网络结构与参数

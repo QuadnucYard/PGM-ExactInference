@@ -8,16 +8,11 @@
 //更  新：		2021年03月29日
 //长  度：		50行
 /////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"									//MFC标准头文件
-#include "CFactor.h"								//因子类头文件
-#include "Helper.h"									//辅助函数头文件
-#include <algorithm>
-#include "stl_utils.h"
+#include "stdafx.h"
+#include "CFactor.h"
 
-//名  称：		ReduceGivenVariable()
-//功  能：		根据给定的变量ID和值ID，化简因子
-//参  数：		unsigned int,unsigned int
-//返回值：		无
+
+//根据给定的变量ID和值ID，化简因子
 void CFactor::ReduceGivenVariable(fid_t nVariableID, fid_t nValueID)
 {
 	//查找变量ID是否在因子中

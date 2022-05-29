@@ -11,7 +11,6 @@
 
 #include <map>
 #include <set>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
@@ -27,11 +26,11 @@ using fidmap = std::map<fid_t, fid_t>;
 using fidlist = std::vector<fid_t>;
 using fvallist = std::vector<fval_t>;
 
-//定义因子行
+//因子行
 struct FACTOR_ROW
 {
-	fidlist ValueIDs;								//01 变量值ID的列表，按照变量ID列表的顺序排列
-	fval_t fValue;												//02 因子的值
+	fidlist ValueIDs;	//01 变量值ID的列表，按照变量ID列表的顺序排列
+	fval_t fValue;		//02 因子的值
 
 	FACTOR_ROW() {}
 	FACTOR_ROW(const fidlist& ValueIDs, fval_t fValue): ValueIDs(ValueIDs), fValue(fValue) {}
@@ -42,44 +41,37 @@ struct FACTOR_ROW
 };
 
 
-//定义因子类
+//因子类
 class CFactor
 {
-	//构造函数与析构函数
 public:
-	CFactor();													//构造函数
-	~CFactor();													//析构函数
-
-	//公有方法
-public:
-	//初始化
+	//设置因子的变量ID列表
 	void SetFactorVariableIDs(const fidlist&);
-	void SetFactorVariableIDs(fidlist&&);			//设置因子的变量ID列表
+	void SetFactorVariableIDs(fidlist&&);
+	//设置因子行的值
 	void SetFactorRow(const fidlist&, fval_t);
-	void SetFactorRow(fidlist&&, fval_t);			//设置因子行的值
-	//访问
-	const fidlist& GetFactorVariableIDs() const;				//获取变量ID列表
-	//操作
-	void ReduceGivenVariable(fid_t, fid_t);		//因子化简。消除给定变量ID、和变量值ID
-	void SumOutVariable(fid_t);								//因子求和掉给定变量ID
-	void Normalize();											//因子归一化
-	//查询
-	fval_t Query(const fidlist&, const fidlist&);	//根据给定变量ID集合、变量值ID的集合，获取具体查询的概率值
+	void SetFactorRow(fidlist&&, fval_t);
+	//获取变量ID列表
+	const fidlist& GetFactorVariableIDs() const;
+	//因子化简。消除给定变量ID、和变量值ID
+	void ReduceGivenVariable(fid_t, fid_t);
+	//因子求和掉给定变量ID
+	void SumOutVariable(fid_t);
+	//因子归一化
+	void Normalize();								
+	//根据给定变量ID集合、变量值ID的集合，获取具体查询的概率值
+	fval_t Query(const fidlist&, const fidlist&);
 
 	//重载因子积
 	CFactor operator*(const CFactor& second) const;
 
-	//私有方法
 private:
-	//在因子积时判断两行是否可以合并
-	bool IsConsistentValueID(const FACTOR_ROW&, const FACTOR_ROW&, const fidmap&) const;	//检查两行是否兼容	
-	//在求和时将因子的值合并到首行
-	void MergeIntoFirstRow(FACTOR_ROW&);
+	//在因子积时判断两行是否可以合并，检查两行是否兼容	
+	bool IsConsistentValueID(const FACTOR_ROW&, const FACTOR_ROW&, const fidmap&) const;
 
-	//私有数据
 private:
 	fidlist m_VariableIDs;					//因子变量ID列表
-	std::vector<FACTOR_ROW> m_FactorRows;					//因子行的列表
+	std::vector<FACTOR_ROW> m_FactorRows;	//因子行的列表
 };
 
 using CFactorList = std::vector<CFactor>;

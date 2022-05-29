@@ -8,17 +8,10 @@
 //更  新：		2021年03月29日
 //长  度：		50行
 /////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"									//MFC标准头文件
-#include "CFactor.h"								//因子类头文件
-#include "Helper.h"									//辅助函数头文件
-#include <algorithm>
+#include "stdafx.h"
+#include "CFactor.h"
 
-//名  称：		IsConsistentValueID()
-//功  能：		检查因子中两行的值ID是否兼容，用于判断乘积时能否合并
-//参  数：		const FACTOR_ROW&, 
-//				const FACTOR_ROW&, 
-//				map<unsigned int, unsigned int>&
-//返回值：		bool
+
 bool CFactor::IsConsistentValueID(const FACTOR_ROW& FirstRow, const FACTOR_ROW& SecondRow, const fidmap& FirstToSeconds) const
 {
 	// 检查对应位置id相等
@@ -28,7 +21,6 @@ bool CFactor::IsConsistentValueID(const FACTOR_ROW& FirstRow, const FACTOR_ROW& 
 
 CFactor CFactor::operator*(const CFactor& second) const
 {
-	//定义新的、待返回的因子
 	CFactor factor;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
