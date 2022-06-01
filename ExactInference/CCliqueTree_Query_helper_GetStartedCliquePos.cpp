@@ -15,17 +15,16 @@ size_t CCliqueTree::GetStartCliquePos(const fidset& QueryVariableIDs)
 {
 	//定义并初始化返回团的位置
 	size_t nStartCliquePos = 0;
-	
+
 	//定义开始团中包含查询变量ID的个数，以便在团之间进行比较
 	size_t nIntersectedVariableCount = 0;
-	
+
 	//遍历所有团，查找开始团
 	for (size_t i = 0; i < m_Cliques.size(); i++)
 	{
 
 		//求变量ID列表中有多少个在查询变量集合中
-		fidset IntersectedIDs;//在查询变量集合中的变量ID集合
-		std::ranges::set_intersection(qy::sorted(m_Cliques[i].GetCliqueVariableIDs()), QueryVariableIDs, qy::set_inserter(IntersectedIDs));
+		fidset IntersectedIDs = qy::set_intersection<fidset>(m_Cliques[i].GetVariableIDs(), QueryVariableIDs);
 
 		//检查是否大于已有的团
 		if (IntersectedIDs.size() >= nIntersectedVariableCount)

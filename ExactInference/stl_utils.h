@@ -55,17 +55,24 @@ namespace qy {
 		return result;
 	}
 
-	template <class C>
-	auto intersect(const C& first, const C& second) {
-		C result;
+	template <class Result, std::ranges::input_range _Rng1, std::ranges::input_range _Rng2>
+	Result set_intersection(_Rng1&& first, _Rng2&& second) {
+		Result result{};
 		std::ranges::set_intersection(first, second, std::inserter(result, std::end(result)));
 		return result;
 	}
 
-	template <class C>
-	auto union_(const C& first, const C& second) {
-		C result;
+	template <class Result, std::ranges::input_range _Rng1, std::ranges::input_range _Rng2>
+	Result set_union(_Rng1&& first, _Rng2&& second) {
+		Result result{};
 		std::ranges::set_union(first, second, std::inserter(result, std::end(result)));
+		return result;
+	}
+	
+	template <class Result, std::ranges::input_range _Rng1, std::ranges::input_range _Rng2>
+	Result set_difference(_Rng1&& first, _Rng2&& second) {
+		Result result{};
+		std::ranges::set_difference(first, second, std::inserter(result, std::end(result)));
 		return result;
 	}
 
