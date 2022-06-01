@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="GBK" ?>
+<CLIQUE_TREE ROOT_ID="1">
+<VARIABLES>
+       <VARIABLE ID="0" NAME="D" />
+       <VARIABLE ID="1" NAME="I" />
+       <VARIABLE ID="2" NAME="G" />
+       <VARIABLE ID="3" NAME="S" />
+      <VARIABLE ID="4" NAME="L" />
+</VARIABLES>
+
+<CLIQUES>
+     <CLIQUE ID="0" VARIABLE_IDS="2、4">
+          <ROW VALUE="0.1">
+              <VARIABLE ID="2" VALUE="0"/>
+              <VARIABLE ID="4" VALUE="0"/>
+          </ROW>
+         <ROW VALUE="0.9">
+              <VARIABLE ID="2" VALUE="0"/>
+              <VARIABLE ID="4" VALUE="1"/>
+          </ROW>
+         <ROW VALUE="0.4">
+              <VARIABLE ID="2" VALUE="1"/>
+              <VARIABLE ID="4" VALUE="0"/>
+          </ROW>
+          <ROW VALUE="0.6">
+              <VARIABLE ID="2" VALUE="1"/>
+              <VARIABLE ID="4" VALUE="1"/>
+          </ROW>
+          <ROW VALUE="0.99">
+              <VARIABLE ID="2" VALUE="2"/>
+              <VARIABLE ID="4" VALUE="0"/>        
+          </ROW>
+         <ROW VALUE="0.01">
+              <VARIABLE ID="2" VALUE="2"/>
+              <VARIABLE ID="4" VALUE="1"/>
+          </ROW>
+     </CLIQUE>
+
+     <CLIQUE ID="1" VARIABLE_IDS="1、0、2">
+          <ROW VALUE="0.126">
+              <VARIABLE ID="1" VALUE="0"/>
+              <VARIABLE ID="0" VALUE="0"/>
+              <VARIABLE ID="2" VALUE="0"/>
+          </ROW>
+         <ROW VALUE="0.168">
+              <VARIABLE ID="1" VALUE="0"/>
+              <VARIABLE ID="0" VALUE="0"/>
+              <VARIABLE ID="2" VALUE="1"/>
+          </ROW>
+         <ROW VALUE="0.126">
+              <VARIABLE ID="1" VALUE="0"/>
+              <VARIABLE ID="0" VALUE="0"/>
+              <VARIABLE ID="2" VALUE="2"/>
+          </ROW>
+          <ROW VALUE="0.014">
+              <VARIABLE ID="1" VALUE="0"/>
+              <VARIABLE ID="0" VALUE="1"/>
+              <VARIABLE ID="2" VALUE="0"/>
+          </ROW>
+         <ROW VALUE="0.07">
+              <VARIABLE ID="1" VALUE="0"/>
+              <VARIABLE ID="0" VALUE="1"/>
+              <VARIABLE ID="2" VALUE="1"/>
+          </ROW>
+         <ROW VALUE="0.196">
+              <VARIABLE ID="1" VALUE="0"/>
+              <VARIABLE ID="0" VALUE="1"/>
+              <VARIABLE ID="2" VALUE="2"/>
+          </ROW>
+          <ROW VALUE="0.162">
+              <VARIABLE ID="1" VALUE="1"/>
+              <VARIABLE ID="0" VALUE="0"/>
+              <VARIABLE ID="2" VALUE="0"/>
+          </ROW>
+         <ROW VALUE="0.0144">
+              <VARIABLE ID="1" VALUE="1"/>
+              <VARIABLE ID="0" VALUE="0"/>
+              <VARIABLE ID="2" VALUE="1"/>
+          </ROW>
+         <ROW VALUE="0.0036">
+              <VARIABLE ID="1" VALUE="1"/>
+              <VARIABLE ID="0" VALUE="0"/>
+              <VARIABLE ID="2" VALUE="2"/>
+          </ROW>
+          <ROW VALUE="0.06">
+              <VARIABLE ID="1" VALUE="1"/>
+              <VARIABLE ID="0" VALUE="1"/>
+              <VARIABLE ID="2" VALUE="0"/>
+          </ROW>
+         <ROW VALUE="0.036">
+              <VARIABLE ID="1" VALUE="1"/>
+              <VARIABLE ID="0" VALUE="1"/>
+              <VARIABLE ID="2" VALUE="1"/>
+          </ROW>
+         <ROW VALUE="0.024">
+              <VARIABLE ID="1" VALUE="1"/>
+              <VARIABLE ID="0" VALUE="1"/>
+              <VARIABLE ID="2" VALUE="2"/>
+          </ROW>
+      </CLIQUE>
+
+    <CLIQUE ID="2" VARIABLE_IDS="1、3">
+          <ROW VALUE="0.95">
+              <VARIABLE ID="1" VALUE="0"/>
+              <VARIABLE ID="3" VALUE="0"/>
+          </ROW>
+         <ROW VALUE="0.05">
+              <VARIABLE ID="1" VALUE="0"/>
+              <VARIABLE ID="3" VALUE="1"/>
+          </ROW>
+         <ROW VALUE="0.2">
+              <VARIABLE ID="1" VALUE="1"/>
+              <VARIABLE ID="3" VALUE="0"/>
+          </ROW>
+          <ROW VALUE="0.8">
+              <VARIABLE ID="1" VALUE="1"/>
+              <VARIABLE ID="3" VALUE="1"/>
+          </ROW>       
+     </CLIQUE>
+      
+ </CLIQUES>     
+
+<EDGES>
+      <EDGE  START_CLIQUE_ID="0"  END_CLIQUE_ID="1" />
+      <EDGE  START_CLIQUE_ID="1"  END_CLIQUE_ID="2" />
+</EDGES>
+
+</CLIQUE_TREE>

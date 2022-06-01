@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\MFC">
+      <UniqueIdentifier>{9fe0e9d0-1ce8-42de-8881-b93cb7625286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\BNSumProduct">
+      <UniqueIdentifier>{81d92dc6-4094-46d3-a453-67ae8390a65c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\BNSumProduct\初始化">
+      <UniqueIdentifier>{f0993eed-8744-4b24-a795-cef19f4b4b0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\BNSumProduct\查询">
+      <UniqueIdentifier>{273d079d-a72e-4489-9dbe-0600ca18b13b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XML">
+      <UniqueIdentifier>{5aa82186-9bff-440b-9226-f22784196df1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\辅助函数">
+      <UniqueIdentifier>{08703bdc-6d9f-4eb5-ac1d-a1d583f5c35e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\MFC\应用程序">
+      <UniqueIdentifier>{6191b8a3-56e7-4b78-ba9d-9c3f8f9e4c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\MFC\主对话框">
+      <UniqueIdentifier>{aa809e9b-95b4-4fc1-a917-b10e133ada9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\BNSumProduct\输出">
+      <UniqueIdentifier>{2088af43-a400-4940-8aed-c5890592d1b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Factor">
+      <UniqueIdentifier>{b55417e5-681e-4b3e-ae1c-6be237695837}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Factor\初始化">
+      <UniqueIdentifier>{d09cbc56-eb73-4662-90a5-71f61b4d4a52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Factor\化简">
+      <UniqueIdentifier>{9cdb13a6-0874-4da7-b887-e81831d507a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\BNSumProduct\初始化\预处理">
+      <UniqueIdentifier>{8e4b25f3-fba4-426d-84b2-41318b87b19b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\BNSumProduct\初始化\读取">
+      <UniqueIdentifier>{a60e104e-a540-44cb-ae1d-6477817a581e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Factor\求和掉变量">
+      <UniqueIdentifier>{cc7b8053-57c8-4e9f-9051-082ca8314a09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Factor\归一化">
+      <UniqueIdentifier>{73eae015-aa74-449b-b191-b8cd0886e9cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Factor\查询">
+      <UniqueIdentifier>{4ef247e0-d935-4fa6-9244-eb51c6df4588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Factor\操作符重载相关">
+      <UniqueIdentifier>{184a1438-f5dd-4ab4-b77a-9c1fe5a9c895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree">
+      <UniqueIdentifier>{57070edf-7280-4a62-80f8-eb6ab055ae70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Clique">
+      <UniqueIdentifier>{910323cc-9798-4249-ad30-440f520b41e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\初始化">
+      <UniqueIdentifier>{b0565ad5-e306-47b9-81bb-e23ce8765511}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\初始化\读取">
+      <UniqueIdentifier>{b4e6b5dc-7bb1-4d47-bf72-b4017eb1297b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\初始化\预处理">
+      <UniqueIdentifier>{6f713744-c64c-412a-b8df-1150d7b9719a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Clique\初始化">
+      <UniqueIdentifier>{c2d69ac3-1b24-4005-9db6-7dc3c1b45279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Clique\归一化">
+      <UniqueIdentifier>{27401bfe-3cd2-4283-9f5b-cebdd084cad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Clique\求和掉变量">
+      <UniqueIdentifier>{8f4fcd7b-6781-4501-b33b-95b02ffbf775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Clique\化简">
+      <UniqueIdentifier>{2a537581-4074-44b0-b6bc-a2d59cf51ab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Clique\操作符重载相关">
+      <UniqueIdentifier>{b2cba203-9aa7-4f7d-8c40-cab9831dfc5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Clique\查询">
+      <UniqueIdentifier>{1b47a1a7-3a0d-4795-85ae-45b0e1cb12eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\查询">
+      <UniqueIdentifier>{c798c9f9-47ec-4c7c-9583-bdddf1833c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\输出">
+      <UniqueIdentifier>{77558bd0-9b3a-485e-be68-715385809f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\初始化\向上消息传递">
+      <UniqueIdentifier>{dffaa1e6-a71a-41d6-b0d2-cfe8d38da9d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\初始化\向上消息传递\判断团是否就绪">
+      <UniqueIdentifier>{8f6198e4-6e90-4514-b77d-a9136ea2d056}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\初始化\向上消息传递\查找就绪的团">
+      <UniqueIdentifier>{00d63ebd-10d9-44cf-becd-bd38cfd93312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\初始化\向上消息传递\接收消息">
+      <UniqueIdentifier>{f3540f78-8116-4eba-9424-50215b047d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\初始化\向上消息传递\发送消息">
+      <UniqueIdentifier>{2c10cba5-364a-4b4b-a7f8-586e7ea46a27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\初始化\向下传递消息">
+      <UniqueIdentifier>{35366185-6746-4133-af1a-a7f69f245a6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\初始化\向下传递消息\发送消息">
+      <UniqueIdentifier>{bf7d030d-d4e2-4d7b-8c0c-5a2e43106974}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>源文件\MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="CBNSumProduct.h">
+      <Filter>源文件\BNSumProduct</Filter>
+    </ClInclude>
+    <ClInclude Include="tinystr.h">
+      <Filter>源文件\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>源文件\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml2.h">
+      <Filter>源文件\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
+      <Filter>源文件\辅助函数</Filter>
+    </ClInclude>
+    <ClInclude Include="ExactInference.h">
+      <Filter>源文件\MFC\应用程序</Filter>
+    </ClInclude>
+    <ClInclude Include="ExactInferenceDlg.h">
+      <Filter>源文件\MFC\主对话框</Filter>
+    </ClInclude>
+    <ClInclude Include="CFactor.h">
+      <Filter>源文件\Factor</Filter>
+    </ClInclude>
+    <ClInclude Include="CCliqueTree.h">
+      <Filter>源文件\CliqueTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CClique.h">
+      <Filter>源文件\Clique</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件\MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct.cpp">
+      <Filter>源文件\BNSumProduct</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Init.cpp">
+      <Filter>源文件\BNSumProduct\初始化</Filter>
+    </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>源文件\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>源文件\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml2.cpp">
+      <Filter>源文件\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>源文件\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>源文件\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>源文件\辅助函数</Filter>
+    </ClCompile>
+    <ClCompile Include="ExactInference.cpp">
+      <Filter>源文件\MFC\应用程序</Filter>
+    </ClCompile>
+    <ClCompile Include="ExactInferenceDlg.cpp">
+      <Filter>源文件\MFC\主对话框</Filter>
+    </ClCompile>
+    <ClCompile Include="ExactInferenceDlg_User.cpp">
+      <Filter>源文件\MFC\主对话框</Filter>
+    </ClCompile>
+    <ClCompile Include="CFactor.cpp">
+      <Filter>源文件\Factor</Filter>
+    </ClCompile>
+    <ClCompile Include="CFactor_Operator.cpp">
+      <Filter>源文件\Factor\操作符重载相关</Filter>
+    </ClCompile>
+    <ClCompile Include="CFactor_Init.cpp">
+      <Filter>源文件\Factor\初始化</Filter>
+    </ClCompile>
+    <ClCompile Include="CFactorReduceGivenVariable.cpp">
+      <Filter>源文件\Factor\化简</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Preprocess.cpp">
+      <Filter>源文件\BNSumProduct\初始化\预处理</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Preprocess_BN.cpp">
+      <Filter>源文件\BNSumProduct\初始化\预处理</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Read_BN.cpp">
+      <Filter>源文件\BNSumProduct\初始化\读取</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Read_Query.cpp">
+      <Filter>源文件\BNSumProduct\初始化\读取</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Preprocess_Factor.cpp">
+      <Filter>源文件\BNSumProduct\初始化\预处理</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Query_Marginal.cpp">
+      <Filter>源文件\BNSumProduct\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CFactor_Normalize.cpp">
+      <Filter>源文件\Factor\归一化</Filter>
+    </ClCompile>
+    <ClCompile Include="CFactor_Query.cpp">
+      <Filter>源文件\Factor\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_GetFactor.cpp">
+      <Filter>源文件\BNSumProduct\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_SumPruductElimateVar.cpp">
+      <Filter>源文件\BNSumProduct\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_OutputToXML.cpp">
+      <Filter>源文件\BNSumProduct\输出</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Query.cpp">
+      <Filter>源文件\BNSumProduct\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Query_Helper.cpp">
+      <Filter>源文件\BNSumProduct\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CFactor_SumOutVariable.cpp">
+      <Filter>源文件\Factor\求和掉变量</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree.cpp">
+      <Filter>源文件\CliqueTree</Filter>
+    </ClCompile>
+    <ClCompile Include="CClique.cpp">
+      <Filter>源文件\Clique</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Init.cpp">
+      <Filter>源文件\CliqueTree\初始化</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Read_CT.cpp">
+      <Filter>源文件\CliqueTree\初始化\读取</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Read_QueryCT.cpp">
+      <Filter>源文件\CliqueTree\初始化\读取</Filter>
+    </ClCompile>
+    <ClCompile Include="CClique_Init.cpp">
+      <Filter>源文件\Clique\初始化</Filter>
+    </ClCompile>
+    <ClCompile Include="CClique_Normalize.cpp">
+      <Filter>源文件\Clique\归一化</Filter>
+    </ClCompile>
+    <ClCompile Include="CClique_SumOutVariable.cpp">
+      <Filter>源文件\Clique\求和掉变量</Filter>
+    </ClCompile>
+    <ClCompile Include="CClique_ReduceGivenVariable.cpp">
+      <Filter>源文件\Clique\化简</Filter>
+    </ClCompile>
+    <ClCompile Include="CClique_Operator.cpp">
+      <Filter>源文件\Clique\操作符重载相关</Filter>
+    </ClCompile>
+    <ClCompile Include="CClique_Query.cpp">
+      <Filter>源文件\Clique\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Preprocess.cpp">
+      <Filter>源文件\CliqueTree\初始化\预处理</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Query.cpp">
+      <Filter>源文件\CliqueTree\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Query_Helper.cpp">
+      <Filter>源文件\CliqueTree\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_OutputToXML.cpp">
+      <Filter>源文件\CliqueTree\输出</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_UpwardPass.cpp">
+      <Filter>源文件\CliqueTree\初始化\向上消息传递</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_BuildUpwardTree.cpp">
+      <Filter>源文件\CliqueTree\初始化\向上消息传递</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_FindReadyClique.cpp">
+      <Filter>源文件\CliqueTree\初始化\向上消息传递\查找就绪的团</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_ReceiveMessages.cpp">
+      <Filter>源文件\CliqueTree\初始化\向上消息传递\接收消息</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_CreateCliqueWaitedMessages.cpp">
+      <Filter>源文件\CliqueTree\初始化\向上消息传递</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_IsCliqueReady.cpp">
+      <Filter>源文件\CliqueTree\初始化\向上消息传递\判断团是否就绪</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree.SendCliqueMessage.cpp">
+      <Filter>源文件\CliqueTree\初始化\向上消息传递\发送消息</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_DownwardPass.cpp">
+      <Filter>源文件\CliqueTree\初始化\向下传递消息</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_CreateCliqueWaitedMessages_Downward.cpp">
+      <Filter>源文件\CliqueTree\初始化\向下传递消息</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_SendCliqueMessage_Downward.cpp">
+      <Filter>源文件\CliqueTree\初始化\向下传递消息\发送消息</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Query_helper_GetStartedCliquePos.cpp">
+      <Filter>源文件\CliqueTree\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Query_Probability_GetSEPSetPos.cpp">
+      <Filter>源文件\CliqueTree\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Query_Probability.cpp">
+      <Filter>源文件\CliqueTree\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Query_Probability_IsSetContainedIn.cpp">
+      <Filter>源文件\CliqueTree\查询</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Query_Probability_GetSubtract.cpp">
+      <Filter>源文件\CliqueTree\查询</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ExactInference.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\ExactInference.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\ExactInference.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
