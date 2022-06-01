@@ -9,8 +9,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 #pragma once
 
-#include <map>
-#include <set>
 #include <vector>
 #include <algorithm>
 #include <numeric>
@@ -21,8 +19,6 @@
 // 类型定义
 using fid_t = unsigned int;
 using fval_t = double;
-using fidset = std::set<fid_t>;
-using fidmap = std::map<fid_t, fid_t>;
 using fidlist = std::vector<fid_t>;
 using fvallist = std::vector<fval_t>;
 
@@ -32,7 +28,7 @@ struct FACTOR_ROW
 	fidlist ValueIDs;	//01 变量值ID的列表，按照变量ID列表的顺序排列
 	fval_t fValue;		//02 因子的值
 
-	FACTOR_ROW() {}
+	FACTOR_ROW() = default;
 	FACTOR_ROW(const fidlist& ValueIDs, fval_t fValue): ValueIDs(ValueIDs), fValue(fValue) {}
 	FACTOR_ROW(fidlist&& ValueIDs, fval_t fValue): ValueIDs(ValueIDs), fValue(fValue) {}
 	inline const fid_t& operator[](size_t index) const { return ValueIDs[index]; }
@@ -47,10 +43,8 @@ class CFactor
 public:
 	//设置因子的变量ID列表
 	void SetFactorVariableIDs(const fidlist&);
-	void SetFactorVariableIDs(fidlist&&);
 	//设置因子行的值
 	void SetFactorRow(const fidlist&, fval_t);
-	void SetFactorRow(fidlist&&, fval_t);
 	//获取变量ID列表
 	const fidlist& GetFactorVariableIDs() const;
 	//因子化简。消除给定变量ID、和变量值ID
@@ -66,12 +60,9 @@ public:
 	CFactor operator*(const CFactor& second) const;
 
 private:
-	//在因子积时判断两行是否可以合并，检查两行是否兼容	
-	bool IsConsistentValueID(const FACTOR_ROW&, const FACTOR_ROW&, const fidmap&) const;
-
-private:
 	fidlist m_VariableIDs;					//因子变量ID列表
 	std::vector<FACTOR_ROW> m_FactorRows;	//因子行的列表
+	fidlist m_IdOrder;						//id顺序 
 };
 
 using CFactorList = std::vector<CFactor>;
