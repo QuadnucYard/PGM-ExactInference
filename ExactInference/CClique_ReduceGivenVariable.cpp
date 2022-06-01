@@ -13,6 +13,6 @@ void CClique::ReduceGivenVariable(fid_t nVariableID, fid_t nValueID)
 {
 	if (size_t nPos = qy::ranges::index_of(m_VariableIDs, nVariableID); nPos != -1)
 	{
-		qy::remove_if(m_CliqueRows, [=](const CLIQUE_ROW& t) {return t[nPos] != nValueID; });
+		qy::remove_if(m_CliqueRows, [=](const CliqueRow& t) {return t[nPos] != nValueID; });
 	}
 }

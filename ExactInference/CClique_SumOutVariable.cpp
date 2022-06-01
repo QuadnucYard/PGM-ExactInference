@@ -17,13 +17,13 @@ void CClique::SumOutVariable(fid_t nVariableID)
 		m_VariableIDs.erase(m_VariableIDs.begin() + nRemovePos);
 
 		//步骤2：化简变量值的ID列表  删除行中冗余的变量值
-		for (CLIQUE_ROW& t : m_CliqueRows)
+		for (CliqueRow& t : m_CliqueRows)
 			t.ValueIDs.erase(t.ValueIDs.begin() + nRemovePos);
 
 		//步骤3：对因子中相应的行求和  把ValueIDs相同的行合并到第一次出现的行
 		for (auto it = m_CliqueRows.begin(); it != m_CliqueRows.end();)
 		{
-			auto jt = std::ranges::find(m_CliqueRows.begin(), it, it->ValueIDs, &CLIQUE_ROW::ValueIDs);
+			auto jt = std::ranges::find(m_CliqueRows.begin(), it, it->ValueIDs, &CliqueRow::ValueIDs);
 			if (jt != it) {
 				jt->fValue += it->fValue;
 				it = m_CliqueRows.erase(it);

@@ -10,38 +10,13 @@
 #include "CFactor.h"
 #include "xmlutils.hpp"
 
-//定义类型
-//实例化变量类型
-struct GROUNDING_VARIABLE
-{
-	fid_t nNodeID;				//01 变量ID
-	fid_t nValueID;				//02 变量的值ID
-
-	GROUNDING_VARIABLE() = default;
-	GROUNDING_VARIABLE(fid_t nNodeID, fid_t nValueID): nNodeID(nNodeID), nValueID(nValueID) {}
-};
-
-using GVarList = std::vector<GROUNDING_VARIABLE>;
-
-//条件概率分布表的行
-struct CPT_ROW
-{
-	fidlist ValueIDs;			//01 节点值ID的列表，包括节点的双亲、节点自己。节点ID的列表和PARENT_ID相同。最后添加节点自己
-	fval_t fProb;				//02 概率。相当于条件概率分布表的一行中最后的概率
-
-	CPT_ROW() = default;
-	CPT_ROW(const fidlist& ValueIDs, fval_t fProb):ValueIDs(ValueIDs), fProb(fProb) {}
-	CPT_ROW(fidlist&& ValueIDs, fval_t fProb):ValueIDs(ValueIDs), fProb(fProb) {}
-};
-
-using CPTRowList = std::vector<CPT_ROW>;
 
 //贝叶斯网络节点
-struct BN_NODE
+struct BNNode
 {
 	fid_t nID;						//01 节点ID，如0
 	std::string sName;				//02 节点名称，如Difficulty
-	std::string sAbbreviation;		//03 节点简称，如D
+	std::string sAbbr;				//03 节点简称，如D
 	size_t nNumberOfValues;			//04 节点值的个数。节点取值用0、1、2代替，以学生例子中的Grade为例，取值不能是1、2、3。
 	size_t nNumberOfParents;		//05 父节点个数，
 	fidlist ParentIDs;				//06 父节点ID列表。遵循该顺序给定条件概率分布表
@@ -50,29 +25,35 @@ struct BN_NODE
 };
 
 //贝叶斯网络的边
-struct BN_EDGE
+struct BNEdge
 {
 	fid_t nID;						//01 边的ID。保留、未用
 	fid_t nStartNodeID;				//02 边的起点ID
 	fid_t nEndNodeID;				//03 边的终点ID
-
-	BN_EDGE() = default;
-	BN_EDGE(fid_t nID, fid_t nStartNodeID, fid_t nEndNodeID):
-		nID(nID), nStartNodeID(nStartNodeID), nEndNodeID(nEndNodeID) {}
-};
-
-//查询
-struct QUERY
-{
-	GVarList QueryVariables;		//查询的节点及其取值
-	GVarList GivenVariables;		//给定的节点及其取值
-	fidlist EliminateVariables;		//删除节点的顺序
 };
 
 
 //定义贝叶斯网络的精确推理类CBNSumProduct。采用和积变量消除法
 class CBNSumProduct
 {
+
+	//实例化变量类型
+	struct GroundingVariable
+	{
+		fid_t nNodeID;				//01 变量ID
+		fid_t nValueID;				//02 变量的值ID
+	};
+
+	using GVarList = std::vector<GroundingVariable>;
+
+	//查询
+	struct BNQuery
+	{
+		GVarList QueryVariables;		//查询的节点及其取值
+		GVarList GivenVariables;		//给定的节点及其取值
+		fidlist EliminateVariables;		//删除节点的顺序
+	};
+
 public:
 	//初始化
 	void Init();
@@ -93,9 +74,9 @@ private:
 	void Preprocess_Factor();
 
 	//查询的辅助函数
-	void Query_Helper(const QUERY&, CFactorList);
+	void Query_Helper(const BNQuery&, CFactorList);
 	//查询边缘概率分布
-	void Query_Marginal(const QUERY&, CFactorList&);
+	void Query_Marginal(const BNQuery&, CFactorList&);
 
 	//排列父节点ID及其取值
 	void Arrange(fid_t, const fidlist&, const fidlist&, size_t, size_t&);
@@ -112,9 +93,9 @@ private:
 	void Sum_Product_Eliminate_Var(fid_t, CFactorList&);	
 
 private:
-	std::vector<BN_NODE> m_Nodes;		//BN的节点表
-	std::vector<BN_EDGE> m_Edges;		//BN的边表
+	std::vector<BNNode> m_Nodes;		//BN的节点表
+	std::vector<BNEdge> m_Edges;		//BN的边表
 	CFactorList m_Factors;				//因子列表
-	std::vector<QUERY> m_Queries;		//查询列表
+	std::vector<BNQuery> m_Queries;		//查询列表
 	fvallist m_QueryResults;			//查询结果列表
 };

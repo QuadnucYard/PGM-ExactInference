@@ -12,7 +12,7 @@
 void CCliqueTree::Query()
 {
 	//遍历所有查询进行推理
-	for (const CT_QUERY& q : m_CTQueries)
+	for (const CTQuery& q : m_CTQueries)
 	{
 		Query_Helper(q);
 	}

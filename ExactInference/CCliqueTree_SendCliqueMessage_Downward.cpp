@@ -20,7 +20,7 @@ void CCliqueTree::SendCliqueMessage_Downward(fid_t nID, fid_t nChildID)
 	fidlist EliminateVariableIDs = qy::set_difference<fidlist>(c.GetVariableIDs(), CommonVariableIDs);
 
 	//定义割集  从父指向子
-	SEP_SET sep_set(nID, nChildID, c, true);
+	CutSet sep_set(nID, nChildID, c, true);
 
 	//遍历所有消除变量
 	for (fid_t s : EliminateVariableIDs)

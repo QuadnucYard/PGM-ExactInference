@@ -50,7 +50,7 @@ void CCliqueTree::Read_CT()
 	TiXmlElement* pCliques = pVariables->NextSiblingElement();
 	for (auto& pClique : pCliques)
 	{
-		CT_NODE ct_node;
+		CTNode ct_node;
 		ct_node.nID = GetAttributeI(pClique, "ID");
 
 		std::string tmp = GetAttribute(pClique, "VARIABLE_IDS");
@@ -62,7 +62,7 @@ void CCliqueTree::Read_CT()
 		//遍历行
 		for (auto& pRow : pClique)
 		{
-			CT_FACTOR_ROW factor_row;
+			CTFactorRow factor_row;
 			factor_row.fValue = GetAttributeD(pRow, "VALUE");
 			//遍历变量
 			for (const auto& pVariable : pRow)

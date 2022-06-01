@@ -19,27 +19,11 @@ using fidpair = std::pair<fid_t, fid_t>;
 using fidsetmap = std::map<fid_t, fidset>;
 using fidmultimap = std::multimap<fid_t, fid_t>;
 
-//定义类型
-//团树中的实例化变量类型
-struct CT_GROUNDING_VARIABLE
-{
-	fid_t nVariableID;		//01 变量ID
-	fid_t nValueID;			//02 变量值ID
-};
-
-using CTGVarList = std::vector<CT_GROUNDING_VARIABLE>;
-
-//团行
-struct CT_FACTOR_ROW
-{
-	fidlist ValueIDs;		//01 变量值ID列表
-	fval_t fValue;			//02 值
-};
-
-using CTFactorRowList = std::vector<CT_FACTOR_ROW>;
+using CTFactorRow = FactorRow;
+using CTFactorRowList = std::vector<FactorRow>;
 
 //团树节点
-struct CT_NODE
+struct CTNode
 {
 	fid_t nID;						//01 团树节点ID,如0
 	fidlist VariableIDs;			//02 变量ID列表
@@ -47,32 +31,34 @@ struct CT_NODE
 };
 
 //团树割集
-struct SEP_SET
+struct CutSet
 {
 	fid_t nStartID;			//01 开始的团节点ID
 	fid_t nEndID;			//02 结束的团结点
 	CClique clique;			//03 割集。采用团表示
 	bool bReady;			//04 是否就绪。在向下传播消息时为就绪，向上传播消息时未就绪
-
-	SEP_SET() = default;
-	SEP_SET(fid_t nStartID, fid_t nEndID, const CClique& clique, bool bReady = false):
-		nStartID(nStartID), nEndID(nEndID), clique(clique), bReady(bReady) {}
-	bool operator==(const fidpair& rhs) const {
-		return nStartID == rhs.first && nEndID == rhs.second;
-	}
-};
-
-//查询
-struct CT_QUERY
-{
-	CTGVarList MarginalVariables;	//01 边缘变量ID和值ID列表
-	CTGVarList GivenVariables;		//02 给定变量ID和值ID列表
 };
 
 
 //定义团树的精确推理类CCliqueTree
 class CCliqueTree
 {
+	//团树中的实例化变量类型
+	struct GroundingVariable
+	{
+		fid_t nVariableID;		//01 变量ID
+		fid_t nValueID;			//02 变量值ID
+	};
+
+	using GVarList = std::vector<GroundingVariable>;
+
+	//查询
+	struct CTQuery
+	{
+		GVarList MarginalVariables;		//01 边缘变量ID和值ID列表
+		GVarList GivenVariables;		//02 给定变量ID和值ID列表
+	};
+
 public:
 	//初始化
 	void Init();
@@ -111,7 +97,7 @@ private:
 	//接收消息
 	void ReceiveMessages(fid_t, const fidsetmap&);
 	//获取两个团之间的割集	
-	const SEP_SET& GetSEPSet(fid_t, fid_t) const;
+	const CutSet& GetSEPSet(fid_t, fid_t) const;
 	//检查是否存在双亲
 	bool IsThereParentID(fid_t, fid_t&) const;
 	//发现共享的变量ID集合
@@ -125,21 +111,21 @@ private:
 	void SendCliqueMessage_Downward(fid_t, fid_t);
 
 	//查询的辅助函数
-	void Query_Helper(const CT_QUERY&);
+	void Query_Helper(const CTQuery&);
 	//获取查询开始团的位置
 	const CClique& GetStartClique(const fidset&) const;
 
 	//查询概率分布
-	void Query_Probability(const CT_QUERY&, const fidset&, const CClique&);
+	void Query_Probability(const CTQuery&, const fidset&, const CClique&);
 	//根据边的节点ID、获取割集位置
-	const SEP_SET& GetReadySEPSet(fid_t, fid_t) const;
+	const CutSet& GetReadySEPSet(fid_t, fid_t) const;
 
 	//输出查询结果概率到XML文件
 	void OutputToXML() const;
 
 private:
 	//团树
-	std::vector<CT_NODE> m_CTNodes;					//团树的节点表
+	std::vector<CTNode> m_CTNodes;					//团树的节点表
 	fidmultimap m_CTEdges;							//团树的边表
 
 	fid_t m_nRootID;								//根团的ID
@@ -151,9 +137,9 @@ private:
 
 	//和积消息传递算法
 	std::vector<CClique> m_Cliques;					//团列表
-	std::vector<SEP_SET> m_SEPSets;					//割集列表
+	std::vector<CutSet> m_SEPSets;					//割集列表
 
 	//查询
-	std::vector<CT_QUERY> m_CTQueries;				//团树查询列表。支持多个查询
+	std::vector<CTQuery> m_CTQueries;				//团树查询列表。支持多个查询
 	std::vector<fval_t> m_CTQueryResults;			//团树查询结果列表
 };

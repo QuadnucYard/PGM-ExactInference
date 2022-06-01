@@ -12,7 +12,7 @@
 void CBNSumProduct::Preprocess_BN()
 {
 	//遍历所有节点，整理条件概率分布CPT
-	for (BN_NODE& node : m_Nodes)
+	for (BNNode& node : m_Nodes)
 	{
 		size_t nRow = 0;								//从CPT表的第0行开始
 		Arrange(node.nID, fidlist(), qy::concat(node.ParentIDs, node.nID), 0, nRow);	//0表示变量值的起始位置。

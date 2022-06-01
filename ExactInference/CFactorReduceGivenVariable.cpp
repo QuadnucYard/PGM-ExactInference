@@ -17,6 +17,6 @@ void CFactor::ReduceGivenVariable(fid_t nVariableID, fid_t nValueID)
 		//找到，需要进行简化
 		//遍历所有行。检查特定位置（列）的变量值是否相等
 		//删掉 nValueID != it->ValueIDs[nPos] 的项
-		qy::remove_if(m_FactorRows, [=](const FACTOR_ROW& t) {return t[nPos] != nValueID; });
+		qy::remove_if(m_FactorRows, [=](const FactorRow& t) {return t[nPos] != nValueID; });
 	}
 }

@@ -13,26 +13,12 @@
 #include "qyranges.hpp"
 
 
-//定义团行
-struct CLIQUE_ROW
-{
-	fidlist ValueIDs;		//01 变量值ID的列表，按照变量ID列表的顺序排列
-	fval_t fValue;			//02 团行的值
-
-	CLIQUE_ROW() = default;
-	CLIQUE_ROW(const fidlist& ValueIDs, fval_t fValue): ValueIDs(ValueIDs), fValue(fValue) {}
-	inline const fid_t& operator[](size_t index) const { return ValueIDs[index]; }
-	inline fid_t& operator[](size_t index) { return ValueIDs[index]; }
-	inline size_t size() const { return ValueIDs.size(); }
-};
-
-using CliqueRowList = std::vector<CLIQUE_ROW>;
+using CliqueRow = FactorRow;
+using CliqueRowList = FactorRowList;
 
 //定义团类
 class CClique
 {
-
-	//公有方法
 public:
 	//设置团的ID
 	void SetCliqueID(fid_t);
@@ -65,7 +51,7 @@ public:
 
 private:
 	//在因子积时判断两行是否可以合并
-	bool IsConsistentValueID(const CLIQUE_ROW&, const CLIQUE_ROW&, const fidmap&) const;	//检查两行是否兼容	
+	bool IsConsistentValueID(const CliqueRow&, const CliqueRow&, const fidmap&) const;	//检查两行是否兼容	
 
 private:
 	fid_t m_nCliqueID;				//团ID

@@ -39,10 +39,10 @@ void CBNSumProduct::Read_BN()
 	for (const TiXmlElement& pNode : pNodes)
 	{
 		//获取节点属性
-		BN_NODE bn_node;
+		BNNode bn_node;
 		bn_node.nID = GetAttributeI(pNode, "ID");
 		bn_node.sName = GetAttribute(pNode, "NAME");
-		bn_node.sAbbreviation = GetAttribute(pNode, "ABBREVIATION");
+		bn_node.sAbbr = GetAttribute(pNode, "ABBREVIATION");
 		bn_node.nNumberOfValues = GetAttributeI(pNode, "NUMBER_OF_VALUES");
 		bn_node.nNumberOfParents = GetAttributeI(pNode, "NUMBER_OF_PARENTS");
 
@@ -71,7 +71,7 @@ void CBNSumProduct::Read_BN()
 	if (TiXmlElement* pEdges = pNodes->NextSiblingElement(); pEdges)
 	{
 		std::transform(begin(pEdges), end(pEdges), std::back_inserter(m_Edges),
-			[](TiXmlElement& pEdge) { return BN_EDGE(
+			[](TiXmlElement& pEdge) { return BNEdge(
 				GetAttributeI(pEdge, "ID"),
 				GetAttributeI(pEdge, "START_NODE_ID"),
 				GetAttributeI(pEdge, "END_NODE_ID")

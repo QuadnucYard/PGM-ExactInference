@@ -11,7 +11,7 @@
 //预处理因子
 void CBNSumProduct::Preprocess_Factor()
 {
-	for (const BN_NODE& node : m_Nodes)
+	for (const BNNode& node : m_Nodes)
 	{
 		CFactor factor;
 
@@ -19,7 +19,7 @@ void CBNSumProduct::Preprocess_Factor()
 		factor.SetFactorVariableIDs(qy::concat(node.ParentIDs, node.nID));
 
 		//步骤2：设置因子值的ID表
-		for (const CPT_ROW& row : node.CPTRowIDs)
+		for (const CPTRow& row : node.CPTRowIDs)
 		{
 			factor.SetFactorRow(row.ValueIDs, row.fProb);
 		}

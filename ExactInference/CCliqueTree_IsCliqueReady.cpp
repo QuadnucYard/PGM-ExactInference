@@ -30,5 +30,5 @@ bool CCliqueTree::IsAllSEPSetExisted(fid_t nID, const fidset& WaitedMessages) co
 bool CCliqueTree::IsAllSEPSetExisted_Helper(fid_t nStartID, fid_t nID) const
 {
 	return std::ranges::any_of(m_SEPSets,
-		[=](const SEP_SET& s) { return nStartID == s.nStartID && nID == s.nEndID; });
+		[=](const CutSet& s) { return nStartID == s.nStartID && nID == s.nEndID; });
 }

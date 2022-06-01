@@ -27,8 +27,8 @@ void CCliqueTree::ReceiveMessages(fid_t nCliqueID, const fidsetmap& CliqueWaited
 
 //获取割集
 //割集。也是团
-const SEP_SET& CCliqueTree::GetSEPSet(fid_t nStartID, fid_t nCliqueID) const
+const CutSet& CCliqueTree::GetSEPSet(fid_t nStartID, fid_t nCliqueID) const
 {
 	return *std::ranges::find_if(m_SEPSets,
-		[=](const SEP_SET& s) { return s.nStartID == nStartID && s.nEndID == nCliqueID; });
+		[=](const CutSet& s) { return s.nStartID == nStartID && s.nEndID == nCliqueID; });
 }

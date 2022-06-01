@@ -14,7 +14,7 @@ CFactor CFactor::operator*(const CFactor& second) const
 	assert(std::ranges::is_sorted(m_VariableIDs));
 	assert(std::ranges::is_sorted(second.m_VariableIDs));
 	// 检查两列能否合并
-	auto checkMerge = [](const fidlist& id1, const FACTOR_ROW& row1, const fidlist& id2, const FACTOR_ROW& row2) {
+	auto checkMerge = [](const fidlist& id1, const FactorRow& row1, const fidlist& id2, const FactorRow& row2) {
 		size_t n = id1.size(), m = id2.size();
 		for (size_t i = 0, j = 0; i < n && j < m;) {
 			if (id1[i] < id2[j])  ++i;
@@ -26,7 +26,7 @@ CFactor CFactor::operator*(const CFactor& second) const
 		}
 		return true;
 	};
-	auto doMerge = [](const fidlist& id1, const FACTOR_ROW& row1, const fidlist& id2, const FACTOR_ROW& row2) {
+	auto doMerge = [](const fidlist& id1, const FactorRow& row1, const fidlist& id2, const FactorRow& row2) {
 		size_t n = id1.size(), m= id2.size();
 		fidlist result;
 		for (size_t i = 0, j = 0; i < n || j < m;) {

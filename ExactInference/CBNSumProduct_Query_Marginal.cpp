@@ -9,7 +9,7 @@
 
 
 //查询边缘概率分布
-void CBNSumProduct::Query_Marginal(const QUERY& query, CFactorList& Factors)
+void CBNSumProduct::Query_Marginal(const BNQuery& query, CFactorList& Factors)
 {
 	//步骤1：遍历所有删除变量，并进行边缘概率计算
 	for (fid_t ev : query.EliminateVariables)
@@ -24,8 +24,8 @@ void CBNSumProduct::Query_Marginal(const QUERY& query, CFactorList& Factors)
 	phi.Normalize();
 
 	//步骤4：获取概率
-	fidlist VariableIDs = query.QueryVariables | std::views::transform(&GROUNDING_VARIABLE::nNodeID) | qy::views::to<fidlist>;
-	fidlist ValueIDs = query.QueryVariables | std::views::transform(&GROUNDING_VARIABLE::nValueID) | qy::views::to<fidlist>;
+	fidlist VariableIDs = query.QueryVariables | std::views::transform(&GroundingVariable::nNodeID) | qy::views::to<fidlist>;
+	fidlist ValueIDs = query.QueryVariables | std::views::transform(&GroundingVariable::nValueID) | qy::views::to<fidlist>;
 
 	//对因子进行查询，添加概率到查询结果
 	m_QueryResults.push_back(phi.Query(VariableIDs, ValueIDs));

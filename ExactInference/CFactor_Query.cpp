@@ -19,7 +19,7 @@ double CFactor::Query(const fidlist& VariableIDs, const fidlist& ValueIDs)
 	//过滤对应位置id相同的行，对其fValue求和
 	return qy::ranges::sum(m_FactorRows | std::views::filter([&](auto& r) {
 		return std::ranges::equal(r.ValueIDs, mmap, [](fid_t x, fid_t y) { return y == -1 || x == y; });
-	}), &FACTOR_ROW::fValue);
+	}), &FactorRow::fValue);
 
 }
 

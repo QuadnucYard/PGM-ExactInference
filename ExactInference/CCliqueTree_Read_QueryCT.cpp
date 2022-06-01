@@ -30,7 +30,7 @@ void CCliqueTree::Read_QueryCT()
 	TiXmlElement* pQueries = aDoc.RootElement();
 	for (auto& pQuery : pQueries)
 	{
-		CT_QUERY ct_query;
+		CTQuery ct_query;
 
 		//步骤1：获取边缘指针
 		TiXmlElement* pMarginal = pQuery.FirstChildElement();

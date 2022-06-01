@@ -19,13 +19,13 @@ void CFactor::SumOutVariable(fid_t nVariableID)
 		m_VariableIDs.erase(m_VariableIDs.begin() + nRemovePos);
 
 		//步骤2：化简变量值的ID列表  删除行中冗余的变量值
-		for (FACTOR_ROW& t : m_FactorRows)
+		for (FactorRow& t : m_FactorRows)
 			t.ValueIDs.erase(t.ValueIDs.begin() + nRemovePos);
 
 		//步骤3：对因子中相应的行求和  把ValueIDs相同的行合并到第一次出现的行
 		for (auto it = m_FactorRows.begin(); it != m_FactorRows.end();)
 		{
-			auto jt = std::ranges::find(m_FactorRows.begin(), it, it->ValueIDs, &FACTOR_ROW::ValueIDs);
+			auto jt = std::ranges::find(m_FactorRows.begin(), it, it->ValueIDs, &FactorRow::ValueIDs);
 			if (jt != it) {
 				jt->fValue += it->fValue;
 				it = m_FactorRows.erase(it);

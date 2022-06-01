@@ -29,12 +29,12 @@ void CBNSumProduct::Read_Query()
 	TiXmlElement* pRoot = aDoc.RootElement();
 	for (TiXmlElement& pQuery : pRoot)
 	{
-		QUERY query;
+		BNQuery query;
 
 		//步骤1：获取边缘指针
 		TiXmlElement* pMarginal = pQuery.FirstChildElement();
 		std::transform(begin(pMarginal), end(pMarginal), std::back_inserter(query.QueryVariables),
-			[](TiXmlElement& pVariable) { return GROUNDING_VARIABLE(
+			[](TiXmlElement& pVariable) { return GroundingVariable(
 				GetAttributeI(pVariable, "ID"),
 				GetAttributeI(pVariable, "VALUE")
 			); });
@@ -42,7 +42,7 @@ void CBNSumProduct::Read_Query()
 		//步骤2：获取给定变量指针
 		TiXmlElement* pGiven = pMarginal->NextSiblingElement();
 		std::transform(begin(pGiven), end(pGiven), std::back_inserter(query.GivenVariables),
-			[](TiXmlElement& pVariable) { return GROUNDING_VARIABLE(
+			[](TiXmlElement& pVariable) { return GroundingVariable(
 				GetAttributeI(pVariable, "ID"),
 				GetAttributeI(pVariable, "VALUE")
 			); });

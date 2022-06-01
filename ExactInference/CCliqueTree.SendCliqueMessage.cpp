@@ -22,10 +22,10 @@ void CCliqueTree::SendCliqueMessage(fid_t nID)
 		fidlist EliminateVariableIDs = qy::set_difference<fidlist>(c.GetVariableIDs(), CommonVariableIDs);
 
 		//定义割集  从子指向父
-		SEP_SET sep_set(nID, nParentID, c);
-		
+		CutSet sep_set {nID, nParentID, c, false};
+
 		//遍历所有消除变量
-		for (fid_t s: EliminateVariableIDs)
+		for (fid_t s : EliminateVariableIDs)
 		{
 			sep_set.clique.SumOutVariable(s);
 		}
@@ -53,8 +53,7 @@ bool CCliqueTree::IsThereParentID(fid_t nID, fid_t& nParentID) const
 		//赋值、获取双亲ID
 		nParentID = it->second;
 		return true;
-	}
-	else
+	} else
 	{
 		return false;
 	}

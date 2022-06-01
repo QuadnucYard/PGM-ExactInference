@@ -14,7 +14,7 @@ fidsetmap CCliqueTree::CreateCliqueWaitedMessages() const
 	fidsetmap WaitedMessages;
 
 	//步骤1：遍历所有团，初始化团的等待消息集合为空
-	for (const CT_NODE& node : m_CTNodes)
+	for (const CTNode& node : m_CTNodes)
 	{
 		WaitedMessages.insert({node.nID, {}});
 	}

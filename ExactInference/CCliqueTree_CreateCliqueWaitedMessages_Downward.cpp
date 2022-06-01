@@ -15,7 +15,7 @@ fidsetmap CCliqueTree::CreateCliqueWaitedMessages_Downward() const
 
 	//步骤1：遍历所有团，初始化向下传递消息时，团的等待消息集合为空
 	//应该是找所有指向它的点
-	for (const CT_NODE& node : m_CTNodes)
+	for (const CTNode& node : m_CTNodes)
 	{
 		WaitedMessages.insert({node.nID, {}});
 	}

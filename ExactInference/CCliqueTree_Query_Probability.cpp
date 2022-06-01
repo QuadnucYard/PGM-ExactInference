@@ -9,7 +9,7 @@
 
 
 //查询概率
-void CCliqueTree::Query_Probability(const CT_QUERY& query, const fidset& QueryVariableIDs, const CClique& startClique)
+void CCliqueTree::Query_Probability(const CTQuery& query, const fidset& QueryVariableIDs, const CClique& startClique)
 {
 	//获取开始团ID
 	fid_t nStartCliqueID = startClique.GetID();
@@ -75,7 +75,7 @@ void CCliqueTree::Query_Probability(const CT_QUERY& query, const fidset& QueryVa
 	}
 
 	//步骤3：根据给定变量简化团
-	for (const CT_GROUNDING_VARIABLE& var : query.GivenVariables)
+	for (const GroundingVariable& var : query.GivenVariables)
 	{
 		theClique.ReduceGivenVariable(var.nVariableID, var.nValueID);
 	}
@@ -84,8 +84,8 @@ void CCliqueTree::Query_Probability(const CT_QUERY& query, const fidset& QueryVa
 	theClique.Normalize();
 
 	//步骤5：获取概率
-	fidlist VariableIDs = query.MarginalVariables | std::views::transform(&CT_GROUNDING_VARIABLE::nVariableID) | qy::views::to<fidlist>;
-	fidlist ValueIDs = query.MarginalVariables | std::views::transform(&CT_GROUNDING_VARIABLE::nValueID) | qy::views::to<fidlist>;
+	fidlist VariableIDs = query.MarginalVariables | std::views::transform(&GroundingVariable::nVariableID) | qy::views::to<fidlist>;
+	fidlist ValueIDs = query.MarginalVariables | std::views::transform(&GroundingVariable::nValueID) | qy::views::to<fidlist>;
 
 	//添加概率到查询结果
 	m_CTQueryResults.push_back(theClique.Query(VariableIDs, ValueIDs));

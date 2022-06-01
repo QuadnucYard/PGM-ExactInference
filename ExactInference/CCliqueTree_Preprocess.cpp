@@ -12,7 +12,7 @@
 void CCliqueTree::Preprocess()
 {
 	//遍历BN中的所有节点
-	for (const CT_NODE& node : m_CTNodes)
+	for (const CTNode& node : m_CTNodes)
 	{
 		CClique clique;
 		clique.SetCliqueID(node.nID);
@@ -25,7 +25,7 @@ void CCliqueTree::Preprocess()
 		}
 
 		//步骤2：初始化团。设置团行
-		for (const CT_FACTOR_ROW& row : node.FactorRows)
+		for (const CTFactorRow& row : node.FactorRows)
 		{
 			clique.SetCliqueRow(row.ValueIDs, row.fValue);
 		}

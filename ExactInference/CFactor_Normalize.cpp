@@ -11,7 +11,7 @@
 void CFactor::Normalize()
 {
 	//遍历所有因子行，累计所有因子值，计算归一化因子
-	double fNormalization = qy::ranges::sum(m_FactorRows, &FACTOR_ROW::fValue);
+	double fNormalization = qy::ranges::sum(m_FactorRows, &FactorRow::fValue);
 	//归一化
-	std::ranges::for_each(m_FactorRows, [=](FACTOR_ROW& r) { r.fValue /= fNormalization; });
+	std::ranges::for_each(m_FactorRows, [=](FactorRow& r) { r.fValue /= fNormalization; });
 }

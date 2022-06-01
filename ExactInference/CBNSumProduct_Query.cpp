@@ -12,7 +12,7 @@
 void CBNSumProduct::Query()
 {
 	//遍历所有查询进行推理
-	for (const QUERY& q : m_Queries)
+	for (const BNQuery& q : m_Queries)
 	{
 		//Preprocess_Query(m_Queries[i]);
 		//调用查询的辅助函数

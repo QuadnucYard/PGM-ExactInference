@@ -15,21 +15,6 @@
 #include "xiterator.h"
 
 
-//因子行
-struct FACTOR_ROW
-{
-	fidlist ValueIDs;	//01 变量值ID的列表，按照变量ID列表的顺序排列
-	fval_t fValue;		//02 因子的值
-
-	FACTOR_ROW() = default;
-	FACTOR_ROW(const fidlist& ValueIDs, fval_t fValue): ValueIDs(ValueIDs), fValue(fValue) {}
-	FACTOR_ROW(fidlist&& ValueIDs, fval_t fValue): ValueIDs(ValueIDs), fValue(fValue) {}
-	inline const fid_t& operator[](size_t index) const { return ValueIDs[index]; }
-	inline fid_t& operator[](size_t index) { return ValueIDs[index]; }
-	inline size_t size() const { return ValueIDs.size(); }
-};
-
-
 //因子类
 class CFactor
 {
@@ -54,7 +39,7 @@ public:
 
 private:
 	fidlist m_VariableIDs;					//因子变量ID列表
-	std::vector<FACTOR_ROW> m_FactorRows;	//因子行的列表
+	FactorRowList m_FactorRows;				//因子行的列表
 	fidlist m_IdOrder;						//id顺序 
 };
 

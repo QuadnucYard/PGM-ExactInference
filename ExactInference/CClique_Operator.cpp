@@ -9,7 +9,7 @@
 
 
 //检查团中两行的值ID是否兼容，用于判断乘积时能否合并
-bool CClique::IsConsistentValueID(const CLIQUE_ROW& FirstRow, const CLIQUE_ROW& SecondRow, const fidmap& FirstToSeconds) const
+bool CClique::IsConsistentValueID(const CliqueRow& FirstRow, const CliqueRow& SecondRow, const fidmap& FirstToSeconds) const
 {
 	return std::ranges::all_of(FirstToSeconds,
 		[&](auto t) { return FirstRow[t.first] == SecondRow[t.second]; });
@@ -45,9 +45,9 @@ CClique CClique::operator*(const CClique& second) const
 	fidset RedundantSeconds(std::views::values(FirstToSeconds) | qy::views::to<fidset>);
 
 	//间接拼接
-	for (const CLIQUE_ROW& r1 : m_CliqueRows)
+	for (const CliqueRow& r1 : m_CliqueRows)
 	{
-		for (const CLIQUE_ROW& r2 : second.m_CliqueRows)
+		for (const CliqueRow& r2 : second.m_CliqueRows)
 		{
 			if (IsConsistentValueID(r1, r2, FirstToSeconds))
 			{
@@ -100,9 +100,9 @@ CClique CClique::operator/(const CClique& second) const
 
 	//步骤2：因子除
 	//说明：被除团的辖域一定包含除团的辖域
-	for (const CLIQUE_ROW& r1 : m_CliqueRows)
+	for (const CliqueRow& r1 : m_CliqueRows)
 	{
-		for (const CLIQUE_ROW& r2 : second.m_CliqueRows)
+		for (const CliqueRow& r2 : second.m_CliqueRows)
 		{
 			if (IsConsistentValueID(r1, r2, FirstToSeconds))
 			{
