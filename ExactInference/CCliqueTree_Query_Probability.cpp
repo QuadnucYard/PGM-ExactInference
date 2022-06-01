@@ -57,7 +57,7 @@ void CCliqueTree::Query_Probability(CT_QUERY& query, set<unsigned int>& QueryVar
 			unsigned int nChildID = beg->second;
 
 			//检查后继节点是否在CLOSED表。如果已经存在，则不需要入队
-			if (!IsINTInSet(nChildID, CLOSED))
+			if (!qy::ranges::includes(CLOSED, nChildID))
 			{
 				//将当前因子和后继团做因子积
 				CClique product_clique = m_Cliques[GetCliquePosByID(nChildID)];

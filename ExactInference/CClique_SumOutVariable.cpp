@@ -18,14 +18,8 @@
 //返回值：		无
 void CClique::SumOutVariable(unsigned int nVariableID)
 {
-	//查找变量ID是否在团中
-	unsigned int nRemovePos = 0;
-	//调用辅助函数
-	bool bFind = IsINTInVector(nVariableID, m_VariableIDs, nRemovePos);
-
-
 	//检查是否找到变量ID
-	if (bFind)//找到变量ID，需要进行求和化简
+	if (size_t nRemovePos = qy::ranges::index_of(m_VariableIDs, nVariableID); nRemovePos != -1)//找到变量ID，需要进行求和化简
 	{
 		/////////////////////////////////////////////////////////////////////
 		//步骤1：化简变量ID的列表

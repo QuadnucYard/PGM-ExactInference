@@ -117,6 +117,7 @@
     <ClInclude Include="CFactor.h" />
     <ClInclude Include="ExactInference.h" />
     <ClInclude Include="ExactInferenceDlg.h" />
+    <ClInclude Include="factordef.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="qyrange.hpp" />
     <ClInclude Include="qyranges.hpp" />
@@ -144,8 +145,6 @@
     <ClCompile Include="CBNSumProduct_Query_Marginal.cpp" />
     <ClCompile Include="CBNSumProduct_Read_BN.cpp" />
     <ClCompile Include="CBNSumProduct_Read_Query.cpp" />
-    <ClCompile Include="CClique.cpp" />
-    <ClCompile Include="CCliqueTree.cpp" />
     <ClCompile Include="CCliqueTree.SendCliqueMessage.cpp" />
     <ClCompile Include="CCliqueTree_BuildUpwardTree.cpp" />
     <ClCompile Include="CCliqueTree_CreateCliqueWaitedMessages.cpp" />

@@ -33,7 +33,7 @@ unsigned int CCliqueTree::FindReadyClique(map<unsigned int,set<unsigned int>>& C
 		if (it != CliqueWaitedMessages.end())
 		{
 			//检查等待消息的集合是否为空
-			if (it->second.size() == 0 && (!IsINTInSet(nCliqueID,VisitedIDs)))
+			if (it->second.size() == 0 && (!qy::ranges::includes(VisitedIDs, nCliqueID)))
 			{
 				//返回团的ID
 				return nCliqueID;
@@ -41,7 +41,7 @@ unsigned int CCliqueTree::FindReadyClique(map<unsigned int,set<unsigned int>>& C
 			else
 			{
 				//检查相关割集是否都已经存在
-				if (IsAllSEPSetExisted(nCliqueID, it->second) &&  (!IsINTInSet(nCliqueID, VisitedIDs)))
+				if (IsAllSEPSetExisted(nCliqueID, it->second) &&  (!qy::ranges::includes(VisitedIDs, nCliqueID)))
 				{
 					//返回团的ID
 					return nCliqueID;

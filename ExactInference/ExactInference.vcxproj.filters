@@ -198,6 +198,9 @@
     <ClInclude Include="qyviews.hpp">
       <Filter>源文件\myutils</Filter>
     </ClInclude>
+    <ClInclude Include="factordef.h">
+      <Filter>源文件\Factor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -283,12 +286,6 @@
     </ClCompile>
     <ClCompile Include="CFactor_SumOutVariable.cpp">
       <Filter>源文件\Factor\求和掉变量</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree.cpp">
-      <Filter>源文件\CliqueTree</Filter>
-    </ClCompile>
-    <ClCompile Include="CClique.cpp">
-      <Filter>源文件\Clique</Filter>
     </ClCompile>
     <ClCompile Include="CCliqueTree_Init.cpp">
       <Filter>源文件\CliqueTree\初始化</Filter>

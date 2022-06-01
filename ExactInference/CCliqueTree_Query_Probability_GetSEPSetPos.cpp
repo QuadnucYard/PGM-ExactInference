@@ -33,5 +33,6 @@ unsigned int CCliqueTree::GetSEPSetPos(unsigned int nID, unsigned int nChildID)
 		}
 	}
 
+	return -1;
 	//提示：算法一定能找到割集
 }

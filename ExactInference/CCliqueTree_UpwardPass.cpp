@@ -42,7 +42,7 @@ void CCliqueTree::UpwardPass()
 		unsigned int nCliqueID = FindReadyClique(CliqueWaitedMessages,VisitedIDs);
 
 		//检查是否已经访问过
-		if (!IsINTInSet(nCliqueID, VisitedIDs))
+		if (!qy::ranges::includes(VisitedIDs, nCliqueID))
 		{
 			//添加到访问过的ID集合
 			VisitedIDs.insert(nCliqueID);

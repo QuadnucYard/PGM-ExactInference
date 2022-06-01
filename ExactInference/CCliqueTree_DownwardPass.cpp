@@ -63,14 +63,14 @@ void CCliqueTree::DownwardPass()
 				unsigned int nChildID = *it;
 
 				//检查后继节点是否在CLOSED表。如果已经存在，则不需要入队
-				if (!IsINTInSet(nChildID, CLOSED) &&
+				if (!qy::ranges::includes(CLOSED, nChildID) &&
 					IsCliqueReady(nID, CliqueWaitedMessages))
 				{
 					//接收消息
 					ReceiveMessages(nID, CliqueWaitedMessages);
 
 					//向父节点发送消息
-					SendCliqueMessage_Downward(nID, nChildID);
+					SendCliqueMessage_Downward(nChildID, nID);
 
 					//添加到OPEN表
 					OPEN.push(nChildID);

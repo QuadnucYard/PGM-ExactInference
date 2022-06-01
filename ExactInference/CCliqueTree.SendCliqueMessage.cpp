@@ -87,7 +87,7 @@ void CCliqueTree::FindIntersections(set<unsigned int>& s1, set<unsigned int>& s2
 		unsigned int nID = *it;
 		
 		//查找是否在集合
-		if (IsINTInSet(nID, s2))
+		if (qy::ranges::includes(s2, nID))
 		{
 			//添加到交集
 			s.insert(*it);
@@ -136,7 +136,7 @@ void CCliqueTree::SubtractBetweenSets(set<unsigned int>& s1, set<unsigned int>& 
 		unsigned int nID = *it;
 		
 		//查找是否在集合2中
-		if (!IsINTInSet(nID, s2))
+		if (!qy::ranges::includes(s2, nID))
 		{
 			//如果不存在，则添加到差集
 			s.insert(*it);

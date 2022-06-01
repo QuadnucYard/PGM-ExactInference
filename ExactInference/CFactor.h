@@ -9,15 +9,11 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include "factordef.h"
 #include "Helper.h"
 #include "stl_utils.h"
 #include "xiterator.h"
 
-// 类型定义
-using fid_t = unsigned int;
-using fval_t = double;
-using fidlist = std::vector<fid_t>;
-using fvallist = std::vector<fval_t>;
 
 //因子行
 struct FACTOR_ROW

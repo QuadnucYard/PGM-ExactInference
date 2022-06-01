@@ -17,12 +17,10 @@
 #include <queue>						//queue头文件
 #include <algorithm>					//algorithm类头文件
 #include <numeric>						//numeric类头文件
-#include <sstream>						//sstream类头文件
-#include <fstream>						//fstream类头文件
-#include <time.h>						//时间函数类头文件
-#include "math.h"						//数学函数头文件
+#include <filesystem>
 #include "CClique.h"					//团类头文件
-
+#include "tinyxml.h"
+#include "xmlutils.hpp"
 
 //声明命名空间
 using namespace std;					//使用标准命名空间
@@ -71,10 +69,6 @@ typedef struct
 //定义团树的精确推理类CCliqueTree
 class CCliqueTree
 {
-	//构造函数与析构函数
-public:
-	CCliqueTree();										//构造函数
-	~CCliqueTree();										//析构函数
 
 	//公有方法
 public:
@@ -123,7 +117,7 @@ private:
 	//查询辅助函数
 	void Query_Helper(CT_QUERY&);																	//查询的辅助函数
 	unsigned int GetStartCliquePos(set<unsigned int>&);												//获取查询开始团的位置
-	void GetIntersections(vector<unsigned int>&, set<unsigned int>&, set<unsigned int>&);			//求列表和集合的交集
+	void GetIntersections(const vector<unsigned int>&, set<unsigned int>&, set<unsigned int>&);			//求列表和集合的交集
 	//查询概率分布
 	void Query_Probability(CT_QUERY&, set<unsigned int>&, unsigned int);							//查询概率
 	unsigned int GetSEPSetPos(unsigned int, unsigned int);											//根据边的节点ID、获取割集位置

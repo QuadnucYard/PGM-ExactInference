@@ -10,18 +10,16 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 #pragma once
 
-#include <map>							//map头文件
-#include <set>							//set头文件
-#include <string>						//string头文件
-#include <list>							//list头文件
-#include <vector>						//vector头文件
-#include <algorithm>					//algorithm类头文件
-#include <numeric>						//numeric类头文件
-#include <sstream>						//sstream类头文件
-#include <fstream>						//fstream类头文件
-#include <time.h>						//时间函数类头文件
-#include "math.h"						//数学函数头文件
-#include "Helper.h"						//辅助函数头文件
+#include <map>				
+#include <set>				
+#include <string>			
+#include <list>				
+#include <vector>			
+#include <algorithm>		
+#include <numeric>			
+#include "factordef.h"
+#include "Helper.h"			
+#include "stl_utils.h"
 
 
 //声明命名空间
@@ -29,20 +27,16 @@ using namespace std;					//使用标准命名空间
 
 
 //定义团行
-typedef struct
+ struct CLIQUE_ROW
 {
-	vector<unsigned int> ValueIDs;								//01 变量值ID的列表，按照变量ID列表的顺序排列
-	double fValue;												//02 团行的值
-}CLIQUE_ROW;
+	fidlist ValueIDs;								//01 变量值ID的列表，按照变量ID列表的顺序排列
+	fval_t fValue;												//02 团行的值
+};
 
 
 //定义团类
 class CClique
 {
-	//构造函数与析构函数
-public:
-	CClique();													//构造函数
-	~CClique();													//析构函数
 
 	//公有方法
 public:
@@ -79,7 +73,7 @@ public:
 		map<unsigned int, unsigned int> FirstToSeconds;
 
 		//步骤1.1：遍历首团的变量ID
-		for (unsigned int i = 0; i <m_VariableIDs.size(); i++)
+		for (unsigned int i = 0; i < m_VariableIDs.size(); i++)
 		{
 			//获取首变量ID
 			unsigned int nFirstVariableID = m_VariableIDs[i];
@@ -132,7 +126,7 @@ public:
 					}
 
 					//计算团行的值。需要采用乘法
-					clique_row.fValue = m_CliqueRows[i].fValue*second.m_CliqueRows[j].fValue;
+					clique_row.fValue = m_CliqueRows[i].fValue * second.m_CliqueRows[j].fValue;
 
 					//将团行添加到团
 					clique.m_CliqueRows.push_back(clique_row);
@@ -167,7 +161,7 @@ public:
 						for (unsigned int m = 0; m < second.m_CliqueRows[j].ValueIDs.size(); m++)
 						{
 							//检查列是否在相同变量集合中
-							if (!IsINTInSet(m, RedundantSeconds))
+							if (!qy::ranges::includes(RedundantSeconds, m))
 							{
 								//添加尾团的列
 								clique_row.ValueIDs.push_back(second.m_CliqueRows[j].ValueIDs[m]);
@@ -175,7 +169,7 @@ public:
 						}
 
 						//计算获取团行的值
-						clique_row.fValue = m_CliqueRows[i].fValue*second.m_CliqueRows[j].fValue;
+						clique_row.fValue = m_CliqueRows[i].fValue * second.m_CliqueRows[j].fValue;
 
 						//添加因子行到因子
 						clique.m_CliqueRows.push_back(clique_row);
@@ -189,7 +183,7 @@ public:
 			for (unsigned int i = 0; i < second.m_VariableIDs.size(); i++)
 			{
 				//检查尾团变量ID的位置是否属于相同变量ID集合
-				if (!IsINTInSet(i, RedundantSeconds))
+				if (!qy::ranges::includes(RedundantSeconds, i))
 				{
 					//添加尾团的变量ID
 					clique.m_VariableIDs.push_back(second.m_VariableIDs[i]);
@@ -219,7 +213,7 @@ public:
 		map<unsigned int, unsigned int> FirstToSeconds;
 
 		//步骤1.1：遍历首因子的变量ID
-		for (unsigned int i = 0; i <m_VariableIDs.size(); i++)
+		for (unsigned int i = 0; i < m_VariableIDs.size(); i++)
 		{
 			//获取首变量ID
 			unsigned int nFirstVariableID = m_VariableIDs[i];
@@ -260,11 +254,11 @@ public:
 				{
 					//定义团行
 					CLIQUE_ROW clique_row;
-					
+
 					//初始化团行的值ID序列
-					clique_row.ValueIDs = m_CliqueRows[i].ValueIDs;					
+					clique_row.ValueIDs = m_CliqueRows[i].ValueIDs;
 					//计算获取因子行的值
-					clique_row.fValue = m_CliqueRows[i].fValue/second.m_CliqueRows[j].fValue;
+					clique_row.fValue = m_CliqueRows[i].fValue / second.m_CliqueRows[j].fValue;
 
 					//添加团行到团
 					clique.m_CliqueRows.push_back(clique_row);

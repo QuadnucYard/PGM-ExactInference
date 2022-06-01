@@ -18,11 +18,8 @@
 //返回值：		无
 void CClique::ReduceGivenVariable(unsigned int nVariableID, unsigned int nValueID)
 {
-	//查找变量ID是否在团中
-	unsigned int nPos = 0;
-	bool bFind = IsINTInVector(nVariableID, m_VariableIDs, nPos);//如果找到，则返回在列表中的位置nPos
 	//检查是否找到
-	if (bFind)//找到，需要进行简化
+	if (size_t nPos = qy::ranges::index_of(m_VariableIDs, nVariableID); nPos != -1)//找到，需要进行简化
 	{
 		//遍历所有行。检查特定位置（列）的变量值是否相等
 		vector<CLIQUE_ROW>::iterator it = m_CliqueRows.begin();
@@ -33,8 +30,7 @@ void CClique::ReduceGivenVariable(unsigned int nVariableID, unsigned int nValueI
 			{
 				//保留行、更新迭代器
 				it++;
-			}
-			else
+			} else
 			{
 				//删除行、并更新迭代器
 				it = m_CliqueRows.erase(it);

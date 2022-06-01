@@ -27,32 +27,17 @@ extern CExactInferenceApp theApp;
 void CCliqueTree::Read_QueryCT()
 {
 	//获取当前工作路径
-	CString sFileName = CString(theApp.m_sWorkPath);
-	sFileName = sFileName + _T("\\Data");
-	sFileName = sFileName + _T("\\CliqueTree_Query.xml");
-
-
-	//搜索文件，如果文件不存在，则直接返回
-	CFileFind findWenJian;								//文件名称
-	BOOL bWenJian = findWenJian.FindFile(sFileName);	//搜索文件是否存在
-	//如果没有发现文件，则直接返回
-	if (!bWenJian)
+	namespace fs = std::filesystem;
+	fs::path sPath = fs::current_path() / "Data" / "CliqueTree_Query.xml";
+	if (!fs::exists(sPath))
 	{
-		//直接返回
 		return;
 	}
 
-
-	//打开文件
-	TiXmlDocument aDoc(MapCStringToString(sFileName).c_str());
-
-	//检查打开文件是否成功
+	TiXmlDocument aDoc(sPath.string().c_str());
 	if (!aDoc.LoadFile())
 	{
-		//提示
 		AfxMessageBox(_T("打开CliqueTree_Query.xml失败:"));
-
-		//退出
 		return exit(0);
 	}
 
@@ -84,13 +69,13 @@ void CCliqueTree::Read_QueryCT()
 
 				//获取查询变量ID
 				string sTemp = GetAttribute(pVariable, "ID");
-				query_variable.nVariableID = TransformStringToInt(sTemp);
+				query_variable.nVariableID = stoi_(sTemp);
 
 				//获取查询变量值ID
 				sTemp = GetAttribute(pVariable, "VALUE");
 
 				//设置是否给定值
-				query_variable.nValueID = TransformStringToInt(sTemp);//获取节点值的ID
+				query_variable.nValueID = stoi_(sTemp);//获取节点值的ID
 
 				//添加到查询变量表
 				ct_query.MarginalVariables.push_back(query_variable);
@@ -117,13 +102,13 @@ void CCliqueTree::Read_QueryCT()
 
 				//获取查询变量ID
 				string sTemp = GetAttribute(pVariable, "ID");
-				given_variable.nVariableID = TransformStringToInt(sTemp);
+				given_variable.nVariableID = stoi_(sTemp);
 
 				//获取查询变量值ID
 				sTemp = GetAttribute(pVariable, "VALUE");
 
 				//设置是否给定值
-				given_variable.nValueID = TransformStringToInt(sTemp);//获取节点值的ID
+				given_variable.nValueID = stoi_(sTemp);//获取节点值的ID
 
 				//添加到查询变量表
 				ct_query.GivenVariables.push_back(given_variable);

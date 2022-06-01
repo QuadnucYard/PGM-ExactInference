@@ -46,7 +46,7 @@ void CCliqueTree::BuildUpwardTree(unsigned nParentID)
 			unsigned int nChildID = beg->second;
 
 			//检查后继节点是否在CLOSED表。如果已经存在，则不需要入队
-			if (!IsINTInSet(nChildID, CLOSED))
+			if (!qy::ranges::includes(CLOSED,nChildID))
 			{
 				//添加边到向根团的树
 				m_UpwardTree.insert(make_pair(nChildID, nID));

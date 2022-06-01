@@ -54,13 +54,13 @@ unsigned int CCliqueTree::GetStartCliquePos(set<unsigned int>& QueryVariableIDs)
 //参  数：		vector<unsigned int>&,set<unsigned int>&
 //				set<unsigned int>&
 //返回值：		无
-void CCliqueTree::GetIntersections(vector<unsigned int>& VectorIDs, set<unsigned int>& SetIDs, set<unsigned int>& IntersectedIDs)
+void CCliqueTree::GetIntersections(const vector<unsigned int>& VectorIDs, set<unsigned int>& SetIDs, set<unsigned int>& IntersectedIDs)
 {
 	//遍历列表
 	for (unsigned int i = 0; i < VectorIDs.size(); i++)
 	{
 		//检查是否相交
-		if (IsINTInSet(VectorIDs[i], SetIDs))
+		if (qy::ranges::includes(SetIDs, VectorIDs[i]))
 		{			
 			//添加到结果集合
 			IntersectedIDs.insert(VectorIDs[i]);

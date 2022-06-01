@@ -24,57 +24,31 @@ extern CExactInferenceApp theApp;
 void CCliqueTree::Read_CT()
 {
 	//获取当前工作路径
-	CString sFileName = CString(theApp.m_sWorkPath);
-	sFileName = sFileName + _T("\\Data");
-	sFileName = sFileName + _T("\\CliqueTree.xml");
-
-
-	//搜索文件，如果文件不存在，则直接返回
-	CFileFind findWenJian;								//文件名称
-	BOOL bWenJian = findWenJian.FindFile(sFileName);	//搜索文件是否存在
-	//如果没有发现文件，则直接返回
-	if (!bWenJian)
+	namespace fs = std::filesystem;
+	fs::path sPath = fs::current_path() / "Data" / "CliqueTree.xml";
+	if (!fs::exists(sPath))
 	{
-		//提示
 		AfxMessageBox(_T("团树文件CliqueTree.xml不存在"));
-
-		//返回
 		return;
 	}
 
-
-	//打开文件
-	TiXmlDocument aDoc(MapCStringToString(sFileName).c_str());
-
-	//检查打开文件是否成功
+	TiXmlDocument aDoc(sPath.string().c_str());
 	if (!aDoc.LoadFile())
 	{
-		//提示
 		AfxMessageBox(_T("打开CliqueTree.xml失败:"));
-
-		//退出
 		return exit(0);
 	}
 
-	//获取团树结点
 	TiXmlElement *pCliqueTree = aDoc.RootElement();
-	//定义临时变量
 	string sTemp;
 
-	//检查是否合法
 	if (pCliqueTree != NULL)
 	{
-		//定义临时变量
-		sTemp = GetAttribute(pCliqueTree, "ROOT_ID");
-		//获取团树的根团ID
-		m_nRootID = TransformStringToInt(sTemp);
+		m_nRootID = GetAttributeI(pCliqueTree, "ROOT_ID");
 	}
 	else
 	{
-		//提示
 		AfxMessageBox(_T("根节点CliqueTree不存在"));
-
-		//退出
 		return exit(0);
 	}
 	
@@ -90,9 +64,7 @@ void CCliqueTree::Read_CT()
 		//遍历所有变量
 		while (pVariable != NULL)
 		{
-			//获取变量ID
-			sTemp = GetAttribute(pVariable, "ID");
-			unsigned int nVariableID = TransformStringToInt(sTemp);
+			unsigned int nVariableID = GetAttributeI(pVariable, "ID");
 			//获取变量名称
 			string sVariableName = GetAttribute(pVariable, "NAME");
 
@@ -118,10 +90,8 @@ void CCliqueTree::Read_CT()
 			//定义团树节点
 			CT_NODE ct_node;
 
-			//定义临时变量
-			sTemp = GetAttribute(pClique, "ID");
 			//获取团的ID
-			ct_node.nID = TransformStringToInt(sTemp);
+			ct_node.nID = GetAttributeI(pClique, "ID");
 
 			//获取团的变量ID列表
 			sTemp = GetAttribute(pClique, "VARIABLE_IDS");
@@ -132,7 +102,7 @@ void CCliqueTree::Read_CT()
 			for (unsigned int i = 0; i < IDs.size(); i++)
 			{
 				//获取整数
-				unsigned int nID = TransformStringToInt(IDs[i]);
+				unsigned int nID = stoi_(IDs[i]);
 				//加入变量ID列表
 				ct_node.VariableIDs.push_back(nID);
 			}
@@ -147,7 +117,7 @@ void CCliqueTree::Read_CT()
 
 				//获取因子行值
 				sTemp = GetAttribute(pRow, "VALUE");
-				factor_row.fValue = TransformStringToDouble(sTemp);
+				factor_row.fValue = stod_(sTemp);
 
 				//获取变量
 				TiXmlElement* pVariable = pRow->FirstChildElement();
@@ -156,9 +126,9 @@ void CCliqueTree::Read_CT()
 				{
 					//获取变量ID和变量值
 					sTemp = GetAttribute(pVariable, "ID");
-					unsigned int nVariableID = TransformStringToInt(sTemp);
+					unsigned int nVariableID = stoi_(sTemp);
 					sTemp = GetAttribute(pVariable, "VALUE");
-					unsigned int nValueID = TransformStringToInt(sTemp);
+					unsigned int nValueID = stoi_(sTemp);
 
 					//添加到实例化变量表
 					factor_row.ValueIDs.push_back(nValueID);
@@ -196,10 +166,10 @@ void CCliqueTree::Read_CT()
 		{			
 			//01 边的起点ID
 			sTemp = GetAttribute(pEdge, "START_CLIQUE_ID");
-			unsigned int nStartCliqueID = TransformStringToInt(sTemp);
+			unsigned int nStartCliqueID = stoi_(sTemp);
 			//02 边的终点ID
 			sTemp = GetAttribute(pEdge, "END_CLIQUE_ID");
-			unsigned int nEndCliqueID = TransformStringToInt(sTemp);
+			unsigned int nEndCliqueID = stoi_(sTemp);
 
 			//添加到边表。注意：采用双向映射
 			m_CTEdges.insert(make_pair(nStartCliqueID,nEndCliqueID));

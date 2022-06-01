@@ -53,16 +53,15 @@ void CCliqueTree::OutputToXML()
 	}
 
 	//获取当前工作路径
-	CString sFileName = theApp.m_sWorkPath;
-	sFileName = sFileName + _T("\\Data");
-	sFileName = sFileName + _T("\\CliqueTree_Output.xml");
+	namespace fs = std::filesystem;
+	fs::path sPath = fs::current_path() / "Data" / "CliqueTree_Output.xml";
 
 	//保存XML文件
-	doc.SaveFile((MapCStringToString(sFileName)).c_str());
+	doc.SaveFile(sPath.string().c_str());
 
 	//释放内存
 	doc.Clear();
 
 	//自动打开文件
-	ShellExecute(NULL, _T("open"), sFileName, NULL, NULL, SW_SHOWNORMAL);
+	ShellExecute(NULL, L"open", sPath.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }

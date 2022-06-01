@@ -24,7 +24,7 @@ bool CCliqueTree::IsSetContainedIn(set<unsigned int>& QueryVariableIDs,set<unsig
 		unsigned int nID = *it;
 
 		//检查当前ID是否在集合
-		if (!IsINTInSet(nID, StartVariableIDs))
+		if (!qy::ranges::includes(StartVariableIDs, nID))
 		{
 			//返回假
 			return false;

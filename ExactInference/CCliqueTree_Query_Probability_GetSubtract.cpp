@@ -24,7 +24,7 @@ vector<unsigned int> CCliqueTree::GetSubstract(vector<unsigned int>&LastVariable
 	for (unsigned int i = 0; i < LastVariableIDs.size(); i++)
 	{
 		//检查变量ID是否在集合中
-		if (!IsINTInSet(LastVariableIDs[i], VariableIDs))
+		if (!qy::ranges::includes(VariableIDs, LastVariableIDs[i]))
 		{
 			//添加到返回结果
 			Results.push_back(LastVariableIDs[i]);
