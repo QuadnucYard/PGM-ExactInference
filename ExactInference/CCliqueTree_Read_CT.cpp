@@ -1,26 +1,19 @@
-/////////////////////////////////////////////////////////////////////////////////////////////
-//文件名：		CCliqueTree_Read_CT.cpp
-//功  能：		读取团树CliqueTree
-//开发者：		高志强
-//日  期：		2021年03月30日
-//更  新：		2021年04月12日
-//更  新：		2021年05月18日
-//长  度：		220行
-/////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"									//MFC标准头文件
-#include "ExactInference.h"							//应用程序类头文件
-#include "CCliqueTree.h"							//团树精确推理类头文件
-#include "Helper.h"									//辅助函数头文件
+////////////////////////////////////////////////////////////////////////////////
+// CCliqueTree_Read_CT.cpp
+// 读取团树CliqueTree
+// Originated by	高志强
+// Refined    by	QuadnucYard
+////////////////////////////////////////////////////////////////////////////////
+#include "stdafx.h"
+#include "ExactInference.h"
+#include "CCliqueTree.h"
 
 
 //声明外部变量
 extern CExactInferenceApp theApp;
 
 
-//名  称：		Read_CT()
-//功  能：		读取团树
-//参  数：		无
-//返回值：		无
+//读取团树
 void CCliqueTree::Read_CT()
 {
 	//获取当前工作路径

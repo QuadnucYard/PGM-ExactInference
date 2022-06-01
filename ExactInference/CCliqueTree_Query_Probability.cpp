@@ -1,21 +1,14 @@
-/////////////////////////////////////////////////////////////////////////////////////////////
-//文件名：		CCliqueTree_Query_Marginal.cpp
-//功  能：		查询边缘概率
-//开发者：		高志强
-//日  期：		2021年04月11日
-//更  新：		2021年04月12日
-//更  新：		2021年05月18日
-//长  度：		130行
-/////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"									//MFC标准头文件
-#include "CCliqueTree.h"							//团树精确推理类头文件
-#include "Helper.h"									//辅助函数头文件
+////////////////////////////////////////////////////////////////////////////////
+// CCliqueTree_Query_Marginal.cpp
+// 查询边缘概率
+// Originated by	高志强
+// Refined    by	QuadnucYard
+////////////////////////////////////////////////////////////////////////////////
+#include "stdafx.h"
+#include "CCliqueTree.h"
 
 
-//名  称：		Query_Probability()
-//功  能：		查询概率
-//参  数：		CT_QUERY&,set<unsigned int>&,unsigned int
-//返回值：		无
+//查询概率
 void CCliqueTree::Query_Probability(const CT_QUERY& query, const fidset& QueryVariableIDs, size_t nStartCliquePos)
 {
 	//获取开始团ID

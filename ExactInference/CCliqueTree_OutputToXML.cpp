@@ -1,26 +1,20 @@
-/////////////////////////////////////////////////////////////////////////////////////////////
-//文件名：		CClique_OutputToXML.cpp
-//功  能：		输出查询结果到XML文件
-//开发者：		高志强
-//日  期：		2021年04月01日
-//更  新：		2021年05月18日
-//长  度：		70行
-/////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"									//MFC标准头文件
-#include "ExactInference.h"							//应用程序类头文件
-#include "CCliqueTree.h"							//团树精确推理类头文件
-#include "tinyxml.h"								//TinyXML头文件
-#include "Helper.h"									//辅助函数头文件
+////////////////////////////////////////////////////////////////////////////////
+// CClique_OutputToXML.cpp
+// 输出查询结果到XML文件
+// Originated by	高志强
+// Refined    by	QuadnucYard
+////////////////////////////////////////////////////////////////////////////////
+#include "stdafx.h"
+#include "ExactInference.h"
+#include "CCliqueTree.h"
+#include "tinyxml.h"
 
 
 //声明外部变量，以获取当前工作路径
 extern CExactInferenceApp theApp;
 
 
-//名  称：		OutputToXML()
-//功  能：		输出查询结果到XML文件
-//参  数：		无
-//返回值：		无
+//输出查询结果到XML文件
 void CCliqueTree::OutputToXML()
 {
 	//生成XML文档

@@ -1,21 +1,14 @@
-/////////////////////////////////////////////////////////////////////////////////////////////
-//文件名：		CCliqueTree_SendCliqueMessage.cpp
-//功  能：		发送团消息
-//开发者：		高志强
-//日  期：		2021年04月03日
-//更  新：		2021年05月18日
-//长  度：		150行
-/////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"									//MFC标准头文件
-#include "CCliqueTree.h"							//团树精确推理类头文件
-#include "Helper.h"									//辅助函数头文件
+////////////////////////////////////////////////////////////////////////////////
+// CCliqueTree_SendCliqueMessage.cpp
+// 发送团消息
+// Originated by	高志强
+// Refined    by	QuadnucYard
+////////////////////////////////////////////////////////////////////////////////
+#include "stdafx.h"
+#include "CCliqueTree.h"
 
 
-//名  称：		SendCliqueMessage()
-//功  能：		发送团消息
-//参  数：		unsigned int
-//				就绪团ID
-//返回值：		无
+//发送团消息
 void CCliqueTree::SendCliqueMessage(fid_t nID)
 {
 	//找到双亲节点
@@ -49,10 +42,7 @@ void CCliqueTree::SendCliqueMessage(fid_t nID)
 	}
 }
 
-//名  称：		FindCommonVariableID()
-//功  能：		求两个团的变量ID交集
-//参  数：		unsigned int,unsigned int
-//返回值：		无
+//求两个团的变量ID交集
 fidset CCliqueTree::FindCommonVariableIDs(fid_t nID1, fid_t nID2)
 {
 	fidset Intersections;
@@ -61,11 +51,7 @@ fidset CCliqueTree::FindCommonVariableIDs(fid_t nID1, fid_t nID2)
 	return Intersections;
 }
 
-//名  称：		IsThereParentID()
-//功  能：		查找双亲是否存在，如果存在，则返回双亲ID
-//参  数：		unsigned int,unsigned int&
-//				团ID、团双亲ID
-//返回值：		bool
+//查找双亲是否存在，如果存在，则返回双亲ID
 //				团是否存在双亲。如果有的话，则通过参数获取双亲ID
 bool CCliqueTree::IsThereParentID(fid_t nID, fid_t& nParentID)
 {

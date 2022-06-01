@@ -1,22 +1,17 @@
-/////////////////////////////////////////////////////////////////////////////////////////////
-//文件名：		ExactInferenceDlg_User.cpp
-//功  能：		响应用户命令
-//开发者：		高志强
-//日  期：		2021年02月20日
-//更  新：		
-//长  度：		70行
-/////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"					//MFC头文件
-#include "ExactInference.h"			//应用程序类头文件
-#include "ExactInferenceDlg.h"		//主对话框类头文件
-#include "CBNSumProduct.h"			//贝叶斯网络精确推理类头文件。采用和积变量消除法
-#include "CCliqueTree.h"			//团树类头文件
+////////////////////////////////////////////////////////////////////////////////
+// ExactInferenceDlg_User.cpp
+// 响应用户命令
+// Originated by	高志强
+// Refined    by	QuadnucYard
+////////////////////////////////////////////////////////////////////////////////
+#include "stdafx.h"
+#include "ExactInference.h"
+#include "ExactInferenceDlg.h"
+#include "CBNSumProduct.h"
+#include "CCliqueTree.h"
 
 
-//名  称：		OnBnClickedButtonBnInit()
-//功  能：		响应初始化命令
-//参  数：		无
-//返回值：		无
+//响应初始化命令
 void CExactInferenceDlg::OnBnClickedButtonBnInit()
 {
 	//定义贝叶斯网络对象
@@ -32,10 +27,7 @@ void CExactInferenceDlg::OnBnClickedButtonBnInit()
 }
 
 
-//名  称：		OnBnClickedButtonBnCt()
-//功  能：		响应基于团树的初始化、查询命令
-//参  数：		无
-//返回值：		无
+//响应基于团树的初始化、查询命令
 void CExactInferenceDlg::OnBnClickedButtonCt()
 {
 	//定义团树对象

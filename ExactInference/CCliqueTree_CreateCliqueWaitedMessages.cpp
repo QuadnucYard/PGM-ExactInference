@@ -1,22 +1,14 @@
-/////////////////////////////////////////////////////////////////////////////////////////////
-//文件名：		CCliqueTree_CreateCliqueWaitedMessages.cpp
-//功  能：		创建团的等待消息集合
-//开发者：		高志强
-//日  期：		2021年04月01日
-//更  新：		2021年04月03日
-//更  新：		2021年05月08日
-//长  度：		70行
-/////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"									//MFC标准头文件
-#include "CCliqueTree.h"							//团树精确推理类头文件
-#include "Helper.h"	
+////////////////////////////////////////////////////////////////////////////////
+// CCliqueTree_CreateCliqueWaitedMessages.cpp
+// 创建团的等待消息集合
+// Originated by	高志强
+// Refined    by	QuadnucYard
+////////////////////////////////////////////////////////////////////////////////
+#include "stdafx.h"
+#include "CCliqueTree.h"
 
 
-//名  称：		CreateCliqueWaitedMessages()
-//功  能：		创建团的等待消息集合
-//参  数：		map<unsigned int,set<unsigned int>>&
-//				团ID、团的后继ID集合
-//返回值：		无
+//创建团的等待消息集合
 fidsetmap CCliqueTree::CreateCliqueWaitedMessages()
 {
 	fidsetmap WaitedMessages;
@@ -39,10 +31,7 @@ fidsetmap CCliqueTree::CreateCliqueWaitedMessages()
 	return WaitedMessages;
 }
 
-//名  称：		InsertToWaitedMessages()
-//功  能：		插入团的等待消息表
-//参  数：		unsigned int,unsigned int, map<unsigned int,set<unsigned int>>&
-//返回值：		无
+//插入团的等待消息表
 void CCliqueTree::InsertToWaitedMessages(fid_t nParentID, fid_t nCliqueID, fidsetmap& WaitedMessages)
 {
 	/*if (auto it = WaitedMessages.find(nParentID); it != WaitedMessages.end())
