@@ -13,10 +13,13 @@
 #include "Helper.h"
 #include "tinyxml.h"
 #include "xmlutils.hpp"
+#include "tinyxmliterator.h"
 
 using fidpair = std::pair<fid_t, fid_t>;
 using fidsetmap = std::map<fid_t, fidset>;
 using fidmultimap = std::multimap<fid_t, fid_t>;
+
+using namespace std;
 
 //定义类型
 //团树中的实例化变量类型
@@ -140,21 +143,21 @@ private:
 
 private:
 	//团树
-	vector<CT_NODE> m_CTNodes;					//团树的节点表
+	std::vector<CT_NODE> m_CTNodes;					//团树的节点表
 	fidmultimap m_CTEdges;						//团树的边表
 
 	fid_t m_nRootID;							//根团的ID
-	map<fid_t, string> m_VariableID2Names;		//从变量ID到变量名称的映射
+	std::map<fid_t, std::string> m_VariableID2Names;		//从变量ID到变量名称的映射
 	fidmultimap m_VariableID2CliqueIDs;			//从变量ID到团ID的多映射。一个变量可能属于多个团
 	fidmap m_CliqueID2Poses;					//从团ID到团位置的映射
 	fidmap m_UpwardTree;						//向根团的树
 	fidsetmap m_Parent2Childs;					//双亲节点指向子节点集合
 
 	//和积消息传递算法
-	vector<CClique> m_Cliques;					//团列表
-	vector<SEP_SET> m_SEPSets;					//割集列表
+	std::vector<CClique> m_Cliques;					//团列表
+	std::vector<SEP_SET> m_SEPSets;					//割集列表
 
 	//查询
-	vector<CT_QUERY> m_CTQueries;				//团树查询列表。支持多个查询
-	vector<fval_t> m_CTQueryResults;			//团树查询结果列表
+	std::vector<CT_QUERY> m_CTQueries;				//团树查询列表。支持多个查询
+	std::vector<fval_t> m_CTQueryResults;			//团树查询结果列表
 };

@@ -12,7 +12,6 @@
 #include "stl_utils.h"
 #include "qyranges.hpp"
 
-using namespace std;
 
 //定义团行
 struct CLIQUE_ROW
