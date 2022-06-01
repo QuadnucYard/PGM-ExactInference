@@ -6,44 +6,25 @@
 //更  新：		2021年05月18日
 //长  度：		60行
 /////////////////////////////////////////////////////////////////////////////////////////////
-#include "stdafx.h"									//MFC标准头文件
-#include "CCliqueTree.h"							//团树精确推理类头文件
-#include "Helper.h"									//辅助函数头文件
+#include "stdafx.h"
+#include "CCliqueTree.h"
 
 
-//名  称：		FindReadyClique()
-//功  能：		查找一个就绪的团
-//参  数：		map<unsigned int,set<unsigned int>>&
-//				set<unsigned int>&
-//返回值：		unsigned int
-//				就绪团的ID
-unsigned int CCliqueTree::FindReadyClique(map<unsigned int,set<unsigned int>>& CliqueWaitedMessages,set<unsigned int>& VisitedIDs)
+//查找一个就绪的团
+//return:	就绪团的ID
+unsigned int CCliqueTree::FindReadyClique(map<unsigned int, set<unsigned int>>& CliqueWaitedMessages, set<unsigned int>& VisitedIDs)
 {
 	//遍历所有团
-	for (unsigned int i = 0; i < m_Cliques.size(); i++)
+	for (const CClique& clique : m_Cliques)
 	{
-		//获取团的ID
-		unsigned int nCliqueID = m_Cliques[i].GetID();
-		
-		//获取团等待消息的集合
-		//查找
-		map<unsigned int,set<unsigned int>>::iterator it = CliqueWaitedMessages.find(nCliqueID);
+		fid_t nCliqueID = clique.GetID();
 
-		//检查是否找到
-		if (it != CliqueWaitedMessages.end())
+		//获取团等待消息的集合
+		if (auto it = CliqueWaitedMessages.find(nCliqueID); it != CliqueWaitedMessages.end())
 		{
 			//检查等待消息的集合是否为空
-			if (it->second.size() == 0 && (!qy::ranges::includes(VisitedIDs, nCliqueID)))
-			{
-				//返回团的ID
-				return nCliqueID;
-			}
-			else
-			{
-				//检查相关割集是否都已经存在
-				if (IsAllSEPSetExisted(nCliqueID, it->second) &&  (!qy::ranges::includes(VisitedIDs, nCliqueID)))
-				{
-					//返回团的ID
+			if (VisitedIDs.count(nCliqueID) == 0) {
+				if (it->second.size() == 0 || IsAllSEPSetExisted(nCliqueID, it->second)) {
 					return nCliqueID;
 				}
 			}

@@ -9,27 +9,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"									//MFC标准头文件
 #include "CClique.h"								//团类头文件
-#include "Helper.h"									//辅助函数头文件
 
 
-//名  称：		Normalize()
-//功  能：		规范化团
-//参  数：		无
-//返回值：		无
+//规范化团
 void CClique::Normalize()
 {
-	//遍历所有团行，计算归一化团
-	double fNormalization = 0.0f;
-	for (unsigned int i = 0; i < m_CliqueRows.size(); i++)
-	{
-		//累计所有团行值
-		fNormalization += m_CliqueRows[i].fValue;
-	}
-
-	//归一化
-	for (unsigned int i = 0; i < m_CliqueRows.size(); i++)
-	{
-		//归一化概率
-		m_CliqueRows[i].fValue /= fNormalization;
-	}
+	double fNormalization = qy::ranges::sum(m_CliqueRows, &CLIQUE_ROW::fValue);
+	std::ranges::for_each(m_CliqueRows, [=](CLIQUE_ROW& r) { r.fValue /= fNormalization; });
 }

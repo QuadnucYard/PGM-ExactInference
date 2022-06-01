@@ -38,7 +38,8 @@ void CCliqueTree::SendCliqueMessage(unsigned int nID)
 		set<unsigned int> EliminateVariableIDs;
 
 		//求集合的差。团的变量集合-割集变量集合=求和掉的变量集合
-		SubtractBetweenSets(CliqueVariableIDs, CommonVariableIDs, EliminateVariableIDs);
+		std::ranges::set_difference(CliqueVariableIDs, CommonVariableIDs, 
+			std::inserter(EliminateVariableIDs, EliminateVariableIDs.end()));
 
 		//定义割集
 		SEP_SET sep_set;
@@ -65,34 +66,8 @@ void CCliqueTree::SendCliqueMessage(unsigned int nID)
 //返回值：		无
 void CCliqueTree::FindCommonVariableIDs(unsigned int nID1, unsigned int nID2, set<unsigned int>& Intersections)
 {
-	//获取节点1的变量集合
-	set <unsigned int> VariableIDs1 = m_Cliques[nID1].GetVariableIDs();
-	
-	//获取节点2的变量集合
-	set <unsigned int> VariableIDs2 = m_Cliques[nID2].GetVariableIDs();
-
-	//求两个集合的交集
-	FindIntersections(VariableIDs1, VariableIDs2, Intersections);
-}
-
-//名  称：		FindIntersections()
-//功  能：		求两个集合的交集
-//参  数：		set<unsigned int>&,set<unsigned int>&,set<unsigned int>&
-//返回值：		无
-void CCliqueTree::FindIntersections(set<unsigned int>& s1, set<unsigned int>& s2, set<unsigned int>& s)
-{
-	for (set<unsigned int>::iterator it = s1.begin(); it != s1.end(); it++)
-	{
-		//定义ID
-		unsigned int nID = *it;
-		
-		//查找是否在集合
-		if (qy::ranges::includes(s2, nID))
-		{
-			//添加到交集
-			s.insert(*it);
-		}
-	}
+	std::ranges::set_intersection(m_Cliques[nID1].GetVariableIDs(), m_Cliques[nID2].GetVariableIDs(),
+		std::inserter(Intersections, Intersections.end()));
 }
 
 //名  称：		IsThereParentID()
@@ -119,27 +94,5 @@ bool CCliqueTree::IsThereParentID(unsigned int nID, unsigned int& nParentID)
 	{
 		//返回假
 		return false;
-	}
-}
-
-//名  称：		SubtractBetweenSets()
-//功  能：		求两个集合的差
-//参  数：		set<unsigned int>&,set<unsigned int>&,set<unsigned int>&
-//				集合1、集合2、两个集合的差
-//返回值：		无
-void CCliqueTree::SubtractBetweenSets(set<unsigned int>& s1, set<unsigned int>& s2, set<unsigned int>& s)
-{
-	//遍历集合1
-	for (set<unsigned int>::iterator it = s1.begin(); it != s1.end(); it++)
-	{
-		//定义ID
-		unsigned int nID = *it;
-		
-		//查找是否在集合2中
-		if (!qy::ranges::includes(s2, nID))
-		{
-			//如果不存在，则添加到差集
-			s.insert(*it);
-		}
 	}
 }

@@ -13,102 +13,35 @@
 #include "Helper.h"									//辅助函数头文件
 
 
-//名  称：		Query()
-//功  能：		查询特定值
-//参  数：		vector<unsigned int>&,vector<unsigned int>&
-//返回值：		double
-double CClique::Query(vector<unsigned int>& VariableIDs, vector<unsigned int>& ValueIDs)
+//查询特定值
+fval_t CClique::Query(const fidlist& VariableIDs, const fidlist& ValueIDs)
 {
-	//定义位置集合
-	vector<unsigned int> Positions;
+	// 使用m_VariableIDs在VariableIDs中的位置构建列表
+	auto mmap = std::views::transform(m_VariableIDs, [&](fid_t id) -> fid_t {
+		size_t i = qy::ranges::index_of(VariableIDs, id);
+		return i == -1 ? -1 : ValueIDs[i];
+	});
 
-	//遍历查询的变量ID
-	for (unsigned int i = 0; i < VariableIDs.size(); i++)
-	{
-		//遍历因子的变量ID
-		for (unsigned int j = 0; j < m_VariableIDs.size(); j++)
-		{
-			//检查变量ID是否相同
-			if (VariableIDs[i] == m_VariableIDs[j])
-			{
-				//添加到位置集合
-				Positions.push_back(j);
-			}
-		}
-	}
-
-
-	//初始化返回的概率值
-	double fProb = 0.0f;
-
-	//遍历团行，求和
-	for (unsigned int i = 0; i < m_CliqueRows.size(); i++)
-	{
-		//定义团行
-		CLIQUE_ROW factor_row = m_CliqueRows[i];
-
-		//检查位置和值是否正确
-		bool bMatch = true;
-
-		//遍历所有位置
-		for (unsigned int j = 0; j < Positions.size(); j++)
-		{
-			//获取位置
-			unsigned int nPos = Positions[j];		//获取位置
-			unsigned int nValue = ValueIDs[j];	//获取变量值的ID
-			//如果不相等，则更新匹配结果
-			if (factor_row.ValueIDs[nPos] != nValue)
-			{
-				//更新匹配结果。这里似乎可以终止循环
-				bMatch = false;
-			}
-		}
-
-		//检查该行是否匹配。如果匹配的话，则需要累加概率值
-		if (bMatch == true)
-		{
-			//累计概率值
-			fProb += factor_row.fValue;
-		}
-	}
-
-	//返回概率
-	return fProb;
+	//过滤对应位置id相同的行，对其fValue求和
+	return qy::ranges::sum(m_CliqueRows | std::views::filter([&](auto& r) {
+		return std::ranges::equal(r.ValueIDs, mmap, [](fid_t x, fid_t y) { return y == -1 || x == y; });
+	}), &CLIQUE_ROW::fValue);
 }
 
-//名  称：		GetCliqueVariableIDs()
-//功  能：		获取变量ID列表
-//参  数：		无
-//返回值：		unsigned int
-vector<unsigned int> CClique::GetCliqueVariableIDs()
+//获取变量ID列表
+const fidlist& CClique::GetCliqueVariableIDs() const
 {
-	//返回变量ID列表
 	return m_VariableIDs;
 }
 
-//名  称：		GetVariableIDs()
-//功  能：		获取变量ID集合
-//参  数：		无
-//返回值：		unsigned int
-set <unsigned int> CClique::GetVariableIDs()
+//获取变量ID集合
+fidset CClique::GetVariableIDs() const
 {
-	set<unsigned int> VariableIDs;
-
-	for (unsigned int i = 0; i < m_VariableIDs.size(); i++)
-	{
-		VariableIDs.insert(m_VariableIDs[i]);
-	}
-	
-	//返回变量ID集合
-	return VariableIDs;
+	return fidset {m_VariableIDs.begin(), m_VariableIDs.end()};
 }
 
-//名  称：		GetID()
-//功  能：		获取团的ID
-//参  数：		无
-//返回值：		unsigned int
-unsigned int CClique::GetID()
+//获取团的ID
+fid_t CClique::GetID() const
 {
-	//返回团的ID
 	return m_nCliqueID;
 }
