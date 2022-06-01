@@ -56,12 +56,12 @@ public:
 	void Normalize();
 
 	//根据给定变量ID集合、变量值ID的集合，获取具体查询的概率值
-	double Query(const fidlist&, const fidlist&);
+	double Query(const fidlist&, const fidlist&) const;
 
 	//重载因子积
-	CClique operator*(const CClique& second);
+	CClique operator*(const CClique& second) const;
 	//重载因子除
-	CClique operator/(const CClique& second);
+	CClique operator/(const CClique& second) const;
 
 private:
 	//在因子积时判断两行是否可以合并

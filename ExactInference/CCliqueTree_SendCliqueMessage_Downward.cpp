@@ -15,7 +15,7 @@ void CCliqueTree::SendCliqueMessage_Downward(fid_t nID, fid_t nChildID)
 	fidset CommonVariableIDs = FindCommonVariableIDs(nID, nChildID);
 	//nID(父)传给nChildID
 
-	const CClique& c = m_Cliques[GetCliquePosByID(nID)];
+	const CClique& c = GetCliquePosByID(nID);
 	//获取需要求和掉的变量ID集合
 	fidlist EliminateVariableIDs = qy::set_difference<fidlist>(c.GetVariableIDs(), CommonVariableIDs);
 

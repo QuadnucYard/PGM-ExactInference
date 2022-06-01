@@ -10,7 +10,7 @@
 
 
 //输出查询结果到XML文件
-void CCliqueTree::OutputToXML()
+void CCliqueTree::OutputToXML() const
 {
 	TiXmlDocument doc;
 	TiXmlDeclaration* pDecl = new TiXmlDeclaration("1.0", "GBK", "");

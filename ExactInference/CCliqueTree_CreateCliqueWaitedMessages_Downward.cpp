@@ -9,7 +9,7 @@
 
 
 //向下传递消息时，创建团的等待消息集合
-fidsetmap CCliqueTree::CreateCliqueWaitedMessages_Downward()
+fidsetmap CCliqueTree::CreateCliqueWaitedMessages_Downward() const
 {
 	fidsetmap WaitedMessages;
 
@@ -24,7 +24,7 @@ fidsetmap CCliqueTree::CreateCliqueWaitedMessages_Downward()
 	for (const fidpair& p : m_UpwardTree)
 	{
 		//添加到等待消息集合
-		InsertToWaitedMessages(p.first, p.second, WaitedMessages);
+		WaitedMessages[p.first].insert(p.second);
 	}
 	return WaitedMessages;
 }

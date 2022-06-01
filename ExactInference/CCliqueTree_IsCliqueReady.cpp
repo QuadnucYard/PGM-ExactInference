@@ -20,7 +20,6 @@ bool CCliqueTree::IsCliqueReady(fid_t nCliqueID, const fidsetmap& WaitedMessages
 }
 
 //检查是否所有割集都已经存在
-//				是否所需的割集都已经存在？
 bool CCliqueTree::IsAllSEPSetExisted(fid_t nID, const fidset& WaitedMessages) const
 {
 	return std::ranges::all_of(WaitedMessages,
@@ -28,7 +27,6 @@ bool CCliqueTree::IsAllSEPSetExisted(fid_t nID, const fidset& WaitedMessages) co
 }
 
 //检查是否所有割集都已经存在的辅助函数
-//				是否割集存在？
 bool CCliqueTree::IsAllSEPSetExisted_Helper(fid_t nStartID, fid_t nID) const
 {
 	return std::ranges::any_of(m_SEPSets,

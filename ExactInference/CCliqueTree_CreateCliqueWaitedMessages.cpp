@@ -9,7 +9,7 @@
 
 
 //创建团的等待消息集合
-fidsetmap CCliqueTree::CreateCliqueWaitedMessages()
+fidsetmap CCliqueTree::CreateCliqueWaitedMessages() const
 {
 	fidsetmap WaitedMessages;
 
@@ -23,13 +23,7 @@ fidsetmap CCliqueTree::CreateCliqueWaitedMessages()
 	for (const fidpair& p : m_UpwardTree)
 	{
 		//添加到等待消息集合
-		InsertToWaitedMessages(p.second, p.first, WaitedMessages);
+		WaitedMessages[p.second].insert(p.first);
 	}
 	return WaitedMessages;
-}
-
-//插入团的等待消息表
-void CCliqueTree::InsertToWaitedMessages(fid_t nParentID, fid_t nCliqueID, fidsetmap& WaitedMessages)
-{
-	WaitedMessages[nParentID].insert(nCliqueID);
 }

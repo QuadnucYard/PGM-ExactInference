@@ -16,7 +16,7 @@ bool CClique::IsConsistentValueID(const CLIQUE_ROW& FirstRow, const CLIQUE_ROW& 
 }
 
 //重载因子积
-CClique CClique::operator*(const CClique& second)
+CClique CClique::operator*(const CClique& second) const
 {
 	CClique clique;
 	//注意：在因子积中要保留团ID。团是不变的，这和因子不同。因子是动态变化的
@@ -75,7 +75,7 @@ CClique CClique::operator*(const CClique& second)
 	return clique;
 };
 
-CClique CClique::operator/(const CClique& second)
+CClique CClique::operator/(const CClique& second) const
 {
 	CClique clique;
 	clique.m_VariableIDs = m_VariableIDs;

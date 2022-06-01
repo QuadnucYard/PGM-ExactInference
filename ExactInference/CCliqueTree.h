@@ -73,7 +73,6 @@ struct CT_QUERY
 //定义团树的精确推理类CCliqueTree
 class CCliqueTree
 {
-
 public:
 	//初始化
 	void Init();
@@ -89,16 +88,15 @@ private:
 	//预处理
 	void Preprocess();
 	//根据团ID获取团位置。团存储在vector中，其位置和ID未必相等
-	fid_t GetCliquePosByID(fid_t);
+	const CClique& GetCliquePosByID(fid_t) const;
+	CClique& GetCliquePosByID(fid_t);
 
 	//向上传递消息
 	void UpwardPass();
 	//构建向根团的树
 	void BuildUpwardTree(fid_t);
 	//创建团等待的消息集合
-	fidsetmap CreateCliqueWaitedMessages();
-	//插入等待消息集合
-	void InsertToWaitedMessages(fid_t, fid_t, fidsetmap&);
+	fidsetmap CreateCliqueWaitedMessages() const;
 	//检查团是否就绪
 	bool IsCliqueReady(fid_t, const fidsetmap&) const;
 	//检查是否所有割集都已经存在。每条边包括向上和向下两个割集
@@ -113,43 +111,43 @@ private:
 	//接收消息
 	void ReceiveMessages(fid_t, const fidsetmap&);
 	//获取两个团之间的割集	
-	const CClique& GetSEPSet(fid_t, fid_t);
+	const SEP_SET& GetSEPSet(fid_t, fid_t) const;
 	//检查是否存在双亲
-	bool IsThereParentID(fid_t, fid_t&);
+	bool IsThereParentID(fid_t, fid_t&) const;
 	//发现共享的变量ID集合
-	fidset FindCommonVariableIDs(fid_t, fid_t);
+	fidset FindCommonVariableIDs(fid_t, fid_t) const;
 
 	//向下传递消息
 	void DownwardPass();
 	//向下传递消息时，创建团等待的消息集合
-	fidsetmap CreateCliqueWaitedMessages_Downward();
+	fidsetmap CreateCliqueWaitedMessages_Downward() const;
 	//向下传递消息
 	void SendCliqueMessage_Downward(fid_t, fid_t);
 
 	//查询的辅助函数
 	void Query_Helper(const CT_QUERY&);
 	//获取查询开始团的位置
-	size_t GetStartCliquePos(const fidset&);
+	const CClique& GetStartClique(const fidset&) const;
 
 	//查询概率分布
-	void Query_Probability(const CT_QUERY&, const fidset&, size_t);
+	void Query_Probability(const CT_QUERY&, const fidset&, const CClique&);
 	//根据边的节点ID、获取割集位置
-	size_t GetSEPSetPos(fid_t, fid_t);
+	const SEP_SET& GetReadySEPSet(fid_t, fid_t) const;
 
 	//输出查询结果概率到XML文件
-	void OutputToXML();
+	void OutputToXML() const;
 
 private:
 	//团树
 	std::vector<CT_NODE> m_CTNodes;					//团树的节点表
-	fidmultimap m_CTEdges;						//团树的边表
+	fidmultimap m_CTEdges;							//团树的边表
 
-	fid_t m_nRootID;							//根团的ID
-	std::map<fid_t, std::string> m_VariableID2Names;		//从变量ID到变量名称的映射
-	fidmultimap m_VariableID2CliqueIDs;			//从变量ID到团ID的多映射。一个变量可能属于多个团
-	fidmap m_CliqueID2Poses;					//从团ID到团位置的映射
-	fidmap m_UpwardTree;						//向根团的树
-	fidsetmap m_Parent2Childs;					//双亲节点指向子节点集合
+	fid_t m_nRootID;								//根团的ID
+	std::map<fid_t, std::string> m_VariableID2Names;//从变量ID到变量名称的映射
+	fidmultimap m_VariableID2CliqueIDs;				//从变量ID到团ID的多映射。一个变量可能属于多个团
+	fidmap m_CliqueID2Poses;						//从团ID到团位置的映射
+	fidmap m_UpwardTree;							//向根团的树
+	fidsetmap m_Parent2Childs;						//双亲节点指向子节点集合
 
 	//和积消息传递算法
 	std::vector<CClique> m_Cliques;					//团列表

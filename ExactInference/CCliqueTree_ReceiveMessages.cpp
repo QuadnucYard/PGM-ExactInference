@@ -18,17 +18,17 @@ void CCliqueTree::ReceiveMessages(fid_t nCliqueID, const fidsetmap& CliqueWaited
 		for (fid_t nStartID : it->second)
 		{
 			//获取团的位置
-			size_t nCliquePos = GetCliquePosByID(nCliqueID);
+			CClique& c = GetCliquePosByID(nCliqueID);
 			//通过因子积、更新所在位置的团
-			m_Cliques[nCliquePos] = m_Cliques[nCliquePos] * GetSEPSet(nStartID, nCliqueID);
+			c = c * GetSEPSet(nStartID, nCliqueID).clique;
 		}
 	}
 }
 
 //获取割集
 //割集。也是团
-const CClique& CCliqueTree::GetSEPSet(fid_t nStartID, fid_t nCliqueID)
+const SEP_SET& CCliqueTree::GetSEPSet(fid_t nStartID, fid_t nCliqueID) const
 {
-	return std::ranges::find_if(m_SEPSets,
-		[=](const SEP_SET& s) { return s.nStartID == nStartID && s.nEndID == nCliqueID; })->clique;
+	return *std::ranges::find_if(m_SEPSets,
+		[=](const SEP_SET& s) { return s.nStartID == nStartID && s.nEndID == nCliqueID; });
 }

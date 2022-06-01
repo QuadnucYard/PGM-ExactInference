@@ -9,10 +9,10 @@
 
 
 //获取割集位置
-size_t CCliqueTree::GetSEPSetPos(fid_t nID, fid_t nChildID)
+const SEP_SET& CCliqueTree::GetReadySEPSet(fid_t nID, fid_t nChildID) const
 {
 	//nChildID为父
-	return qy::ranges::index_of_if(m_SEPSets, [=](const SEP_SET& s) {
+	return *std::ranges::find_if(m_SEPSets, [=](const SEP_SET& s) {
 		return (s.nStartID == nID && s.nEndID == nChildID || s.nStartID == nChildID && s.nEndID == nID)
 			&& s.bReady; //检查边是否相等, 割集是否就绪
 	});

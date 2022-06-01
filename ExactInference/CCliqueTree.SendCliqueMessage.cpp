@@ -17,7 +17,7 @@ void CCliqueTree::SendCliqueMessage(fid_t nID)
 	{
 		//找到两个团相交的变量ID集合
 		fidset CommonVariableIDs = FindCommonVariableIDs(nID, nParentID);
-		const CClique& c = m_Cliques[GetCliquePosByID(nID)];
+		const CClique& c = GetCliquePosByID(nID);
 		//获取需要求和掉的变量ID集合
 		fidlist EliminateVariableIDs = qy::set_difference<fidlist>(c.GetVariableIDs(), CommonVariableIDs);
 
@@ -35,7 +35,7 @@ void CCliqueTree::SendCliqueMessage(fid_t nID)
 }
 
 //求两个团的变量ID交集
-fidset CCliqueTree::FindCommonVariableIDs(fid_t nID1, fid_t nID2)
+fidset CCliqueTree::FindCommonVariableIDs(fid_t nID1, fid_t nID2) const
 {
 	fidset Intersections;
 	std::ranges::set_intersection(m_Cliques[nID1].GetVariableIDs(), m_Cliques[nID2].GetVariableIDs(),
@@ -45,7 +45,7 @@ fidset CCliqueTree::FindCommonVariableIDs(fid_t nID1, fid_t nID2)
 
 //查找双亲是否存在，如果存在，则返回双亲ID
 //				团是否存在双亲。如果有的话，则通过参数获取双亲ID
-bool CCliqueTree::IsThereParentID(fid_t nID, fid_t& nParentID)
+bool CCliqueTree::IsThereParentID(fid_t nID, fid_t& nParentID) const
 {
 	//在向根团的树中查找
 	if (auto it = m_UpwardTree.find(nID); it != m_UpwardTree.end())

@@ -37,7 +37,12 @@ void CCliqueTree::Preprocess()
 }
 
 //获取团的位置
-fid_t CCliqueTree::GetCliquePosByID(fid_t nCliqueID)
+const CClique& CCliqueTree::GetCliquePosByID(fid_t nCliqueID) const
 {
-	return m_CliqueID2Poses[nCliqueID];
+	return m_Cliques.at(m_CliqueID2Poses.at(nCliqueID));
+}
+
+CClique& CCliqueTree::GetCliquePosByID(fid_t nCliqueID)
+{
+	return m_Cliques.at(m_CliqueID2Poses.at(nCliqueID));
 }

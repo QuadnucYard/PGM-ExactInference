@@ -9,16 +9,16 @@
 
 
 //查询概率
-void CCliqueTree::Query_Probability(const CT_QUERY& query, const fidset& QueryVariableIDs, size_t nStartCliquePos)
+void CCliqueTree::Query_Probability(const CT_QUERY& query, const fidset& QueryVariableIDs, const CClique& startClique)
 {
 	//获取开始团ID
-	fid_t nStartCliqueID = m_Cliques[nStartCliquePos].GetID();
+	fid_t nStartCliqueID = startClique.GetID();
 
 	//获取开始团包含的查询变量集合
-	fidset StartVariableIDs = qy::set_intersection<fidset>(m_Cliques[nStartCliquePos].GetVariableIDs(), QueryVariableIDs);
+	fidset StartVariableIDs = qy::set_intersection<fidset>(startClique.GetVariableIDs(), QueryVariableIDs);
 
 	//定义团、并初始化为开始团
-	CClique theClique = m_Cliques[nStartCliquePos];
+	CClique theClique = startClique;
 
 	std::queue<fid_t> OPEN;
 	OPEN.push(nStartCliqueID);
@@ -44,14 +44,14 @@ void CCliqueTree::Query_Probability(const CT_QUERY& query, const fidset& QueryVa
 			//将当前因子和后继团做因子积
 			//做和割集的因子除。注意：要找到经过校准的割集
 			theClique = theClique
-				* m_Cliques[GetCliquePosByID(nChildID)]
-				/ m_SEPSets[GetSEPSetPos(nID, nChildID)].clique;
+				* GetCliquePosByID(nChildID)
+				/ GetReadySEPSet(nID, nChildID).clique;
 
 			OPEN.push(nChildID);
 
 			//检查是否已经覆盖所有变量
 			//定义新增变量ID集合
-			fidset AddVariableIDs = qy::set_intersection<fidset>(m_Cliques[GetCliquePosByID(nChildID)].GetVariableIDs(), QueryVariableIDs);
+			fidset AddVariableIDs = qy::set_intersection<fidset>(GetCliquePosByID(nChildID).GetVariableIDs(), QueryVariableIDs);
 
 			//添加到开始变量ID集合。即当前变量ID集合
 			StartVariableIDs.insert(AddVariableIDs.begin(), AddVariableIDs.end());

@@ -19,8 +19,6 @@ void CCliqueTree::Query_Helper(const CT_QUERY& query)
 		&CT_GROUNDING_VARIABLE::nVariableID);
 	
 	//步骤2：遍历所有团，获取开始团的ID。从包含查询变量最多的一个团开始
-	fid_t nStartCliquePos = GetStartCliquePos(QueryVariableIDs);
-	
 	//步骤3：广度优先遍历团，计算边缘概率或条件概率		
-	Query_Probability(query, QueryVariableIDs, nStartCliquePos);
+	Query_Probability(query, QueryVariableIDs, GetStartClique(QueryVariableIDs));
 }
