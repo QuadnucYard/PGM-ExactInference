@@ -13,25 +13,17 @@
 
 double CFactor::Query(const fidlist& VariableIDs, const fidlist& ValueIDs)
 {
-	auto Positions = std::views::transform(VariableIDs,
-		[&](fid_t i) { return qy::index_of(m_VariableIDs, i); });
+	// 使用m_VariableIDs在VariableIDs中的位置构建列表
+	auto mmap = std::views::transform(m_VariableIDs, [&](fid_t id) -> fid_t {
+		size_t i = qy::ranges::index_of(VariableIDs, id);
+		return i == -1 ? -1 : ValueIDs[i];
+	});
 
-	double fProb = 0.0f;
+	//过滤对应位置id相同的行，对其fValue求和
+	return qy::ranges::sum(m_FactorRows | std::views::filter([&](auto& r) {
+		return std::ranges::equal(r.ValueIDs, mmap, [](fid_t x, fid_t y) { return y == -1 || x == y; });
+	}), &FACTOR_ROW::fValue);
 
-	//遍历因子行，求和
-	for (const FACTOR_ROW& factor_row : m_FactorRows)
-	{
-		//检查对应位置和值是否正确
-		bool bMatch = std::ranges::all_of(std::views::iota(0, (int)Positions.size()),
-			[&](int j) { return factor_row[Positions[j]] == ValueIDs[j]; });
-		//检查该行是否匹配。如果匹配的话，则需要累加概率值
-		if (bMatch)
-		{
-			fProb += factor_row.fValue;
-		}
-	}
-
-	return fProb;
 }
 
 const fidlist& CFactor::GetFactorVariableIDs() const

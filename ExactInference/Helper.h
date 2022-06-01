@@ -18,8 +18,6 @@ void Separate(const std::string&, std::vector<std::string>&);
 
 auto Separate(const std::string&);
 
-//将CString映射到string
-std::string MapCStringToString(CString&);
 //将string转换为wstring
 std::wstring StoWs(const std::string& s);
 //将wstring转换为string

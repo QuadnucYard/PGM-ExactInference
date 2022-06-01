@@ -21,7 +21,7 @@ struct GROUNDING_VARIABLE
 	fid_t nNodeID;				//01 变量ID
 	fid_t nValueID;				//02 变量的值ID
 
-	GROUNDING_VARIABLE() {}
+	GROUNDING_VARIABLE() = default;
 	GROUNDING_VARIABLE(fid_t nNodeID, fid_t nValueID): nNodeID(nNodeID), nValueID(nValueID) {}
 };
 
@@ -33,7 +33,7 @@ struct CPT_ROW
 	fidlist ValueIDs;			//01 节点值ID的列表，包括节点的双亲、节点自己。节点ID的列表和PARENT_ID相同。最后添加节点自己
 	fval_t fProb;				//02 概率。相当于条件概率分布表的一行中最后的概率
 
-	CPT_ROW() {}
+	CPT_ROW() = default;
 	CPT_ROW(const fidlist& ValueIDs, fval_t fProb):ValueIDs(ValueIDs), fProb(fProb) {}
 	CPT_ROW(fidlist&& ValueIDs, fval_t fProb):ValueIDs(ValueIDs), fProb(fProb) {}
 };
@@ -60,7 +60,7 @@ struct BN_EDGE
 	fid_t nStartNodeID;				//02 边的起点ID
 	fid_t nEndNodeID;				//03 边的终点ID
 
-	BN_EDGE() {}
+	BN_EDGE() = default;
 	BN_EDGE(fid_t nID, fid_t nStartNodeID, fid_t nEndNodeID):
 		nID(nID), nStartNodeID(nStartNodeID), nEndNodeID(nEndNodeID) {}
 };

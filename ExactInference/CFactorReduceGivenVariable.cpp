@@ -16,7 +16,7 @@
 void CFactor::ReduceGivenVariable(fid_t nVariableID, fid_t nValueID)
 {
 	//查找变量ID是否在因子中
-	if (size_t nPos = qy::index_of(m_VariableIDs, nVariableID); nPos != -1)
+	if (size_t nPos = qy::ranges::index_of(m_VariableIDs, nVariableID); nPos != -1)
 	{
 		//找到，需要进行简化
 		//遍历所有行。检查特定位置（列）的变量值是否相等

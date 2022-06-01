@@ -16,13 +16,8 @@ void CBNSumProduct::Preprocess_BN()
 	//遍历所有节点，整理条件概率分布CPT
 	for (BN_NODE& node : m_Nodes)
 	{
-		//构造节点的父节点ID和取值的排列
-		fidlist NodeIDs = node.ParentIDs;
-		//添加当前节点ID，以便形成因子
-		NodeIDs.push_back(node.nID);
-
 		size_t nRow = 0;								//从CPT表的第0行开始
-		Arrange(node.nID, fidlist(), NodeIDs, 0, nRow);	//0表示变量值的起始位置。
+		Arrange(node.nID, fidlist(), qy::concat(node.ParentIDs, node.nID), 0, nRow);	//0表示变量值的起始位置。
 	}
 }
 

@@ -11,87 +11,62 @@
 
 namespace qy {
 
-	template <class InputIt>
-	inline typename std::iterator_traits<InputIt>::value_type
-		sum(InputIt first, InputIt last) {
-		return std::accumulate(first, last,
-			(typename std::iterator_traits<InputIt>::value_type)0,
-			std::plus<typename std::iterator_traits<InputIt>::value_type>());
-	}
-
-	template <class InputIt, class Selector>
-	inline typename std::invoke_result_t<Selector, typename std::iterator_traits<InputIt>::value_type>
-		sum(InputIt first, InputIt last, Selector selector) {
-		/*typename std::invoke_result_t<Selector, typename iterator_traits<InputIt>::value_type> init = 0;
-		for (; first != last; ++first)
-			init = init + selector(*first);
-		return init;*/
-		return std::accumulate(first, last,
-			(std::invoke_result_t<Selector, typename std::iterator_traits<InputIt>::value_type>)0,
-			[=](auto x, auto& y) { return x + selector(y); });
-	}
-
-	template <class InputIt>
-	inline typename std::iterator_traits<InputIt>::value_type
-		product(InputIt first, InputIt last) {
-		return std::accumulate(first + 1, last,
-			*first,
-			std::multiplies<typename std::iterator_traits<InputIt>::value_type>());
-	}
-
-	template <std::ranges::range R>
-	inline typename std::ranges::range_value_t<R>
-		product(R&& r) {
-		return std::accumulate(std::ranges::begin(r) + 1, std::ranges::end(r),
-			*std::ranges::begin(r),
-			std::multiplies<typename std::ranges::range_value_t<R>>());
-	}
-
-	template <class C, class Value>
-	inline bool includes(const C& c, Value x) {
-		return std::find(std::begin(c), std::end(c), x) != std::end(c);
-	}
-
-	template <class C, class Value>
-	inline size_t index_of(const C& c, Value x) {
-		auto it = std::find(std::begin(c), std::end(c), x);
-		return it == std::end(c) ? -1 : it - std::begin(c);
-	}
-
-	template <class C, class Pred>
-	inline size_t index_of_if(const C& c, Pred pred) {
-		auto it = std::find_if(std::begin(c), std::end(c), pred);
-		return it == std::end(c) ? -1 : it - std::begin(c);
-	}
-
 	template <class C, class Pred>
 	inline void remove_if(C& c, Pred pred) {
-		c.erase(std::remove_if(std::begin(c), std::end(c), pred), std::end(c));
+		auto ret = std::ranges::remove_if(c, pred);
+		c.erase(ret.begin(), ret.end());
+	}
+
+	template <class C, class _Pj = std::identity>
+	inline void remove(C& c, _Pj _Proj = {}) {
+		auto ret = std::ranges::remove(c, _Proj);
+		c.erase(ret.begin(), ret.end());
 	}
 
 	template <class C, class OutIt, class Pred>
 	inline void split(C& c, OutIt out_true, Pred pred) {
-		c.erase(std::partition_copy(std::begin(c), std::end(c), out_true, std::begin(c), pred).second, std::end(c));
+		auto ret = std::ranges::partition_copy(c, out_true, std::begin(c), pred);
+		c.erase(ret.out2, std::end(c));
 	}
 
 	template <class Key, class Value, class OutContainer>
 	inline void map_keys(const std::map<Key, Value>& m, OutContainer& c) {
-		std::transform(m.begin(), m.end(),
+		std::ranges::transform(m,
 			std::inserter(c, std::end(c)), [](auto p) {return p.first; });
 	}
 
 	template <class Key, class Value, class OutContainer>
 	inline void map_values(const std::map<Key, Value>& m, OutContainer& c) {
-		std::transform(m.begin(), m.end(),
+		std::ranges::transform(m,
 			std::inserter(c, std::end(c)), [](auto p) {return p.second; });
 	}
 
-	namespace ranges {
-		template <class T, std::ranges::range R>
-		auto to(R&& r) {
-			return T(std::ranges::begin(r), std::ranges::end(r));
-		}
+	template <class T>
+	inline std::vector<T> concat(const std::vector<T>& first, const std::vector<T>& second) {
+		std::vector<T> result {first};
+		result.insert(result.end(), second.begin(), second.end());
+		return result;
 	}
 
+	template <class T>
+	inline std::vector<T> concat(const std::vector<T>& first, const T& second) {
+		std::vector<T> result {first};
+		result.push_back(second);
+		return result;
+	}
+
+	template <class C>
+	auto intersect(const C& first, const C& second) {
+		C result;
+		std::ranges::set_intersection(first, second, std::inserter(result, std::end(result)));
+		return result;
+	}
+
+	template <class C>
+	auto union_(const C& first, const C& second) {
+		C result;
+		std::ranges::set_union(first, second, std::inserter(result, std::end(result)));
+		return result;
+	}
 
 }

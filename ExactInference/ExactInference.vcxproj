@@ -116,7 +116,9 @@
     <ClInclude Include="ExactInference.h" />
     <ClInclude Include="ExactInferenceDlg.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="qyrange.hpp" />
     <ClInclude Include="qyranges.hpp" />
+    <ClInclude Include="qyviews.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="stl_utils.h" />
@@ -129,7 +131,6 @@
     <ClInclude Include="xmlutils.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CBNSumProduct.cpp" />
     <ClCompile Include="CBNSumProduct_GetFactor.cpp" />
     <ClCompile Include="CBNSumProduct_Init.cpp" />
     <ClCompile Include="CBNSumProduct_OutputToXML.cpp" />
@@ -141,7 +142,6 @@
     <ClCompile Include="CBNSumProduct_Query_Marginal.cpp" />
     <ClCompile Include="CBNSumProduct_Read_BN.cpp" />
     <ClCompile Include="CBNSumProduct_Read_Query.cpp" />
-    <ClCompile Include="CFactor.cpp" />
     <ClCompile Include="CFactorReduceGivenVariable.cpp" />
     <ClCompile Include="CFactor_Init.cpp" />
     <ClCompile Include="CFactor_Normalize.cpp" />

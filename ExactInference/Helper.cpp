@@ -29,21 +29,6 @@ auto Separate(const std::string& str)
 	return std::sregex_token_iterator(str.begin(), str.end(), re, -1);
 }
 
-//名  称：		MapCStringToString()
-//功  能：		将CString映射到string
-//参  数：		CString&
-//返回值：		string
-std::string MapCStringToString(CString& sGivenCString)
-{
-	CStringA sTemp(sGivenCString.GetBuffer(0));
-	sGivenCString.ReleaseBuffer();
-
-	std::string sReturnString = sTemp.GetBuffer(0);
-	sTemp.ReleaseBuffer();
-
-	return sReturnString;
-}
-
 //名  称：		StoWs()
 //功  能：		将string映射到wstring
 //参  数：		string&

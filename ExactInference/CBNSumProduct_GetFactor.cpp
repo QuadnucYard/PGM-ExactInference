@@ -16,18 +16,15 @@ fval_t CBNSumProduct::GetFactor(
 	fid_t nValueID,					//节点值ID
 	const GVarList& QueryVariables)	//查询变量列表
 {
-	//定义、并初始化获取父节点ID列表
-	fidlist NodeIDs = m_Nodes[nNodeID].ParentIDs;
 
+	const BN_NODE& theNode = m_Nodes[nNodeID];
 	//遍历父节点ID，获取其值ID
-	fidlist ValueIDs = NodeIDs | std::views::transform([&](auto t) { return GetValueID(t, QueryVariables); }) | qy::views::to<fidlist>;
-	//添加当前节点的值ID
-	ValueIDs.push_back(nValueID);
+	fidlist ValueIDs = theNode.ParentIDs | std::views::transform([&](auto t) { return GetValueID(t, QueryVariables); }) | qy::views::to<fidlist>;
 
 	//在当前节点的CPT中查找
-	size_t result = qy::index_of_if(m_Nodes[nNodeID].CPTRowIDs, [=](const CPT_ROW& t) { return t.ValueIDs == ValueIDs; });
+	size_t result = qy::ranges::index_of(theNode.CPTRowIDs, qy::concat(ValueIDs, nValueID), &CPT_ROW::ValueIDs);
 	if (result != -1)
-		return m_Nodes[nNodeID].CPTRowValues[result];
+		return theNode.CPTRowValues[result];
 	AfxMessageBox(_T("GetFactor()异常"));
 	return 1.0f;
 }
@@ -36,7 +33,7 @@ fval_t CBNSumProduct::GetFactor(
 fid_t CBNSumProduct::GetValueID(fid_t nNodeID,		//节点ID
 	const GVarList& QueryVariables)	//查询变量列表
 {
-	auto result = std::ranges::find_if(QueryVariables, [=](GROUNDING_VARIABLE t) { return t.nNodeID == nNodeID; });
+	auto result = std::ranges::find(QueryVariables, nNodeID, &GROUNDING_VARIABLE::nNodeID);
 	if (result != QueryVariables.end())
 		return result->nValueID;
 	AfxMessageBox(_T("GetValueID()异常"));

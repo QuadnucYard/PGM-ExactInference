@@ -123,13 +123,16 @@
     <ClInclude Include="xmlutils.hpp">
       <Filter>源文件\myutils</Filter>
     </ClInclude>
+    <ClInclude Include="qyrange.hpp">
+      <Filter>源文件\myutils</Filter>
+    </ClInclude>
+    <ClInclude Include="qyviews.hpp">
+      <Filter>源文件\myutils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件\MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct.cpp">
-      <Filter>源文件\BNSumProduct</Filter>
     </ClCompile>
     <ClCompile Include="CBNSumProduct_Init.cpp">
       <Filter>源文件\BNSumProduct\初始化</Filter>
@@ -160,9 +163,6 @@
     </ClCompile>
     <ClCompile Include="ExactInferenceDlg_User.cpp">
       <Filter>源文件\MFC\主对话框</Filter>
-    </ClCompile>
-    <ClCompile Include="CFactor.cpp">
-      <Filter>源文件\Factor</Filter>
     </ClCompile>
     <ClCompile Include="CFactor_Operator.cpp">
       <Filter>源文件\Factor\操作符重载相关</Filter>

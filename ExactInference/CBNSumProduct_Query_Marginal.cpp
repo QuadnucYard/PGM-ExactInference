@@ -20,14 +20,14 @@ void CBNSumProduct::Query_Marginal(const QUERY& query, CFactorList& Factors)
 	}
 
 	//步骤2：计算剩余的因子积
-	CFactor phi = qy::product(Factors);
+	CFactor phi = qy::ranges::product(Factors);
 
 	//步骤3：对因子归一化。该因子为最终的计算结果。不论是否需要，都进行归一化。如果不需要的话，也不影响计算结果
 	phi.Normalize();
 
 	//步骤4：获取概率
-	fidlist VariableIDs = query.QueryVariables | std::views::transform([](auto t) {return t.nNodeID; }) | qy::views::to<fidlist>;
-	fidlist ValueIDs = query.QueryVariables | std::views::transform([](auto t) {return t.nValueID; }) | qy::views::to<fidlist>;
+	fidlist VariableIDs = query.QueryVariables | std::views::transform(&GROUNDING_VARIABLE::nNodeID) | qy::views::to<fidlist>;
+	fidlist ValueIDs = query.QueryVariables | std::views::transform(&GROUNDING_VARIABLE::nValueID) | qy::views::to<fidlist>;
 
 	//对因子进行查询，添加概率到查询结果
 	m_QueryResults.push_back(phi.Query(VariableIDs, ValueIDs));

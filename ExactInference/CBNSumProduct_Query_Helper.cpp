@@ -15,7 +15,7 @@
 void CBNSumProduct::Query_Helper(const QUERY& query, CFactorList Factors)
 {
 	//步骤1：根据给定变量、规约因子列表
-	for (GROUNDING_VARIABLE v : query.GivenVariables)
+	for (const GROUNDING_VARIABLE& v : query.GivenVariables)
 	{
 		std::ranges::for_each(Factors,
 			std::bind(std::mem_fn(&CFactor::ReduceGivenVariable), std::placeholders::_1, v.nNodeID, v.nValueID));

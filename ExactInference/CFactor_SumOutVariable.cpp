@@ -9,12 +9,12 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "CFactor.h"
+#include <unordered_map>
 
 
 void CFactor::SumOutVariable(fid_t nVariableID)
 {
-	//检查是否找到变量ID
-	if (size_t nRemovePos = qy::index_of(m_VariableIDs, nVariableID); nRemovePos != -1) 
+	if (size_t nRemovePos = qy::ranges::index_of(m_VariableIDs, nVariableID); nRemovePos != -1) 
 	{
 		//找到变量ID，需要进行求和化简
 
@@ -28,7 +28,7 @@ void CFactor::SumOutVariable(fid_t nVariableID)
 		//步骤3：对因子中相应的行求和  把ValueIDs相同的行合并到第一次出现的行
 		for (auto it = m_FactorRows.begin(); it != m_FactorRows.end();)
 		{
-			auto jt = std::find_if(m_FactorRows.begin(), it, [it](auto& t) {return t.ValueIDs == it->ValueIDs; });
+			auto jt = std::ranges::find(m_FactorRows.begin(), it, it->ValueIDs, &FACTOR_ROW::ValueIDs);
 			if (jt != it) {
 				jt->fValue += it->fValue;
 				it = m_FactorRows.erase(it);
