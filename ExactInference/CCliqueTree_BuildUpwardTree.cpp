@@ -17,7 +17,7 @@
 //参  数：		unsigned int
 //返回值：		无
 //提  示：		采用广度优先搜索的方式构造，输入根团ID
-void CCliqueTree::BuildUpwardTree(unsigned nParentID)
+void CCliqueTree::BuildUpwardTree(fid_t nParentID)
 {
 	//定义OPEN列表和CLOSED表
 	queue <unsigned int> OPEN;

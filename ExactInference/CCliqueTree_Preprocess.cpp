@@ -14,45 +14,32 @@
 void CCliqueTree::Preprocess()
 {
 	//遍历BN中的所有节点
-	for (unsigned int i = 0; i < m_CTNodes.size(); i++)
+	for (const CT_NODE& node : m_CTNodes)
 	{
 		//定义因子
 		CClique clique;
 
 		//////////////////////////////////////////////////////////////
 		//步骤1：初始化团。设置团ID
-		clique.SetCliqueID(m_CTNodes[i].nID);
+		clique.SetCliqueID(node.nID);
 		//设置团的变量ID列表
-		clique.SetCliqueVariableIDs(m_CTNodes[i].VariableIDs);
+		clique.SetCliqueVariableIDs(node.VariableIDs);
 
 		//建立变量ID到团ID的多映射
-		for (unsigned int j = 0; j < m_CTNodes[i].VariableIDs.size(); j++)
+		for (fid_t var : node.VariableIDs)
 		{
-			//添加到多映射
-			unsigned int nVariableID = m_CTNodes[i].VariableIDs[j];
-			unsigned int nCliqueID = m_CTNodes[i].nID;
-
-			m_VariableID2CliqueIDs.insert(make_pair(nVariableID,nCliqueID));
+			m_VariableID2CliqueIDs.insert({var, node.nID});
 		}
-
 
 		//////////////////////////////////////////////////////////////
 		//步骤2：初始化团。设置团行
-		for (unsigned int j = 0; j < m_CTNodes[i].FactorRows.size(); j++)
+		for (const CT_FACTOR_ROW& row : node.FactorRows)
 		{
-			//获取值ID的表。此处似乎有问题。
-			vector<unsigned int> ValueIDs = m_CTNodes[i].FactorRows[j].ValueIDs;
-			//获取因子值
-			double fValue = m_CTNodes[i].FactorRows[j].fValue;
-
-			//设置团行
-			clique.SetCliqueRow(ValueIDs, fValue);
+			clique.SetCliqueRow(row.ValueIDs, row.fValue);
 		}
 
 		//建立团的ID到位置的映射
-		unsigned int nPos = m_Cliques.size();
-		unsigned int nCliqueID = clique.GetID();
-		m_CliqueID2Poses.insert(make_pair(nCliqueID, nPos));
+		m_CliqueID2Poses.insert({clique.GetID(), m_Cliques.size()});
 
 		//添加到团表
 		m_Cliques.push_back(clique);
@@ -62,9 +49,5 @@ void CCliqueTree::Preprocess()
 //获取团的位置
 fid_t CCliqueTree::GetCliquePosByID(fid_t nCliqueID)
 {
-	//查找团的ID到位置的映射
-	if (auto it = m_CliqueID2Poses.find(nCliqueID); it != m_CliqueID2Poses.end())
-		return it->second;
-	else
-		return 0;
+	return m_CliqueID2Poses[nCliqueID];
 }

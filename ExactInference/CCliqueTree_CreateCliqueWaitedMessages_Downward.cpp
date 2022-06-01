@@ -19,5 +19,11 @@ void CCliqueTree::CreateCliqueWaitedMessages_Downward(map<unsigned int, set<unsi
 {
 	////////////////////////////////////////////////////////////////////////////////
 	//步骤1：遍历所有团，初始化向下传递消息时，团的等待消息集合为空
-	
+
+	//应该是找所有指向它的点
+	for (const CT_NODE& node : m_CTNodes) {
+		for (fid_t to : m_Parent2Childs[node.nID]) {
+			InsertToWaitedMessages(to, node.nID, WaitedMessages);
+		}
+	}
 }

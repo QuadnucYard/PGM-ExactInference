@@ -18,41 +18,10 @@
 //				团ID、等待的消息集合
 //返回值：		bool
 //				团是否就绪？
-bool CCliqueTree::IsCliqueReady(unsigned int nCliqueID, map<unsigned int,set<unsigned int>>& WaitedMessages)
+bool CCliqueTree::IsCliqueReady(fid_t nCliqueID, const fidsetmap& WaitedMessages) const
 {
-	//查找等待的消息映射
-	map<unsigned int, set<unsigned int>>::iterator it = WaitedMessages.find(nCliqueID);
-
-	//检查是否找到
-	if (it != WaitedMessages.end())
-	{
-		//检查等待消息的集合是否为空
-		if (it->second.size() == 0)
-		{
-			//返回真
-			return true;
-		}
-		else
-		{
-			//检查相关割集是否都已经存在
-			if (IsAllSEPSetExisted(nCliqueID, it->second))
-			{
-				//返回真
-				return true;
-			}
-			else
-			{
-				//返回假
-				return false;
-			}
-		}
-	}
-	else
-	{
-		//提示出现异常。这种情况一般不会出现
-		//缺省返回假
-		return false;
-	}
+	const auto& msg = WaitedMessages[nCliqueID];
+	return msg.empty() || IsAllSEPSetExisted(nCliqueID, msg);
 }
 
 //名  称：		IsAllSEPSetExisted()
@@ -61,24 +30,10 @@ bool CCliqueTree::IsCliqueReady(unsigned int nCliqueID, map<unsigned int,set<uns
 //				团ID、等待的消息集合
 //返回值：		bool
 //				是否所需的割集都已经存在？
-bool CCliqueTree::IsAllSEPSetExisted(unsigned int nID, set<unsigned int>& WaitedMessages)
+bool CCliqueTree::IsAllSEPSetExisted(fid_t nID, const fidset& WaitedMessages) const
 {
-	//遍历所有等待消息
-	for (set<unsigned int>::iterator it = WaitedMessages.begin(); it != WaitedMessages.end(); it++)
-	{
-		//获取团ID
-		unsigned int nStartID = *it;
-
-		//检查割集是否存在
-		if (!IsAllSEPSetExisted_Helper(nStartID, nID))
-		{
-			//返回假
-			return false;
-		}
-	}
-	
-	//缺省返回真
-	return true;
+	return std::ranges::all_of(WaitedMessages,
+		[=](fid_t nStartID) { return IsAllSEPSetExisted_Helper(nStartID, nID); });
 }
 
 //名  称：		IsAllSEPSetExisted_Helper()
@@ -87,19 +42,8 @@ bool CCliqueTree::IsAllSEPSetExisted(unsigned int nID, set<unsigned int>& Waited
 //				起点团ID、终点团ID
 //返回值：		bool
 //				是否割集存在？
-bool CCliqueTree::IsAllSEPSetExisted_Helper(unsigned int nStartID, unsigned int nID)
+bool CCliqueTree::IsAllSEPSetExisted_Helper(fid_t nStartID, fid_t nID) const
 {
-	//遍历所有割集
-	for (unsigned int i = 0; i < m_SEPSets.size(); i++)
-	{
-		//检查是否相等
-		if (nStartID == m_SEPSets[i].nStartID && nID == m_SEPSets[i].nEndID)
-		{
-			//返回真
-			return true;
-		}
-	}
-
-	//缺省返回假
-	return false;
+	return std::ranges::any_of(m_SEPSets,
+		[=](const SEP_SET& s) { return nStartID == s.nStartID && nID == s.nEndID; });
 }

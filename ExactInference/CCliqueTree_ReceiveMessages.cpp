@@ -16,42 +16,18 @@
 //参  数：		unsigned int,map<unsigned int,set<unsigned int>>&
 //				团ID、收到的所有消息
 //返回值：		无
-void CCliqueTree::ReceiveMessages(unsigned int nCliqueID, map<unsigned int,set<unsigned int>>& CliqueWaitedMessages)
+void CCliqueTree::ReceiveMessages(fid_t nCliqueID, fidsetmap& CliqueWaitedMessages)
 {
 	//获取等待消息的集合
-	map<unsigned int,set<unsigned int>>::iterator it = CliqueWaitedMessages.find(nCliqueID);
-	
-	//检查是否找到
-	if (it != CliqueWaitedMessages.end())
+	if (auto it = CliqueWaitedMessages.find(nCliqueID); it != CliqueWaitedMessages.end())
 	{
-		//检查等待消息的集合是否为空
-		if (it->second.size() == 0)
+		//遍历所有消息源
+		for (fid_t nStartID : it->second)
 		{
-			//返回
-			return;
-		}
-		else
-		{
-			//获取消息源
-			set<unsigned int> FromCliques = it->second;
-
-			//遍历所有消息源
-			for (set<unsigned int>::iterator it = FromCliques.begin(); it != FromCliques.end(); it++)
-			{
-				//定义起始节点
-				unsigned int nStartID = *it;
-				
-				//获取割集
-				CClique SEPSet = GetSEPSet(nStartID, nCliqueID);
-
-				//获取团的位置
-				unsigned int nCliquePos = GetCliquePosByID(nCliqueID);
-				//获取团
-				CClique clique = m_Cliques[nCliquePos];
-				
-				//通过因子积、更新所在位置的团
-				m_Cliques[nCliquePos] = clique*SEPSet;
-			}
+			//获取团的位置
+			size_t nCliquePos = GetCliquePosByID(nCliqueID);
+			//通过因子积、更新所在位置的团
+			m_Cliques[m_CliqueID2Poses[nCliqueID]] = m_Cliques[nCliquePos] * GetSEPSet(nStartID, nCliqueID);
 		}
 	}
 }
@@ -62,17 +38,8 @@ void CCliqueTree::ReceiveMessages(unsigned int nCliqueID, map<unsigned int,set<u
 //				起点团ID、终点团ID
 //返回值：		CClique
 //				割集。也是团
-CClique CCliqueTree::GetSEPSet(unsigned int nStartID, unsigned int nCliqueID)
+const CClique& CCliqueTree::GetSEPSet(fid_t nStartID, fid_t nCliqueID)
 {
-	//遍历割集
-	for (unsigned int i = 0; i <m_SEPSets.size(); i++)
-	{
-		//检查是否为所要的割集
-		if (nStartID  == m_SEPSets[i].nStartID && 
-		    nCliqueID == m_SEPSets[i].nEndID)
-		{
-			//返回割集
-			return m_SEPSets[i].clique;
-		}
-	}
+	return std::ranges::find_if(m_SEPSets,
+		[=](const SEP_SET& s) { return s.nStartID == nStartID && s.nEndID == nCliqueID; })->clique;
 }

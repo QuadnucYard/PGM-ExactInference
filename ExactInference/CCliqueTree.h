@@ -16,6 +16,8 @@
 #include "tinyxml.h"
 #include "xmlutils.hpp"
 
+using fidpair = std::pair<fid_t, fid_t>;
+using fidsetmap = std::map<fid_t, fidset>;
 
 //定义类型
 //团树中的实例化变量类型
@@ -51,6 +53,10 @@ struct SEP_SET
 	fid_t nEndID;			//02 结束的团结点
 	CClique clique;			//03 割集。采用团表示
 	bool bReady;			//04 是否就绪。在向下传播消息时为就绪，向上传播消息时未就绪
+
+	bool operator==(const fidpair& rhs) const {
+		return nStartID == rhs.first && nEndID == rhs.second;
+	}
 };
 
 //查询
@@ -85,27 +91,26 @@ private:
 	//////////////////////////////////////////////////////////////////////////////////////
 	//向上传递消息
 	void UpwardPass();																				//向上传递消息
-	void BuildUpwardTree(unsigned int);																//构建向根团的树
-	void CreateCliqueWaitedMessages(map<unsigned int, set<unsigned int>>&);							//创建团等待的消息集合
-	void InsertToWaitedMessages(unsigned int, unsigned int, map<unsigned int, set<unsigned int>>&);	//插入等待消息集合
-	bool IsCliqueReady(unsigned int, map<unsigned int, set<unsigned int>>& WaitedMessages);			//检查团是否就绪
-	bool IsAllSEPSetExisted(unsigned int, set<unsigned int>&);										//检查是否所有割集都已经存在。每条边包括向上和向下两个割集
-	bool IsAllSEPSetExisted_Helper(unsigned int, unsigned int);										//检查是否所有割集都已经存在的辅助函数
-	unsigned int FindReadyClique(map <unsigned int, set<unsigned int>>& WaitedMessages, set<unsigned int>&);	//要避免已经处理过的ID查找一个就绪的团
+	void BuildUpwardTree(fid_t);																//构建向根团的树
+	void CreateCliqueWaitedMessages(fidsetmap&);							//创建团等待的消息集合
+	void InsertToWaitedMessages(fid_t, fid_t, fidsetmap&);	//插入等待消息集合
+	bool IsCliqueReady(fid_t, const fidsetmap&) const;			//检查团是否就绪
+	bool IsAllSEPSetExisted(fid_t, const fidset&) const;										//检查是否所有割集都已经存在。每条边包括向上和向下两个割集
+	bool IsAllSEPSetExisted_Helper(fid_t, fid_t) const;										//检查是否所有割集都已经存在的辅助函数
+	fid_t FindReadyClique(const fidsetmap&, const fidset&) const;	//要避免已经处理过的ID查找一个就绪的团
 	//发送消息
 	void SendCliqueMessage(unsigned int);															//向父节点发送消息
 	//接收消息
-	void ReceiveMessages(unsigned int, map<unsigned int, set<unsigned int>>& WaitedMessages);		//接收消息
-	CClique GetSEPSet(unsigned int, unsigned int);													//获取两个团之间的割集	
+	void ReceiveMessages(fid_t, fidsetmap&);		//接收消息
+	const CClique& GetSEPSet(fid_t, fid_t);													//获取两个团之间的割集	
 	bool IsThereParentID(unsigned int, unsigned int&);												//检查是否存在双亲
 	void FindCommonVariableIDs(unsigned int, unsigned int, set<unsigned int>&);						//发现共享的变量ID集合
 
 	//////////////////////////////////////////////////////////////////////////////////////
 	//向下传递消息
 	void DownwardPass();																			//向下传递消息
-	void CreateCliqueWaitedMessages_Downward(map<unsigned int, set<unsigned int>>&);				//向下传递消息时，创建团等待的消息集合
+	void CreateCliqueWaitedMessages_Downward(fidsetmap&);				//向下传递消息时，创建团等待的消息集合
 	void SendCliqueMessage_Downward(unsigned int, unsigned int);										//向下传递消息
-	set<unsigned int> GetChildren(unsigned int);													//获取孩子节点集合
 
 	////////////////////////////////////////////////////////////////////////////////////
 	//查询辅助函数
@@ -114,7 +119,7 @@ private:
 	void GetIntersections(const vector<unsigned int>&, set<unsigned int>&, set<unsigned int>&);			//求列表和集合的交集
 	//查询概率分布
 	void Query_Probability(CT_QUERY&, set<unsigned int>&, unsigned int);							//查询概率
-	unsigned int GetSEPSetPos(unsigned int, unsigned int);											//根据边的节点ID、获取割集位置
+	unsigned int GetSEPSetPos(fid_t, fid_t);											//根据边的节点ID、获取割集位置
 	bool IsSetContainedIn(set<unsigned int>&, set<unsigned int>&);									//判断集合是否包含于另外一个集合
 	vector<unsigned int> GetSubstract(vector<unsigned int>&, set<unsigned int>&);					//求序列和集合的差
 

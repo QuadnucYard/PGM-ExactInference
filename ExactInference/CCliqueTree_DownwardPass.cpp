@@ -16,7 +16,7 @@
 //参  数：		无
 //返回值：		无
 void CCliqueTree::DownwardPass()
-{	
+{
 	//////////////////////////////////////////////////////////////////
 	//步骤1：构造团等待的消息集合
 	map <unsigned int, set<unsigned int>> CliqueWaitedMessages;
@@ -25,30 +25,26 @@ void CCliqueTree::DownwardPass()
 
 	//////////////////////////////////////////////////////////////////
 	//步骤2：采用广度优先，使就绪的团向下传递消息
-	//定义OPEN列表和CLOSED表
-	queue <unsigned int> OPEN;
-	set<unsigned int> CLOSED;
+	std::queue<fid_t> OPEN;
+	std::set<fid_t> CLOSED;
 
-	//初始化OPEN表
 	OPEN.push(m_nRootID);
 
 	//检查OPEN表是否为空
 	while (OPEN.size() > 0)
 	{
 		//出队
-		unsigned int nID = OPEN.front();
+		fid_t nID = OPEN.front();
 		OPEN.pop();
-
-		//加入CLOSED表
 		CLOSED.insert(nID);
 
 		//查找后继
-		set<unsigned int> Children = GetChildren(nID);
+		const auto& Children = m_Parent2Childs[nID];
 		//检查是否有后继
 		if (Children.size() == 0)
 		{
 			//检查团是否就绪
-			if(IsCliqueReady(nID, CliqueWaitedMessages))
+			if (IsCliqueReady(nID, CliqueWaitedMessages))
 			{
 				//如果就绪，则接收消息
 				ReceiveMessages(nID, CliqueWaitedMessages);
@@ -56,14 +52,12 @@ void CCliqueTree::DownwardPass()
 		}
 		else
 		{
-			//检查是否存在后继，并依次入队
-			for (set<unsigned int>::iterator it = Children.begin(); it != Children.end(); it++)
+			//后继依次入队
+			for (fid_t nChildID : Children)
 			{
-				//获取后继结点
-				unsigned int nChildID = *it;
 
 				//检查后继节点是否在CLOSED表。如果已经存在，则不需要入队
-				if (!qy::ranges::includes(CLOSED, nChildID) &&
+				if (!CLOSED.contains(nChildID) &&
 					IsCliqueReady(nID, CliqueWaitedMessages))
 				{
 					//接收消息
@@ -77,23 +71,5 @@ void CCliqueTree::DownwardPass()
 				}
 			}
 		}
-	}
-}
-
-//名  称：		GetChildren()
-//功  能：		获取孩子
-//参  数：		unsigned int
-//				团ID
-//返回值：		set<unsigned int>
-//				团的孩子ID集合
-set<unsigned int> CCliqueTree::GetChildren(unsigned int nID)
-{
-	//从双亲到孩子集合的映射中查找
-	map<unsigned int, set<unsigned int>>::iterator it = m_Parent2Childs.find(nID);
-	
-	if (it != m_Parent2Childs.end())
-	{
-		//如果找到的话，则返回孩子ID集合
-		return it->second;
 	}
 }

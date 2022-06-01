@@ -12,7 +12,7 @@
 
 //查找一个就绪的团
 //return:	就绪团的ID
-unsigned int CCliqueTree::FindReadyClique(map<unsigned int, set<unsigned int>>& CliqueWaitedMessages, set<unsigned int>& VisitedIDs)
+fid_t CCliqueTree::FindReadyClique(const fidsetmap& CliqueWaitedMessages, const fidset& VisitedIDs) const
 {
 	//遍历所有团
 	for (const CClique& clique : m_Cliques)
@@ -23,13 +23,13 @@ unsigned int CCliqueTree::FindReadyClique(map<unsigned int, set<unsigned int>>& 
 		if (auto it = CliqueWaitedMessages.find(nCliqueID); it != CliqueWaitedMessages.end())
 		{
 			//检查等待消息的集合是否为空
-			if (VisitedIDs.count(nCliqueID) == 0) {
+			if (!VisitedIDs.contains(nCliqueID)) {
 				if (it->second.size() == 0 || IsAllSEPSetExisted(nCliqueID, it->second)) {
 					return nCliqueID;
 				}
 			}
 		}
 	}
-
 	//没有找到就绪的团、提示出错。实际上不会出现这种情况
+	return -1;
 }

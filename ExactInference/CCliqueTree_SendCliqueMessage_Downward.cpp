@@ -11,7 +11,7 @@
 
 
 //向下发送团消息
-void CCliqueTree::SendCliqueMessage_Downward(unsigned int nID,unsigned int nChildID)
+void CCliqueTree::SendCliqueMessage_Downward(fid_t nID, fid_t nChildID)
 {	
 	//找到相交的变量ID集合
 	set<unsigned int> CommonVariableIDs;
