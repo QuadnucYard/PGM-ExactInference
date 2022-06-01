@@ -11,29 +11,22 @@
 //由根团向下传递消息
 void CCliqueTree::DownwardPass()
 {
-	//////////////////////////////////////////////////////////////////
 	//步骤1：构造团等待的消息集合
 	fidsetmap CliqueWaitedMessages = CreateCliqueWaitedMessages_Downward();
 
-	//////////////////////////////////////////////////////////////////
 	//步骤2：采用广度优先，使就绪的团向下传递消息
 	std::queue<fid_t> OPEN;
-	std::set<fid_t> CLOSED;
-
+	fidset CLOSED;
 	OPEN.push(m_nRootID);
 
-	//检查OPEN表是否为空
-	while (OPEN.size() > 0)
+	while (!OPEN.empty())
 	{
-		//出队
 		fid_t nID = OPEN.front();
 		OPEN.pop();
 		CLOSED.insert(nID);
 
-		//查找后继
 		const auto& Children = m_Parent2Childs[nID];
-		//检查是否有后继
-		if (Children.size() == 0)
+		if (Children.empty())
 		{
 			//检查团是否就绪
 			if (IsCliqueReady(nID, CliqueWaitedMessages))
@@ -44,21 +37,16 @@ void CCliqueTree::DownwardPass()
 		}
 		else
 		{
-			//后继依次入队
 			for (fid_t nChildID : Children)
 			{
-
 				//检查后继节点是否在CLOSED表。如果已经存在，则不需要入队
-				if (!CLOSED.contains(nChildID) &&
-					IsCliqueReady(nID, CliqueWaitedMessages))
+				if (!CLOSED.contains(nChildID) && IsCliqueReady(nID, CliqueWaitedMessages))
 				{
 					//接收消息
 					ReceiveMessages(nID, CliqueWaitedMessages);
-
 					//向父节点发送消息
 					SendCliqueMessage_Downward(nID, nChildID);
 
-					//添加到OPEN表
 					OPEN.push(nChildID);
 				}
 			}

@@ -54,7 +54,7 @@ void CCliqueTree::Read_QueryCT()
 			);
 		}
 
-		m_CTQueries.push_back(ct_query);
+		m_CTQueries.push_back(std::move(ct_query));
 	}
 
 	aDoc.Clear();

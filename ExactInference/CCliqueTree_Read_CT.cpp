@@ -74,7 +74,7 @@ void CCliqueTree::Read_CT()
 			ct_node.FactorRows.push_back(factor_row);
 		}
 
-		m_CTNodes.push_back(ct_node);
+		m_CTNodes.push_back(std::move(ct_node));
 	}
 
 	//步骤3：获取边表

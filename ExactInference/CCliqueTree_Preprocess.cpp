@@ -14,13 +14,8 @@ void CCliqueTree::Preprocess()
 	//遍历BN中的所有节点
 	for (const CT_NODE& node : m_CTNodes)
 	{
-		//定义因子
 		CClique clique;
-
-		//////////////////////////////////////////////////////////////
-		//步骤1：初始化团。设置团ID
 		clique.SetCliqueID(node.nID);
-		//设置团的变量ID列表
 		clique.SetCliqueVariableIDs(node.VariableIDs);
 
 		//建立变量ID到团ID的多映射
@@ -29,7 +24,6 @@ void CCliqueTree::Preprocess()
 			m_VariableID2CliqueIDs.insert({var, node.nID});
 		}
 
-		//////////////////////////////////////////////////////////////
 		//步骤2：初始化团。设置团行
 		for (const CT_FACTOR_ROW& row : node.FactorRows)
 		{
@@ -38,8 +32,6 @@ void CCliqueTree::Preprocess()
 
 		//建立团的ID到位置的映射
 		m_CliqueID2Poses.insert({clique.GetID(), m_Cliques.size()});
-
-		//添加到团表
 		m_Cliques.push_back(clique);
 	}
 }

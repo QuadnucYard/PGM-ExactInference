@@ -26,7 +26,7 @@ void CCliqueTree::ReceiveMessages(fid_t nCliqueID, const fidsetmap& CliqueWaited
 }
 
 //获取割集
-//				割集。也是团
+//割集。也是团
 const CClique& CCliqueTree::GetSEPSet(fid_t nStartID, fid_t nCliqueID)
 {
 	return std::ranges::find_if(m_SEPSets,

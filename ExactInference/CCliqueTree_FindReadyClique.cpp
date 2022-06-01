@@ -22,7 +22,7 @@ fid_t CCliqueTree::FindReadyClique(const fidsetmap& CliqueWaitedMessages, const 
 		{
 			//检查等待消息的集合是否为空
 			if (!VisitedIDs.contains(nCliqueID)) {
-				if (it->second.size() == 0 || IsAllSEPSetExisted(nCliqueID, it->second)) {
+				if (it->second.empty() || IsAllSEPSetExisted(nCliqueID, it->second)) {
 					return nCliqueID;
 				}
 			}

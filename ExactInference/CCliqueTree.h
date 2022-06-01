@@ -19,8 +19,6 @@ using fidpair = std::pair<fid_t, fid_t>;
 using fidsetmap = std::map<fid_t, fidset>;
 using fidmultimap = std::multimap<fid_t, fid_t>;
 
-using namespace std;
-
 //定义类型
 //团树中的实例化变量类型
 struct CT_GROUNDING_VARIABLE
