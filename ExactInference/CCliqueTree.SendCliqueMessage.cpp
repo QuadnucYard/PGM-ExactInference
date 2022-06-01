@@ -25,10 +25,7 @@ void CCliqueTree::SendCliqueMessage(fid_t nID)
 	if (IsThereParentID(nID, nParentID))
 	{
 		//找到两个团相交的变量ID集合
-		fidset CommonVariableIDs;
-
-		//获取两个团的变量ID交集
-		FindCommonVariableIDs(nID, nParentID, CommonVariableIDs);
+		fidset CommonVariableIDs = FindCommonVariableIDs(nID, nParentID);
 
 		//获取团的位置
 		fid_t nPos = GetCliquePosByID(nID);
@@ -39,7 +36,7 @@ void CCliqueTree::SendCliqueMessage(fid_t nID)
 		std::ranges::set_difference(m_Cliques[nPos].GetVariableIDs(), CommonVariableIDs,
 			std::inserter(EliminateVariableIDs, EliminateVariableIDs.end()));
 
-		//定义割集
+		//定义割集  从子指向父
 		SEP_SET sep_set(nID, nParentID, m_Cliques[nPos]);
 		
 		//遍历所有消除变量
@@ -56,10 +53,12 @@ void CCliqueTree::SendCliqueMessage(fid_t nID)
 //功  能：		求两个团的变量ID交集
 //参  数：		unsigned int,unsigned int
 //返回值：		无
-void CCliqueTree::FindCommonVariableIDs(fid_t nID1, fid_t nID2, fidset& Intersections)
+fidset CCliqueTree::FindCommonVariableIDs(fid_t nID1, fid_t nID2)
 {
+	fidset Intersections;
 	std::ranges::set_intersection(m_Cliques[nID1].GetVariableIDs(), m_Cliques[nID2].GetVariableIDs(),
 		std::inserter(Intersections, Intersections.end()));
+	return Intersections;
 }
 
 //名  称：		IsThereParentID()

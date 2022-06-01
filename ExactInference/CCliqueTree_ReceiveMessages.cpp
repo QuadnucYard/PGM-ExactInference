@@ -16,7 +16,7 @@
 //参  数：		unsigned int,map<unsigned int,set<unsigned int>>&
 //				团ID、收到的所有消息
 //返回值：		无
-void CCliqueTree::ReceiveMessages(fid_t nCliqueID, fidsetmap& CliqueWaitedMessages)
+void CCliqueTree::ReceiveMessages(fid_t nCliqueID, const fidsetmap& CliqueWaitedMessages)
 {
 	//获取等待消息的集合
 	if (auto it = CliqueWaitedMessages.find(nCliqueID); it != CliqueWaitedMessages.end())
@@ -27,7 +27,7 @@ void CCliqueTree::ReceiveMessages(fid_t nCliqueID, fidsetmap& CliqueWaitedMessag
 			//获取团的位置
 			size_t nCliquePos = GetCliquePosByID(nCliqueID);
 			//通过因子积、更新所在位置的团
-			m_Cliques[m_CliqueID2Poses[nCliqueID]] = m_Cliques[nCliquePos] * GetSEPSet(nStartID, nCliqueID);
+			m_Cliques[nCliquePos] = m_Cliques[nCliquePos] * GetSEPSet(nStartID, nCliqueID);
 		}
 	}
 }

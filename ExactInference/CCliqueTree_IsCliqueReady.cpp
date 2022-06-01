@@ -20,8 +20,11 @@
 //				团是否就绪？
 bool CCliqueTree::IsCliqueReady(fid_t nCliqueID, const fidsetmap& WaitedMessages) const
 {
-	const fidset& msg = WaitedMessages.at(nCliqueID);
-	return msg.empty() || IsAllSEPSetExisted(nCliqueID, msg);
+	if (auto it = WaitedMessages.find(nCliqueID); it!= WaitedMessages.end()) {
+		const fidset& msg = it->second;
+		return msg.empty() || IsAllSEPSetExisted(nCliqueID, msg);
+	}
+	return true;
 }
 
 //名  称：		IsAllSEPSetExisted()

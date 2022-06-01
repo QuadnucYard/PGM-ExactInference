@@ -14,10 +14,28 @@
 void CCliqueTree::SendCliqueMessage_Downward(fid_t nID, fid_t nChildID)
 {	
 	//找到相交的变量ID集合
-	set<unsigned int> CommonVariableIDs;
-
-	//获取两个团的变量ID交集
-	FindCommonVariableIDs(nID, nChildID, CommonVariableIDs);
-
+	fidset CommonVariableIDs = FindCommonVariableIDs(nID, nChildID);
+	//nID(父)传给nChildID
 	
+	// 下面是nID传给nParentID
+
+		//获取团的位置
+	fid_t nPos = GetCliquePosByID(nID);
+
+	//获取需要求和掉的变量ID集合
+	fidset EliminateVariableIDs;
+	//求集合的差。团的变量集合-割集变量集合=求和掉的变量集合
+	std::ranges::set_difference(m_Cliques[nPos].GetVariableIDs(), CommonVariableIDs,
+		std::inserter(EliminateVariableIDs, EliminateVariableIDs.end()));
+
+	//定义割集  从子指向父
+	SEP_SET sep_set(nID, nChildID, m_Cliques[nPos], true);
+
+	//遍历所有消除变量
+	for (fid_t s : EliminateVariableIDs)
+	{
+		sep_set.clique.SumOutVariable(s);
+	}
+
+	m_SEPSets.push_back(sep_set);
 }

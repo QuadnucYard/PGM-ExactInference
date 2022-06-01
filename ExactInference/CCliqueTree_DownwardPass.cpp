@@ -19,9 +19,7 @@ void CCliqueTree::DownwardPass()
 {
 	//////////////////////////////////////////////////////////////////
 	//步骤1：构造团等待的消息集合
-	map <unsigned int, set<unsigned int>> CliqueWaitedMessages;
-	CreateCliqueWaitedMessages_Downward(CliqueWaitedMessages);
-
+	fidsetmap CliqueWaitedMessages = CreateCliqueWaitedMessages_Downward();
 
 	//////////////////////////////////////////////////////////////////
 	//步骤2：采用广度优先，使就绪的团向下传递消息
@@ -64,7 +62,7 @@ void CCliqueTree::DownwardPass()
 					ReceiveMessages(nID, CliqueWaitedMessages);
 
 					//向父节点发送消息
-					SendCliqueMessage_Downward(nChildID, nID);
+					SendCliqueMessage_Downward(nID, nChildID);
 
 					//添加到OPEN表
 					OPEN.push(nChildID);

@@ -97,7 +97,7 @@ private:
 	//构建向根团的树
 	void BuildUpwardTree(fid_t);
 	//创建团等待的消息集合
-	void CreateCliqueWaitedMessages(fidsetmap&);
+	fidsetmap CreateCliqueWaitedMessages();
 	//插入等待消息集合
 	void InsertToWaitedMessages(fid_t, fid_t, fidsetmap&);
 	//检查团是否就绪
@@ -112,18 +112,18 @@ private:
 	//向父节点发送消息
 	void SendCliqueMessage(fid_t);
 	//接收消息
-	void ReceiveMessages(fid_t, fidsetmap&);
+	void ReceiveMessages(fid_t, const fidsetmap&);
 	//获取两个团之间的割集	
 	const CClique& GetSEPSet(fid_t, fid_t);
 	//检查是否存在双亲
 	bool IsThereParentID(fid_t, fid_t&);
 	//发现共享的变量ID集合
-	void FindCommonVariableIDs(fid_t, fid_t, fidset&);
+	fidset FindCommonVariableIDs(fid_t, fid_t);
 
 	//向下传递消息
 	void DownwardPass();
 	//向下传递消息时，创建团等待的消息集合
-	void CreateCliqueWaitedMessages_Downward(fidsetmap&);
+	fidsetmap CreateCliqueWaitedMessages_Downward();
 	//向下传递消息
 	void SendCliqueMessage_Downward(fid_t, fid_t);
 

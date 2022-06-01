@@ -17,8 +17,9 @@
 //返回值：		unsigned int
 size_t CCliqueTree::GetSEPSetPos(fid_t nID, fid_t nChildID)
 {
+	//nChildID为父
 	return qy::ranges::index_of_if(m_SEPSets, [=](const SEP_SET& s) {
-		return (s.nStartID == nID && s.nStartID == nChildID || s.nStartID == nChildID && s.nStartID == nID)
+		return (s.nStartID == nID && s.nEndID == nChildID || s.nStartID == nChildID && s.nEndID == nID)
 			&& s.bReady; //检查边是否相等, 割集是否就绪
 	});
 }

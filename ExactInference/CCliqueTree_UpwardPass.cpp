@@ -25,8 +25,8 @@ void CCliqueTree::UpwardPass()
 
 	//////////////////////////////////////////////////////////////////
 	//步骤2：构造团等待的消息集合
-	fidsetmap CliqueWaitedMessages;
-	CreateCliqueWaitedMessages(CliqueWaitedMessages);
+	fidsetmap CliqueWaitedMessages = CreateCliqueWaitedMessages();
+	//只有1等待0,2的消息，其他无等待
 	//获取双亲节点指向子节点集合
 	m_Parent2Childs = CliqueWaitedMessages;
 
@@ -40,12 +40,12 @@ void CCliqueTree::UpwardPass()
 		fid_t nCliqueID = FindReadyClique(CliqueWaitedMessages,VisitedIDs);
 
 		//检查是否已经访问过
-		if (!qy::ranges::includes(VisitedIDs, nCliqueID))
+		if (!VisitedIDs.contains(nCliqueID))
 		{
 			//添加到访问过的ID集合
 			VisitedIDs.insert(nCliqueID);
 
-			//就绪团接收消息
+			//就绪团接收消息  因子积被更新
 			ReceiveMessages(nCliqueID, CliqueWaitedMessages);
 
 			//就绪团向父节点发送消息
@@ -54,5 +54,5 @@ void CCliqueTree::UpwardPass()
 	}
 	
 	//根团接收消息
-	ReceiveMessages(m_nRootID,CliqueWaitedMessages);
+	ReceiveMessages(m_nRootID, CliqueWaitedMessages);
 }

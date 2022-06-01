@@ -17,8 +17,9 @@
 //参  数：		map<unsigned int,set<unsigned int>>&
 //				团ID、团的后继ID集合
 //返回值：		无
-void CCliqueTree::CreateCliqueWaitedMessages(fidsetmap& WaitedMessages)
+fidsetmap CCliqueTree::CreateCliqueWaitedMessages()
 {
+	fidsetmap WaitedMessages;
 	////////////////////////////////////////////////////////////////////////////////
 	//步骤1：遍历所有团，初始化团的等待消息集合为空
 	for (const CT_NODE& node : m_CTNodes)
@@ -35,6 +36,7 @@ void CCliqueTree::CreateCliqueWaitedMessages(fidsetmap& WaitedMessages)
 		//添加到等待消息集合
 		InsertToWaitedMessages(p.second, p.first, WaitedMessages);
 	}
+	return WaitedMessages;
 }
 
 //名  称：		InsertToWaitedMessages()
@@ -43,9 +45,10 @@ void CCliqueTree::CreateCliqueWaitedMessages(fidsetmap& WaitedMessages)
 //返回值：		无
 void CCliqueTree::InsertToWaitedMessages(fid_t nParentID, fid_t nCliqueID, fidsetmap& WaitedMessages)
 {
-	if (auto it = WaitedMessages.find(nParentID); it != WaitedMessages.end())
+	/*if (auto it = WaitedMessages.find(nParentID); it != WaitedMessages.end())
 	{
 		//添加团的等待消息集合
 		it->second.insert(nCliqueID);
-	}
+	}*/
+	WaitedMessages[nParentID].insert(nCliqueID);
 }
