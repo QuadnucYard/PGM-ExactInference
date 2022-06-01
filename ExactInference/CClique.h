@@ -66,7 +66,7 @@ public:
 
 private:
 	//在因子积时判断两行是否可以合并
-	bool IsConsistentValueID(const CLIQUE_ROW&, const CLIQUE_ROW&, map<unsigned int, unsigned int>&);	//检查两行是否兼容	
+	bool IsConsistentValueID(const CLIQUE_ROW&, const CLIQUE_ROW&, const fidmap&) const;	//检查两行是否兼容	
 
 private:
 	fid_t m_nCliqueID;				//团ID

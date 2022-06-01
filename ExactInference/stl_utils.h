@@ -88,4 +88,11 @@ namespace qy {
 		return result;
 	}
 
+	template <class Cont, std::ranges::input_range _Rng>
+	Cont except(const Cont& first, _Rng&& second) {
+		Cont result {first};
+		std::ranges::copy_if(first, std::inserter(result, std::end(result)), 
+			[&](auto t) {return std::ranges::find(second, t) == std::ranges::end(second); });
+		return result;
+	}
 }
