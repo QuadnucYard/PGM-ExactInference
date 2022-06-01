@@ -23,7 +23,7 @@ void CCliqueTree::Query_Probability(const CT_QUERY& query, const fidset& QueryVa
 
 	//获取开始团包含的查询变量集合
 	fidset StartVariableIDs;
-	std::ranges::set_intersection(m_Cliques[nStartCliquePos].GetCliqueVariableIDs(), QueryVariableIDs, qy::set_inserter(StartVariableIDs));
+	std::ranges::set_intersection(qy::sorted(m_Cliques[nStartCliquePos].GetCliqueVariableIDs()), QueryVariableIDs, qy::set_inserter(StartVariableIDs));
 
 	//定义团、并初始化为开始团
 	CClique theClique = m_Cliques[nStartCliquePos];
@@ -73,7 +73,7 @@ void CCliqueTree::Query_Probability(const CT_QUERY& query, const fidset& QueryVa
 				//定义新增变量ID集合
 				fidset AddVariableIDs;
 				//获取新增变量ID集合
-				std::ranges::set_intersection(m_Cliques[GetCliquePosByID(nChildID)].GetCliqueVariableIDs(), QueryVariableIDs, qy::set_inserter(AddVariableIDs));
+				std::ranges::set_intersection(qy::sorted(m_Cliques[GetCliquePosByID(nChildID)].GetCliqueVariableIDs()), QueryVariableIDs, qy::set_inserter(AddVariableIDs));
 
 				//添加到开始变量ID集合。即当前变量ID集合
 				StartVariableIDs.insert(AddVariableIDs.begin(), AddVariableIDs.end());
@@ -96,7 +96,7 @@ void CCliqueTree::Query_Probability(const CT_QUERY& query, const fidset& QueryVa
 line10:
 	//定义求和掉的变量集合
 	fidlist SumOutVariableIDs;
-	std::ranges::set_difference(theClique.GetCliqueVariableIDs(), QueryVariableIDs, std::back_inserter(SumOutVariableIDs));
+	std::ranges::set_difference(qy::sorted(theClique.GetCliqueVariableIDs()), QueryVariableIDs, std::back_inserter(SumOutVariableIDs));
 	//求和掉多余变量
 	for (fid_t var : SumOutVariableIDs)
 	{

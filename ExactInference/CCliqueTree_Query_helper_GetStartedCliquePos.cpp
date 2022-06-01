@@ -32,7 +32,7 @@ size_t CCliqueTree::GetStartCliquePos(const fidset& QueryVariableIDs)
 
 		//求变量ID列表中有多少个在查询变量集合中
 		fidset IntersectedIDs;//在查询变量集合中的变量ID集合
-		std::ranges::set_intersection(m_Cliques[i].GetCliqueVariableIDs(), QueryVariableIDs, qy::set_inserter(IntersectedIDs));
+		std::ranges::set_intersection(qy::sorted(m_Cliques[i].GetCliqueVariableIDs()), QueryVariableIDs, qy::set_inserter(IntersectedIDs));
 
 		//检查是否大于已有的团
 		if (IntersectedIDs.size() >= nIntersectedVariableCount)

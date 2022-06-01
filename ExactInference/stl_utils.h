@@ -74,4 +74,11 @@ namespace qy {
 		return std::inserter(s, s.end());
 	}
 
+	template <class C>
+	inline constexpr auto sorted(const C& c) {
+		C result {c};
+		std::ranges::sort(result);
+		return result;
+	}
+
 }

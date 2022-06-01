@@ -28,7 +28,7 @@ void CCliqueTree::SendCliqueMessage_Downward(fid_t nID, fid_t nChildID)
 	std::ranges::set_difference(m_Cliques[nPos].GetVariableIDs(), CommonVariableIDs,
 		std::inserter(EliminateVariableIDs, EliminateVariableIDs.end()));
 
-	//定义割集  从子指向父
+	//定义割集  从父指向子
 	SEP_SET sep_set(nID, nChildID, m_Cliques[nPos], true);
 
 	//遍历所有消除变量
