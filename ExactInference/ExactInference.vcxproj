@@ -160,8 +160,6 @@
     <ClCompile Include="CCliqueTree_Query_helper_GetStartedCliquePos.cpp" />
     <ClCompile Include="CCliqueTree_Query_Probability.cpp" />
     <ClCompile Include="CCliqueTree_Query_Probability_GetSEPSetPos.cpp" />
-    <ClCompile Include="CCliqueTree_Query_Probability_GetSubtract.cpp" />
-    <ClCompile Include="CCliqueTree_Query_Probability_IsSetContainedIn.cpp" />
     <ClCompile Include="CCliqueTree_Read_CT.cpp" />
     <ClCompile Include="CCliqueTree_Read_QueryCT.cpp" />
     <ClCompile Include="CCliqueTree_ReceiveMessages.cpp" />

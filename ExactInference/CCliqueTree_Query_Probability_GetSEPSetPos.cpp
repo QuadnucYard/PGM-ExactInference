@@ -15,24 +15,10 @@
 //功  能：		获取割集位置
 //参  数：		unsigned int,unsigned int
 //返回值：		unsigned int
-unsigned int CCliqueTree::GetSEPSetPos(unsigned int nID, unsigned int nChildID)
+size_t CCliqueTree::GetSEPSetPos(fid_t nID, fid_t nChildID)
 {
-	//遍历所有割集
-	for (unsigned int i = 0; i < m_SEPSets.size(); i++)
-	{
-		//检查边是否相等
-		if ((m_SEPSets[i].nStartID == nID && m_SEPSets[i].nEndID == nChildID) || //边有两个方向
-			(m_SEPSets[i].nStartID == nChildID && m_SEPSets[i].nEndID == nID))
-		{
-			//检查割集是否就绪
-			if (m_SEPSets[i].bReady == true)
-			{
-				//返回割集位置
-				return i;
-			}
-		}
-	}
-
-	return -1;
-	//提示：算法一定能找到割集
+	return qy::ranges::index_of_if(m_SEPSets, [=](const SEP_SET& s) {
+		return (s.nStartID == nID && s.nStartID == nChildID || s.nStartID == nChildID && s.nStartID == nID)
+			&& s.bReady; //检查边是否相等, 割集是否就绪
+	});
 }

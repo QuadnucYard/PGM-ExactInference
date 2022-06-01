@@ -365,12 +365,6 @@
     <ClCompile Include="CCliqueTree_Query_Probability.cpp">
       <Filter>源文件\CliqueTree\查询</Filter>
     </ClCompile>
-    <ClCompile Include="CCliqueTree_Query_Probability_IsSetContainedIn.cpp">
-      <Filter>源文件\CliqueTree\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Query_Probability_GetSubtract.cpp">
-      <Filter>源文件\CliqueTree\查询</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ExactInference.rc">

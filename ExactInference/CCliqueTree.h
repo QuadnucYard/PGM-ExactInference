@@ -18,6 +18,7 @@
 
 using fidpair = std::pair<fid_t, fid_t>;
 using fidsetmap = std::map<fid_t, fidset>;
+using fidmultimap = std::multimap<fid_t, fid_t>;
 
 //定义类型
 //团树中的实例化变量类型
@@ -54,6 +55,9 @@ struct SEP_SET
 	CClique clique;			//03 割集。采用团表示
 	bool bReady;			//04 是否就绪。在向下传播消息时为就绪，向上传播消息时未就绪
 
+	SEP_SET() = default;
+	SEP_SET(fid_t nStartID, fid_t nEndID, const CClique& clique, bool bReady = false):
+		nStartID(nStartID), nEndID(nEndID), clique(clique), bReady(bReady) {}
 	bool operator==(const fidpair& rhs) const {
 		return nStartID == rhs.first && nEndID == rhs.second;
 	}
@@ -88,64 +92,71 @@ private:
 	//根据团ID获取团位置。团存储在vector中，其位置和ID未必相等
 	fid_t GetCliquePosByID(fid_t);
 
-	//////////////////////////////////////////////////////////////////////////////////////
 	//向上传递消息
-	void UpwardPass();																				//向上传递消息
-	void BuildUpwardTree(fid_t);																//构建向根团的树
-	void CreateCliqueWaitedMessages(fidsetmap&);							//创建团等待的消息集合
-	void InsertToWaitedMessages(fid_t, fid_t, fidsetmap&);	//插入等待消息集合
-	bool IsCliqueReady(fid_t, const fidsetmap&) const;			//检查团是否就绪
-	bool IsAllSEPSetExisted(fid_t, const fidset&) const;										//检查是否所有割集都已经存在。每条边包括向上和向下两个割集
-	bool IsAllSEPSetExisted_Helper(fid_t, fid_t) const;										//检查是否所有割集都已经存在的辅助函数
-	fid_t FindReadyClique(const fidsetmap&, const fidset&) const;	//要避免已经处理过的ID查找一个就绪的团
-	//发送消息
-	void SendCliqueMessage(unsigned int);															//向父节点发送消息
+	void UpwardPass();
+	//构建向根团的树
+	void BuildUpwardTree(fid_t);
+	//创建团等待的消息集合
+	void CreateCliqueWaitedMessages(fidsetmap&);
+	//插入等待消息集合
+	void InsertToWaitedMessages(fid_t, fid_t, fidsetmap&);
+	//检查团是否就绪
+	bool IsCliqueReady(fid_t, const fidsetmap&) const;
+	//检查是否所有割集都已经存在。每条边包括向上和向下两个割集
+	bool IsAllSEPSetExisted(fid_t, const fidset&) const;
+	//检查是否所有割集都已经存在的辅助函数
+	bool IsAllSEPSetExisted_Helper(fid_t, fid_t) const;
+	//要避免已经处理过的ID查找一个就绪的团
+	fid_t FindReadyClique(const fidsetmap&, const fidset&) const;
+
+	//向父节点发送消息
+	void SendCliqueMessage(fid_t);
 	//接收消息
-	void ReceiveMessages(fid_t, fidsetmap&);		//接收消息
-	const CClique& GetSEPSet(fid_t, fid_t);													//获取两个团之间的割集	
-	bool IsThereParentID(unsigned int, unsigned int&);												//检查是否存在双亲
-	void FindCommonVariableIDs(unsigned int, unsigned int, set<unsigned int>&);						//发现共享的变量ID集合
+	void ReceiveMessages(fid_t, fidsetmap&);
+	//获取两个团之间的割集	
+	const CClique& GetSEPSet(fid_t, fid_t);
+	//检查是否存在双亲
+	bool IsThereParentID(fid_t, fid_t&);
+	//发现共享的变量ID集合
+	void FindCommonVariableIDs(fid_t, fid_t, fidset&);
 
-	//////////////////////////////////////////////////////////////////////////////////////
 	//向下传递消息
-	void DownwardPass();																			//向下传递消息
-	void CreateCliqueWaitedMessages_Downward(fidsetmap&);				//向下传递消息时，创建团等待的消息集合
-	void SendCliqueMessage_Downward(unsigned int, unsigned int);										//向下传递消息
+	void DownwardPass();
+	//向下传递消息时，创建团等待的消息集合
+	void CreateCliqueWaitedMessages_Downward(fidsetmap&);
+	//向下传递消息
+	void SendCliqueMessage_Downward(fid_t, fid_t);
 
-	////////////////////////////////////////////////////////////////////////////////////
-	//查询辅助函数
-	void Query_Helper(CT_QUERY&);																	//查询的辅助函数
-	unsigned int GetStartCliquePos(set<unsigned int>&);												//获取查询开始团的位置
-	void GetIntersections(const vector<unsigned int>&, set<unsigned int>&, set<unsigned int>&);			//求列表和集合的交集
+	//查询的辅助函数
+	void Query_Helper(const CT_QUERY&);
+	//获取查询开始团的位置
+	size_t GetStartCliquePos(const fidset&);
+
 	//查询概率分布
-	void Query_Probability(CT_QUERY&, set<unsigned int>&, unsigned int);							//查询概率
-	unsigned int GetSEPSetPos(fid_t, fid_t);											//根据边的节点ID、获取割集位置
-	bool IsSetContainedIn(set<unsigned int>&, set<unsigned int>&);									//判断集合是否包含于另外一个集合
-	vector<unsigned int> GetSubstract(vector<unsigned int>&, set<unsigned int>&);					//求序列和集合的差
+	void Query_Probability(const CT_QUERY&, const fidset&, size_t);
+	//根据边的节点ID、获取割集位置
+	size_t GetSEPSetPos(fid_t, fid_t);
 
-	////////////////////////////////////////////////////////////////////////////////////
-	//输出查询结果。存储到CliqueTree_Output.xml
-	void OutputToXML();																				//输出概率到XML文件
+	//输出查询结果概率到XML文件
+	void OutputToXML();
 
-
-	//数据成员
 private:
 	//团树
-	vector<CT_NODE> m_CTNodes;									//团树的节点表
-	multimap<unsigned int, unsigned int> m_CTEdges;				//团树的边表
+	vector<CT_NODE> m_CTNodes;					//团树的节点表
+	fidmultimap m_CTEdges;						//团树的边表
 
-	unsigned int m_nRootID;										//根团的ID
-	map<unsigned int, string> m_VariableID2Names;				//从变量ID到变量名称的映射
-	multimap<unsigned int, unsigned int> m_VariableID2CliqueIDs;//从变量ID到团ID的多映射。一个变量可能属于多个团
-	fidmap m_CliqueID2Poses;			//从团ID到团位置的映射
-	fidmap m_UpwardTree;				//向根团的树
-	map<unsigned int, set<unsigned int>> m_Parent2Childs;		//双亲节点指向子节点集合
+	fid_t m_nRootID;							//根团的ID
+	map<fid_t, string> m_VariableID2Names;		//从变量ID到变量名称的映射
+	fidmultimap m_VariableID2CliqueIDs;			//从变量ID到团ID的多映射。一个变量可能属于多个团
+	fidmap m_CliqueID2Poses;					//从团ID到团位置的映射
+	fidmap m_UpwardTree;						//向根团的树
+	fidsetmap m_Parent2Childs;					//双亲节点指向子节点集合
 
 	//和积消息传递算法
-	vector<CClique> m_Cliques;									//团列表
-	vector<SEP_SET> m_SEPSets;									//割集列表
+	vector<CClique> m_Cliques;					//团列表
+	vector<SEP_SET> m_SEPSets;					//割集列表
 
 	//查询
-	vector<CT_QUERY> m_CTQueries;								//团树查询列表。支持多个查询
-	vector<double> m_CTQueryResults;							//团树查询结果列表
+	vector<CT_QUERY> m_CTQueries;				//团树查询列表。支持多个查询
+	vector<fval_t> m_CTQueryResults;			//团树查询结果列表
 };

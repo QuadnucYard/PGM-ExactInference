@@ -20,7 +20,7 @@
 //				ÍÅÊÇ·ñ¾ÍÐ÷£¿
 bool CCliqueTree::IsCliqueReady(fid_t nCliqueID, const fidsetmap& WaitedMessages) const
 {
-	const auto& msg = WaitedMessages[nCliqueID];
+	const fidset& msg = WaitedMessages.at(nCliqueID);
 	return msg.empty() || IsAllSEPSetExisted(nCliqueID, msg);
 }
 

@@ -15,7 +15,7 @@
 //功  能：		向下传递消息时，创建团的等待消息集合
 //参  数：		map<unsigned int,set<unsigned int>>&
 //返回值：		无
-void CCliqueTree::CreateCliqueWaitedMessages_Downward(map<unsigned int, set<unsigned int>>& WaitedMessages)
+void CCliqueTree::CreateCliqueWaitedMessages_Downward(fidsetmap& WaitedMessages)
 {
 	////////////////////////////////////////////////////////////////////////////////
 	//步骤1：遍历所有团，初始化向下传递消息时，团的等待消息集合为空

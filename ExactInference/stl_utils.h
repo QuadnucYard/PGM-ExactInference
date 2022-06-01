@@ -69,4 +69,9 @@ namespace qy {
 		return result;
 	}
 
+	template <class T>
+	inline constexpr auto set_inserter(std::set<T>& s) {
+		return std::inserter(s, s.end());
+	}
+
 }

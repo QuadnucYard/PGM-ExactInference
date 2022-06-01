@@ -23,23 +23,21 @@ void CCliqueTree::UpwardPass()
 	//步骤1：采用通用图搜索算法，构建向根团的树。参见《人工智能导论》中的GRAPHSEARCH
 	BuildUpwardTree(m_nRootID);
 
-	
 	//////////////////////////////////////////////////////////////////
 	//步骤2：构造团等待的消息集合
-	map <unsigned int,set<unsigned int>> CliqueWaitedMessages;
+	fidsetmap CliqueWaitedMessages;
 	CreateCliqueWaitedMessages(CliqueWaitedMessages);
 	//获取双亲节点指向子节点集合
 	m_Parent2Childs = CliqueWaitedMessages;
 
-
 	//////////////////////////////////////////////////////////////////
 	//步骤3：进入主循环，使就绪的团向上传递消息
-	set<unsigned int> VisitedIDs;
+	fidset VisitedIDs;
 	//检查根团是否就绪？
 	while (!IsCliqueReady(m_nRootID, CliqueWaitedMessages))
 	{	
 		//找到一个就绪的团
-		unsigned int nCliqueID = FindReadyClique(CliqueWaitedMessages,VisitedIDs);
+		fid_t nCliqueID = FindReadyClique(CliqueWaitedMessages,VisitedIDs);
 
 		//检查是否已经访问过
 		if (!qy::ranges::includes(VisitedIDs, nCliqueID))
