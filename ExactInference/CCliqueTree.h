@@ -7,17 +7,12 @@
 #pragma once
 
 
-#include <filesystem>
 #include <queue>
 #include "CClique.h"
-#include "Helper.h"
-#include "tinyxml.h"
+#include "iohelper.h"
 #include "xmlutils.hpp"
 #include "tinyxmliterator.h"
-
-using fidpair = std::pair<fid_t, fid_t>;
-using fidsetmap = std::map<fid_t, fidset>;
-using fidmultimap = std::multimap<fid_t, fid_t>;
+#include "Helper.h"
 
 using CTFactorRow = FactorRow;
 using CTFactorRowList = std::vector<FactorRow>;
@@ -48,6 +43,10 @@ class CCliqueTree
 	{
 		fid_t nVariableID;		//01 变量ID
 		fid_t nValueID;			//02 变量值ID
+
+		static GroundingVariable fromPair(fidpair pair) {
+			return GroundingVariable {pair.first, pair.second};
+		}
 	};
 
 	using GVarList = std::vector<GroundingVariable>;
@@ -122,6 +121,7 @@ private:
 
 	//输出查询结果概率到XML文件
 	void OutputToXML() const;
+	void OutputToYAML() const;
 
 private:
 	//团树

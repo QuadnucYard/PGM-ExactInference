@@ -6,9 +6,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "CBNSumProduct.h"
-#include "tinyxml.h"
-#include <format>
-#include <filesystem>
+
+#ifndef USE_YAML
 
 //输出查询结果到XML文件
 void CBNSumProduct::OutputToXML()
@@ -37,3 +36,5 @@ void CBNSumProduct::OutputToXML()
 	//自动打开文件
 	ShellExecute(NULL, _T("open"), sFileName.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
+
+#endif // !USE_YAML

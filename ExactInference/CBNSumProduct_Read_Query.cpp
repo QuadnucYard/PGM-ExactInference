@@ -6,14 +6,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "CBNSumProduct.h"
-#include "tinyxmliterator.h"
-#include <filesystem>
 
 
 //读取查询任务。包括查询节点、给定节点、删除节点顺序
 void CBNSumProduct::Read_Query()
 {
 	namespace fs = std::filesystem;
+
+#ifndef USE_YAML
+
 	fs::path sPath = fs::current_path() / "Data" / "BayesianNetwork_Query.xml";
 	if (!fs::exists(sPath)) return;
 
@@ -64,4 +65,20 @@ void CBNSumProduct::Read_Query()
 	}
 
 	aDoc.Clear();
+
+#else
+
+	fs::path sPath = fs::current_path() / "Data" / "BayesianNetwork_Query.yaml";
+	YAML::Node doc = YAML::LoadFile(sPath.string());
+
+	for (auto q : doc["queries"]) {
+		m_Queries.emplace_back(
+			q["marginal"].as<fidmap>(fidmap {}) | std::views::transform(GroundingVariable::fromPair) | qy::views::to<GVarList>,
+			q["given"].as<fidmap>(fidmap {}) | std::views::transform(GroundingVariable::fromPair) | qy::views::to<GVarList>,
+			q["eliminate"].as<fidlist>(fidlist {})
+		);
+	}
+
+#endif // USE_YAML
+
 }

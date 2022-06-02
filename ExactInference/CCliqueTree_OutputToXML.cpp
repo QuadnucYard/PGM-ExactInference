@@ -6,8 +6,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "CCliqueTree.h"
-#include <format>
 
+#ifndef USE_YAML
 
 //输出查询结果到XML文件
 void CCliqueTree::OutputToXML() const
@@ -34,3 +34,5 @@ void CCliqueTree::OutputToXML() const
 
 	ShellExecute(NULL, L"open", sPath.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
+
+#endif // !USE_YAML

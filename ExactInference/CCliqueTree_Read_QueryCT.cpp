@@ -11,8 +11,10 @@
 //读取团树查询任务。包括查询节点、给定节点
 void CCliqueTree::Read_QueryCT()
 {
-	//获取当前工作路径
 	namespace fs = std::filesystem;
+
+#ifndef USE_YAML
+
 	fs::path sPath = fs::current_path() / "Data" / "CliqueTree_Query.xml";
 	if (!fs::exists(sPath))
 	{
@@ -58,4 +60,20 @@ void CCliqueTree::Read_QueryCT()
 	}
 
 	aDoc.Clear();
+
+
+#else
+
+	fs::path sPath = fs::current_path() / "Data" / "CliqueTree_Query.yaml";
+	YAML::Node doc = YAML::LoadFile(sPath.string());
+
+	for (auto q : doc["queries"]) {
+		m_CTQueries.emplace_back(
+			q["marginal"].as<fidmap>(fidmap {}) | std::views::transform(GroundingVariable::fromPair) | qy::views::to<GVarList>,
+			q["given"].as<fidmap>(fidmap {}) | std::views::transform(GroundingVariable::fromPair) | qy::views::to<GVarList>
+		);
+	}
+
+#endif // USE_YAML
+
 }

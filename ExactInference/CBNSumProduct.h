@@ -8,7 +8,7 @@
 
 #include <string>
 #include "CFactor.h"
-#include "xmlutils.hpp"
+#include "iohelper.h"
 
 
 //贝叶斯网络节点
@@ -42,6 +42,10 @@ class CBNSumProduct
 	{
 		fid_t nNodeID;				//01 变量ID
 		fid_t nValueID;				//02 变量的值ID
+
+		static GroundingVariable fromPair(fidpair pair) {
+			return GroundingVariable {pair.first, pair.second};
+		}
 	};
 
 	using GVarList = std::vector<GroundingVariable>;
@@ -80,14 +84,14 @@ private:
 
 	//排列父节点ID及其取值
 	void Arrange(fid_t, const fidlist&, const fidlist&, size_t, size_t&);
-	//从CPT中查找概率
-	double GetProbFromCPT(CPTRowList& cpts, fidlist&);
 	//获取因子
 	double GetFactor(fid_t nNodeID, fid_t nNodeValue, const GVarList& QueryVariables);
 	//获取值的ID
 	fid_t GetValueID(fid_t, const GVarList&);
 
-	void OutputToXML();																								//输出概率分布到XML文件
+	//输出概率分布到XML文件
+	void OutputToXML();				
+	void OutputToYAML();
 
 	//和积变量消除
 	void Sum_Product_Eliminate_Var(fid_t, CFactorList&);	

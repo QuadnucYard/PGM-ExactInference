@@ -11,8 +11,10 @@
 //读取团树
 void CCliqueTree::Read_CT()
 {
-	//获取当前工作路径
 	namespace fs = std::filesystem;
+
+#ifndef USE_YAML
+
 	fs::path sPath = fs::current_path() / "Data" / "CliqueTree.xml";
 	if (!fs::exists(sPath))
 	{
@@ -89,4 +91,50 @@ void CCliqueTree::Read_CT()
 	}
 
 	aDoc.Clear();
+
+#else
+
+	fs::path sPath = fs::current_path() / "Data" / "CliqueTree.yaml";
+	YAML::Node doc = YAML::LoadFile(sPath.string());
+
+	auto root = doc["CliqueTree"];
+	m_nRootID = root["root"].as<fid_t>();
+	fidmap numValuesMap;
+	for (auto node : root["vars"]) {
+		m_VariableID2Names[node.first.as<fid_t>()] = node.second["name"].as<std::string>();
+		numValuesMap[node.first.as<fid_t>()] = node.second["numValues"].as<fid_t>();
+	}
+
+	for (auto node : root["cliques"]) {
+		CTNode ct_node;
+		ct_node.nID = node.first.as<fid_t>();
+		ct_node.VariableIDs = node.second["vars"].as<fidlist>();
+
+		// 下面构造所有值组合
+		fidlist numValues; //按顺序每个变量的取值数
+		std::ranges::transform(ct_node.VariableIDs, std::back_inserter(numValues),
+			[&](fid_t i) { return numValuesMap[i]; });
+
+		size_t n = numValues.size(), i = 0;
+		fidlist a(n);
+		do {
+			ct_node.FactorRows.emplace_back(a, node.second["vals"][i++].as<fval_t>());
+			// 从高位开始做加法
+			++a[n - 1];
+			for (size_t j = n - 1; j > 0 && a[j] == numValues[j]; j--) {
+				a[j] = 0;
+				++a[j - 1];
+			}
+		} while (a[0] != numValues[0]);
+
+		m_CTNodes.push_back(std::move(ct_node));
+	}
+
+	for (auto node : root["edges"]) {
+		m_CTEdges.insert({node[0].as<fid_t>(), node[1].as<fid_t>()});
+		m_CTEdges.insert({node[1].as<fid_t>(), node[0].as<fid_t>()});
+	}
+
+#endif // USE_YAML
+
 }

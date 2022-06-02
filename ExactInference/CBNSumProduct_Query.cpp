@@ -19,5 +19,6 @@ void CBNSumProduct::Query()
 		Query_Helper(q, m_Factors);
 	}
 	//输出查询结果
-	OutputToXML();
+	//OutputToXML();
+	OutputToYAML();
 }

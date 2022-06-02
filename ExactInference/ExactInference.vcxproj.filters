@@ -130,6 +130,9 @@
     <Filter Include="源文件\myutils">
       <UniqueIdentifier>{39ff0a65-1722-4a3a-8707-14c5c76ce804}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Common">
+      <UniqueIdentifier>{511b8c37-2620-45b8-8cbc-941bf4140d5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -199,7 +202,10 @@
       <Filter>源文件\myutils</Filter>
     </ClInclude>
     <ClInclude Include="factordef.h">
-      <Filter>源文件\Factor</Filter>
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="iohelper.h">
+      <Filter>源文件\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -365,6 +371,12 @@
     <ClCompile Include="CCliqueTree_Query_Probability.cpp">
       <Filter>源文件\CliqueTree\查询</Filter>
     </ClCompile>
+    <ClCompile Include="CBNSumProduct_OutputToYAML.cpp">
+      <Filter>源文件\BNSumProduct\输出</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_OutputToYAML.cpp">
+      <Filter>源文件\CliqueTree\输出</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ExactInference.rc">
@@ -375,6 +387,7 @@
     <None Include="res\ExactInference.rc2">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ExactInference.ico">

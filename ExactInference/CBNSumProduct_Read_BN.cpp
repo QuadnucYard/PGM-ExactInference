@@ -6,14 +6,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "CBNSumProduct.h"
-#include "tinyxmliterator.h"
-#include <filesystem>
 
 
 //读取贝叶斯网络结构和参数
 void CBNSumProduct::Read_BN()
 {
 	namespace fs = std::filesystem;
+
+#ifndef USE_YAML
+
 	fs::path sPath = fs::current_path() / "Data" / "BayesianNetwork.xml";
 	if (!fs::exists(sPath)) {
 		AfxMessageBox(_T("贝叶斯网络结构和参数文件BayesianNetwork.xml不存在"));
@@ -62,7 +63,7 @@ void CBNSumProduct::Read_BN()
 			| qy::views::tokenize(std::regex("[\\s,;，；、]+"))
 			| std::views::transform(stod_)
 			| qy::views::to<fvallist>;
-		
+
 		m_Nodes.push_back(bn_node);
 	}
 
@@ -79,4 +80,32 @@ void CBNSumProduct::Read_BN()
 	}
 
 	aDoc.Clear();
+
+#else
+
+	fs::path sPath = fs::current_path() / "Data" / "BayesianNetwork.yaml";
+	YAML::Node doc = YAML::LoadFile(sPath.string());
+
+	auto root = doc["BayesianNetwork"];
+	for (auto node : root["nodes"]) {
+		BNNode bn_node;
+		bn_node.nID = node.first.as<fid_t>();
+		bn_node.sName = node.second["name"].as<std::string>("");
+		bn_node.sAbbr = node.second["abbr"].as<std::string>("");
+		bn_node.nNumberOfValues = node.second["numValues"].as<size_t>();
+		bn_node.ParentIDs = node.second["parants"].as<fidlist>(fidlist {});
+		bn_node.CPTRowValues = node.second["CPT"].as<fvallist>();
+		m_Nodes.push_back(std::move(bn_node));
+	}
+
+	for (auto edge : root["edges"]) {
+		m_Edges.emplace_back(
+			edge.first.as<fid_t>(),
+			edge.second["start"].as<fid_t>(),
+			edge.second["end"].as<fid_t>()
+		);
+	}
+
+#endif // USE_YAML
+
 }
