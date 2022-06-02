@@ -6,13 +6,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 #pragma once
 
-#include <vector>
-#include <algorithm>
-#include <numeric>
+
 #include "factordef.h"
 #include "Helper.h"
 #include "stl_utils.h"
-#include "xiterator.h"
+#include "qyranges.hpp"
 
 
 //“Ú◊”¿‡

@@ -10,6 +10,10 @@ using fidlist = std::vector<fid_t>;
 using fvallist = std::vector<fval_t>;
 using fidset = std::set<fid_t>;
 using fidmap = std::map<fid_t, fid_t>;
+using fidpair = std::pair<fid_t, fid_t>;
+using fidsetmap = std::map<fid_t, fidset>;
+using fidmultimap = std::multimap<fid_t, fid_t>;
+using fidpairlist = std::vector<fidpair>;
 
 
 //因子行
@@ -18,9 +22,6 @@ struct FactorRow
 	fidlist ValueIDs;	//01 变量值ID的列表，按照变量ID列表的顺序排列
 	fval_t fValue;		//02 因子的值
 
-	FactorRow() = default;
-	FactorRow(const fidlist& ValueIDs, fval_t fValue): ValueIDs(ValueIDs), fValue(fValue) {}
-	FactorRow(fidlist&& ValueIDs, fval_t fValue): ValueIDs(ValueIDs), fValue(fValue) {}
 	inline const fid_t& operator[](size_t index) const { return ValueIDs[index]; }
 	inline fid_t& operator[](size_t index) { return ValueIDs[index]; }
 	inline size_t size() const { return ValueIDs.size(); }

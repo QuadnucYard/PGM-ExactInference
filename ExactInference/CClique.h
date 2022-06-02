@@ -6,8 +6,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #pragma once
 
-#include <algorithm>		
-#include <numeric>			
 #include "factordef.h"
 #include "stl_utils.h"
 #include "qyranges.hpp"

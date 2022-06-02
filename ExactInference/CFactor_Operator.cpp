@@ -11,8 +11,6 @@
 CFactor CFactor::operator*(const CFactor& second) const
 {
 	// 应当保证因子升序排序
-	assert(std::ranges::is_sorted(m_VariableIDs));
-	assert(std::ranges::is_sorted(second.m_VariableIDs));
 	// 检查两列能否合并
 	auto checkMerge = [](const fidlist& id1, const FactorRow& row1, const fidlist& id2, const FactorRow& row2) {
 		size_t n = id1.size(), m = id2.size();
