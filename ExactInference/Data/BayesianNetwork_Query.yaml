@@ -1,0 +1,28 @@
+queries:
+  - marginal: { 0: 0, 1: 1, 2: 1, 3: 1, 4: 0 }
+  - marginal: { 4: 1 }
+    eliminate: [0, 1, 2, 3]
+  - marginal: { 4: 1 }
+    given: { 1: 0 }
+    eliminate: [0, 2, 3]
+  - marginal: { 4: 1 }
+    given: { 1: 0, 0: 0 }
+    eliminate: [2, 3]
+  - marginal: { 1: 1 }
+    given: { 2: 2 }
+    eliminate: [0, 3, 4]
+  - marginal: { 1: 1 }
+    given: { 4: 0 }
+    eliminate: [0, 2, 3]
+  - marginal: { 1: 1 }
+    given: { 2: 2, 3: 1 }
+    eliminate: [0, 4]
+  - marginal: { 1: 1 }
+    given: { 2: 2, 0: 1 }
+    eliminate: [3, 4]
+  - marginal: { 1: 1 }
+    given: { 2: 1 }
+    eliminate: [0, 3, 4]
+  - marginal: { 1: 1 }
+    given: { 2: 1, 0: 1 }
+    eliminate: [3, 4]

@@ -1,0 +1,36 @@
+CliqueTree:
+  root: 1
+  vars:
+    0:
+      name: Difficulty
+      abbr: D
+      numValues: 2
+    1:
+      name: Intelligence
+      abbr: I
+      numValues: 2
+    2:
+      name: Grade
+      abbr: G
+      numValues: 3
+    3:
+      name: SAT
+      abbr: S
+      numValues: 2
+    4:
+      name: Letter
+      abbr: L
+      numValues: 2
+  cliques:
+    0:
+      vars: [2, 4]
+      vals: [0.1, 0.9, 0.4, 0.6, 0.99, 0.01]
+    1:
+      vars: [1, 0, 2]
+      vals: [0.126, 0.168, 0.126, 0.014, 0.07, 0.196, 0.162, 0.0144, 0.0036, 0.06, 0.036, 0.024]
+    2:
+      vars: [1, 3]
+      vals: [0.95, 0.05, 0.2, 0.8]
+  edges:
+    - [0, 1]
+    - [1, 2]
