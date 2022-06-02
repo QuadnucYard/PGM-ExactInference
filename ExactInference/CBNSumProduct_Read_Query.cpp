@@ -55,7 +55,7 @@ void CBNSumProduct::Read_Query()
 			if (std::string sTemp = GetAttribute(pEliminate, "IDs"); sTemp != "")
 			{
 				query.EliminateVariables = sTemp
-					| qy::views::tokenize(std::regex("[\\s,;£¬£»¡¢]+"))
+					| qy::views::tokenize(std::regex("[\\s,;]+"))
 					| std::views::transform(stoi_)
 					| qy::views::to<fidlist>;
 			}

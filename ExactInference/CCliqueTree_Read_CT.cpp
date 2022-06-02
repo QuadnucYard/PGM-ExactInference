@@ -57,7 +57,7 @@ void CCliqueTree::Read_CT()
 
 		std::string tmp = GetAttribute(pClique, "VARIABLE_IDS");
 		ct_node.VariableIDs = tmp
-			| qy::views::tokenize(std::regex("[\\s,;£¬£»¡¢]+"))
+			| qy::views::tokenize(std::regex("[\\s,;]+"))
 			| std::views::transform(stoi_)
 			| qy::views::to<fidlist>;
 

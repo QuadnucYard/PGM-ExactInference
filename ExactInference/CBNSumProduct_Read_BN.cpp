@@ -52,7 +52,7 @@ void CBNSumProduct::Read_BN()
 		{
 			std::string tmp = GetAttribute(pNode, "PARENT_IDS");
 			bn_node.ParentIDs = tmp
-				| qy::views::tokenize(std::regex("[\\s,;，；、]+"))
+				| qy::views::tokenize(std::regex("[\\s,;]+"))
 				| std::views::transform(stoi_)
 				| qy::views::to<fidlist>;
 		}
@@ -60,7 +60,7 @@ void CBNSumProduct::Read_BN()
 		//07 CPT中的概率值
 		std::string tmp = GetAttribute(pNode, "CPT");
 		bn_node.CPTRowValues = tmp
-			| qy::views::tokenize(std::regex("[\\s,;，；、]+"))
+			| qy::views::tokenize(std::regex("[\\s,;]+"))
 			| std::views::transform(stod_)
 			| qy::views::to<fvallist>;
 
