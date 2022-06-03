@@ -17,10 +17,6 @@ void CCliqueTree::Query()
 		Query_Helper(q);
 	}
 
-#ifndef USE_YAML
-	OutputToXML();
-#else
-	OutputToYAML();
-#endif // !USE_YAML
+	OutputResult();
 
 }

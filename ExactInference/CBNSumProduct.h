@@ -89,9 +89,8 @@ private:
 	//获取值的ID
 	fid_t GetValueID(fid_t, const GVarList&);
 
-	//输出概率分布到XML文件
-	void OutputToXML();				
-	void OutputToYAML();
+	//输出概率分布到文件
+	void OutputResult();
 
 	//和积变量消除
 	void Sum_Product_Eliminate_Var(fid_t, CFactorList&);	

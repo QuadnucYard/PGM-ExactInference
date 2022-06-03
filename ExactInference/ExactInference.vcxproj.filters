@@ -281,9 +281,6 @@
     <ClCompile Include="CBNSumProduct_SumPruductElimateVar.cpp">
       <Filter>源文件\BNSumProduct\查询</Filter>
     </ClCompile>
-    <ClCompile Include="CBNSumProduct_OutputToXML.cpp">
-      <Filter>源文件\BNSumProduct\输出</Filter>
-    </ClCompile>
     <ClCompile Include="CBNSumProduct_Query.cpp">
       <Filter>源文件\BNSumProduct\查询</Filter>
     </ClCompile>
@@ -329,9 +326,6 @@
     <ClCompile Include="CCliqueTree_Query_Helper.cpp">
       <Filter>源文件\CliqueTree\查询</Filter>
     </ClCompile>
-    <ClCompile Include="CCliqueTree_OutputToXML.cpp">
-      <Filter>源文件\CliqueTree\输出</Filter>
-    </ClCompile>
     <ClCompile Include="CCliqueTree_UpwardPass.cpp">
       <Filter>源文件\CliqueTree\初始化\向上消息传递</Filter>
     </ClCompile>
@@ -371,10 +365,10 @@
     <ClCompile Include="CCliqueTree_Query_Probability.cpp">
       <Filter>源文件\CliqueTree\查询</Filter>
     </ClCompile>
-    <ClCompile Include="CBNSumProduct_OutputToYAML.cpp">
+    <ClCompile Include="CBNSumProduct_OutputResult.cpp">
       <Filter>源文件\BNSumProduct\输出</Filter>
     </ClCompile>
-    <ClCompile Include="CCliqueTree_OutputToYAML.cpp">
+    <ClCompile Include="CCliqueTree_OutputResult.cpp">
       <Filter>源文件\CliqueTree\输出</Filter>
     </ClCompile>
   </ItemGroup>

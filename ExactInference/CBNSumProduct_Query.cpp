@@ -19,11 +19,6 @@ void CBNSumProduct::Query()
 		Query_Helper(q, m_Factors);
 	}
 	//输出查询结果
-	
-#ifndef USE_YAML
-	OutputToXML();
-#else
-	OutputToYAML();
-#endif // !USE_YAML
+	OutputResult();
 
 }

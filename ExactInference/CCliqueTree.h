@@ -119,9 +119,8 @@ private:
 	//根据边的节点ID、获取割集位置
 	const CutSet& GetReadySEPSet(fid_t, fid_t) const;
 
-	//输出查询结果概率到XML文件
-	void OutputToXML() const;
-	void OutputToYAML() const;
+	//输出查询结果概率到文件
+	void OutputResult() const;
 
 private:
 	//团树

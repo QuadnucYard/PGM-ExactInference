@@ -234,8 +234,7 @@
   <ItemGroup>
     <ClCompile Include="CBNSumProduct_GetFactor.cpp" />
     <ClCompile Include="CBNSumProduct_Init.cpp" />
-    <ClCompile Include="CBNSumProduct_OutputToXML.cpp" />
-    <ClCompile Include="CBNSumProduct_OutputToYAML.cpp" />
+    <ClCompile Include="CBNSumProduct_OutputResult.cpp" />
     <ClCompile Include="CBNSumProduct_Preprocess.cpp" />
     <ClCompile Include="CBNSumProduct_Preprocess_BN.cpp" />
     <ClCompile Include="CBNSumProduct_Preprocess_Factor.cpp" />
@@ -244,7 +243,7 @@
     <ClCompile Include="CBNSumProduct_Query_Marginal.cpp" />
     <ClCompile Include="CBNSumProduct_Read_BN.cpp" />
     <ClCompile Include="CBNSumProduct_Read_Query.cpp" />
-    <ClCompile Include="CCliqueTree.SendCliqueMessage.cpp" />
+    <ClCompile Include="CCliqueTree_SendCliqueMessage.cpp" />
     <ClCompile Include="CCliqueTree_BuildUpwardTree.cpp" />
     <ClCompile Include="CCliqueTree_CreateCliqueWaitedMessages.cpp" />
     <ClCompile Include="CCliqueTree_CreateCliqueWaitedMessages_Downward.cpp" />
@@ -252,8 +251,7 @@
     <ClCompile Include="CCliqueTree_FindReadyClique.cpp" />
     <ClCompile Include="CCliqueTree_Init.cpp" />
     <ClCompile Include="CCliqueTree_IsCliqueReady.cpp" />
-    <ClCompile Include="CCliqueTree_OutputToXML.cpp" />
-    <ClCompile Include="CCliqueTree_OutputToYAML.cpp" />
+    <ClCompile Include="CCliqueTree_OutputResult.cpp" />
     <ClCompile Include="CCliqueTree_Preprocess.cpp" />
     <ClCompile Include="CCliqueTree_Query.cpp" />
     <ClCompile Include="CCliqueTree_Query_Helper.cpp" />
