@@ -10,7 +10,7 @@
 #ifndef USE_YAML
 
 //输出查询结果到XML文件
-void CBNSumProduct::OutputResult()
+void CBNSumProduct::OutputResult() const
 {
 	TiXmlDocument doc;
 	//设置文档属性
@@ -39,7 +39,7 @@ void CBNSumProduct::OutputResult()
 
 #else
 
-void CBNSumProduct::OutputResult()
+void CBNSumProduct::OutputResult() const
 {
 	YAML::Node root;
 

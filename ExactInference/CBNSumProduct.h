@@ -85,15 +85,15 @@ private:
 	//排列父节点ID及其取值
 	void Arrange(fid_t, const fidlist&, const fidlist&, size_t, size_t&);
 	//获取因子
-	double GetFactor(fid_t nNodeID, fid_t nNodeValue, const GVarList& QueryVariables);
+	double GetFactor(fid_t nNodeID, fid_t nNodeValue, const GVarList& QueryVariables) const;
 	//获取值的ID
-	fid_t GetValueID(fid_t, const GVarList&);
+	fid_t GetValueID(fid_t, const GVarList&) const;
 
 	//输出概率分布到文件
-	void OutputResult();
+	void OutputResult() const;
 
 	//和积变量消除
-	void Sum_Product_Eliminate_Var(fid_t, CFactorList&);	
+	void Sum_Product_Eliminate_Var(fid_t, CFactorList&) const;
 
 private:
 	std::vector<BNNode> m_Nodes;		//BN的节点表

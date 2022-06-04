@@ -9,7 +9,7 @@
 
 
 //和积消除变量
-void CBNSumProduct::Sum_Product_Eliminate_Var(fid_t nVariableID, CFactorList& OldFactors)
+void CBNSumProduct::Sum_Product_Eliminate_Var(fid_t nVariableID, CFactorList& OldFactors) const
 {
 	CFactorList NewFactors;
 	//步骤1：构建因子列表，从OldFactors划分出，并从因子列表中删除和给定变量值不一致的行

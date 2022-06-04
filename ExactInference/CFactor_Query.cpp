@@ -8,7 +8,7 @@
 #include "CFactor.h"
 
 
-double CFactor::Query(const fidlist& VariableIDs, const fidlist& ValueIDs)
+double CFactor::Query(const fidlist& VariableIDs, const fidlist& ValueIDs) const
 {
 	// 使用m_VariableIDs在VariableIDs中的位置构建列表
 	auto mmap = std::views::transform(m_VariableIDs, [&](fid_t id) -> fid_t {

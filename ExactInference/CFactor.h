@@ -30,7 +30,7 @@ public:
 	//因子归一化
 	void Normalize();								
 	//根据给定变量ID集合、变量值ID的集合，获取具体查询的概率值
-	fval_t Query(const fidlist&, const fidlist&);
+	fval_t Query(const fidlist&, const fidlist&) const;
 
 	//重载因子积
 	CFactor operator*(const CFactor& second) const;
