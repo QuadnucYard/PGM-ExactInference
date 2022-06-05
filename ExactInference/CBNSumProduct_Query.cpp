@@ -9,16 +9,12 @@
 
 
 //查询
-void CBNSumProduct::Query()
+fvallist CBNSumProduct::Query(const QueryList& queries) const
 {
+	fvallist queryResult;
 	//遍历所有查询进行推理
-	for (const BNQuery& q : m_Queries)
-	{
-		//Preprocess_Query(m_Queries[i]);
-		//调用查询的辅助函数
-		Query_Helper(q, m_Factors);
-	}
-	//输出查询结果
-	OutputResult();
-
+	std::ranges::transform(queries, std::back_inserter(queryResult),
+		[this](const BNQuery& q) { return Query_Helper(q, m_Factors); });
+	
+	return queryResult;
 }

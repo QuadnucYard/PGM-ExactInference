@@ -9,7 +9,7 @@
 
 
 //查询概率
-void CCliqueTree::Query_Probability(const CTQuery& query, const fidset& QueryVariableIDs, const CClique& startClique)
+fval_t CCliqueTree::Query_Probability(const CTQuery& query, const fidset& QueryVariableIDs, const CClique& startClique) const
 {
 	//获取开始团ID
 	fid_t nStartCliqueID = startClique.GetID();
@@ -87,6 +87,5 @@ void CCliqueTree::Query_Probability(const CTQuery& query, const fidset& QueryVar
 	fidlist VariableIDs = query.MarginalVariables | std::views::transform(&GroundingVariable::nVariableID) | qy::views::to<fidlist>;
 	fidlist ValueIDs = query.MarginalVariables | std::views::transform(&GroundingVariable::nValueID) | qy::views::to<fidlist>;
 
-	//添加概率到查询结果
-	m_CTQueryResults.push_back(theClique.Query(VariableIDs, ValueIDs));
+	return theClique.Query(VariableIDs, ValueIDs);
 }

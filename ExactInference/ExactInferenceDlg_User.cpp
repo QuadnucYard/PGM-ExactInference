@@ -5,39 +5,46 @@
 // Refined    by	QuadnucYard
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
-#include "ExactInference.h"
 #include "ExactInferenceDlg.h"
 #include "CBNSumProduct.h"
+#include "CBNSumProduct_IO.h"
 #include "CCliqueTree.h"
+#include "CCliqueTree_IO.h"
+#include "Helper.h"
 
 
 //响应初始化命令
 void CExactInferenceDlg::OnBnClickedButtonBnInit()
 {
-	//定义贝叶斯网络对象
-	CBNSumProduct theBN;
-	
-	//初始化
-	theBN.Init();
-	//提示
-	AfxMessageBox(_T("完成读取贝叶斯网络的结构和参数，并开始推理...。请按确定键继续"));
-	
-	//查询
-	theBN.Query();
+	try {
+		CBNSumProduct theBN = CBNSumProductReader::Read_BN("BayesianNetwork");
+		theBN.Preprocess();
+
+		AfxMessageBox(L"完成读取贝叶斯网络的结构和参数，并开始推理……请按确定键继续");
+
+		auto queries = CBNSumProductReader::Read_Query("BayesianNetwork_Query");
+		CBNSumProductWriter::OutputResult("Output", theBN.Query(queries));
+
+	} catch (std::exception e) {
+		msgerr(e.what());
+	}
+
 }
 
 
 //响应基于团树的初始化、查询命令
 void CExactInferenceDlg::OnBnClickedButtonCt()
 {
-	//定义团树对象
-	CCliqueTree theCliqueTree;
+	try {
+		CCliqueTree theCliqueTree = CCliqueTreeReader::Read_CT("CliqueTree");
+		theCliqueTree.Init();
 
-	//初始化
-	theCliqueTree.Init();
-	//提示
-	AfxMessageBox(_T("完成读取团树和校准，准备开始推理...。请按确定键继续"));
+		AfxMessageBox(L"完成读取团树和校准，准备开始推理……请按确定键继续");
 
-	//查询
-	theCliqueTree.Query();
+		auto queries = CCliqueTreeReader::Read_Query("CliqueTree_Query");
+		CCliqueTreeWriter::OutputResult("CliqueTree_Output", theCliqueTree.Query(queries));
+
+	} catch (std::exception e) {
+		msgerr(e.what());
+	}
 }

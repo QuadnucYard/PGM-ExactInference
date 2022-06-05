@@ -5,39 +5,31 @@
 // Refined    by	QuadnucYard
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
-#include "CCliqueTree.h"
+#include "CCliqueTree_IO.h"
 
 
 //读取团树
-void CCliqueTree::Read_CT()
+CCliqueTree CCliqueTreeReader::Read_CT(const std::string& filename)
 {
 	namespace fs = std::filesystem;
+	CCliqueTree ct;
 
 #ifndef USE_YAML
 
-	fs::path sPath = fs::current_path() / "Data" / "CliqueTree.xml";
+	fs::path sPath = fs::current_path() / "Data" / (filename + ".xml");
 	if (!fs::exists(sPath))
 	{
-		AfxMessageBox(_T("团树文件CliqueTree.xml不存在"));
-		return;
+		throw std::runtime_error("文件不存在：" + filename + ".xml");
 	}
 
 	TiXmlDocument aDoc(sPath.string().c_str());
 	if (!aDoc.LoadFile())
 	{
-		AfxMessageBox(_T("打开CliqueTree.xml失败:"));
-		return exit(0);
+		throw std::runtime_error("打开文件失败：" + filename + ".xml");
 	}
 
 	TiXmlElement* pCliqueTree = aDoc.RootElement();
-	if (pCliqueTree != NULL)
-	{
-		m_nRootID = GetAttributeI(pCliqueTree, "ROOT_ID");
-	} else
-	{
-		AfxMessageBox(_T("根节点CliqueTree不存在"));
-		return exit(0);
-	}
+	ct.m_nRootID = GetAttributeI(pCliqueTree, "ROOT_ID");
 
 	//步骤1：获取变量表
 	TiXmlElement* pVariables = pCliqueTree->FirstChildElement();
@@ -45,7 +37,7 @@ void CCliqueTree::Read_CT()
 	for (const auto& pVariable : pVariables)
 	{
 		//添加到变量ID到名称的映射
-		m_VariableID2Names.insert({GetAttributeI(pVariable, "ID"), GetAttribute(pVariable, "NAME")});
+		ct.m_VariableID2Names.insert({GetAttributeI(pVariable, "ID"), GetAttribute(pVariable, "NAME")});
 	}
 
 	//步骤2：获取团表
@@ -76,7 +68,7 @@ void CCliqueTree::Read_CT()
 			ct_node.FactorRows.push_back(factor_row);
 		}
 
-		m_CTNodes.push_back(std::move(ct_node));
+		ct.m_CTNodes.push_back(std::move(ct_node));
 	}
 
 	//步骤3：获取边表
@@ -86,22 +78,22 @@ void CCliqueTree::Read_CT()
 		fid_t nStartCliqueID = GetAttributeI(pEdge, "START_CLIQUE_ID");
 		fid_t nEndCliqueID = GetAttributeI(pEdge, "END_CLIQUE_ID");
 		//添加到边表。注意：采用双向映射
-		m_CTEdges.insert({nStartCliqueID, nEndCliqueID});
-		m_CTEdges.insert({nEndCliqueID, nStartCliqueID});
+		ct.m_CTEdges.insert({nStartCliqueID, nEndCliqueID});
+		ct.m_CTEdges.insert({nEndCliqueID, nStartCliqueID});
 	}
 
 	aDoc.Clear();
 
 #else
 
-	fs::path sPath = fs::current_path() / "Data" / "CliqueTree.yaml";
+	fs::path sPath = fs::current_path() / "Data" / (filename + ".yaml");
 	YAML::Node doc = YAML::LoadFile(sPath.string());
 
 	auto root = doc["CliqueTree"];
-	m_nRootID = root["root"].as<fid_t>();
+	ct.m_nRootID = root["root"].as<fid_t>();
 	fidmap numValuesMap;
 	for (auto node : root["vars"]) {
-		m_VariableID2Names[node.first.as<fid_t>()] = node.second["name"].as<std::string>();
+		ct.m_VariableID2Names[node.first.as<fid_t>()] = node.second["name"].as<std::string>();
 		numValuesMap[node.first.as<fid_t>()] = node.second["numValues"].as<fid_t>();
 	}
 
@@ -127,14 +119,15 @@ void CCliqueTree::Read_CT()
 			}
 		} while (a[0] != numValues[0]);
 
-		m_CTNodes.push_back(std::move(ct_node));
+		ct.m_CTNodes.push_back(std::move(ct_node));
 	}
 
 	for (auto node : root["edges"]) {
-		m_CTEdges.insert({node[0].as<fid_t>(), node[1].as<fid_t>()});
-		m_CTEdges.insert({node[1].as<fid_t>(), node[0].as<fid_t>()});
+		ct.m_CTEdges.insert({node[0].as<fid_t>(), node[1].as<fid_t>()});
+		ct.m_CTEdges.insert({node[1].as<fid_t>(), node[0].as<fid_t>()});
 	}
 
 #endif // USE_YAML
 
+	return ct;
 }

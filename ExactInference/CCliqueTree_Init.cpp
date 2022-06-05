@@ -11,12 +11,6 @@
 //初始化
 void CCliqueTree::Init()
 {
-	//步骤1：读取团树
-	Read_CT();
-
-	//步骤2：读取查询任务，包括边缘变量、给定变量ID和值ID
-	Read_QueryCT();
-
 	//步骤3：预处理
 	Preprocess();
 

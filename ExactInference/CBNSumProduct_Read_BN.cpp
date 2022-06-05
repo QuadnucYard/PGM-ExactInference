@@ -5,28 +5,26 @@
 // Refined    by	QuadnucYard
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
-#include "CBNSumProduct.h"
+#include "CBNSumProduct_IO.h"
 
 
 //读取贝叶斯网络结构和参数
-void CBNSumProduct::Read_BN()
+CBNSumProduct CBNSumProductReader::Read_BN(const std::string& filename)
 {
 	namespace fs = std::filesystem;
+	CBNSumProduct bn;
 
 #ifndef USE_YAML
 
-	fs::path sPath = fs::current_path() / "Data" / "BayesianNetwork.xml";
+	fs::path sPath = fs::current_path() / "Data" / (filename + ".xml");
 	if (!fs::exists(sPath)) {
-		AfxMessageBox(_T("贝叶斯网络结构和参数文件BayesianNetwork.xml不存在"));
-		return;
+		throw std::runtime_error("文件不存在：" + filename + ".xml");
 	}
 
-	//打开文件
 	TiXmlDocument aDoc(sPath.string().c_str());
 	if (!aDoc.LoadFile())
 	{
-		AfxMessageBox(_T("打开BayesianNetwork_Part.xml失败:"));
-		return exit(0);
+		throw std::runtime_error("打开文件失败：" + filename + ".xml");
 	}
 
 	//获取根结点
@@ -64,14 +62,14 @@ void CBNSumProduct::Read_BN()
 			| std::views::transform(stod_)
 			| qy::views::to<fvallist>;
 
-		m_Nodes.push_back(bn_node);
+		bn.m_Nodes.push_back(bn_node);
 	}
 
 	////
 	//步骤2：获取边表
 	if (TiXmlElement* pEdges = pNodes->NextSiblingElement(); pEdges)
 	{
-		std::transform(begin(pEdges), end(pEdges), std::back_inserter(m_Edges),
+		std::transform(begin(pEdges), end(pEdges), std::back_inserter(bn.m_Edges),
 			[](TiXmlElement& pEdge) { return BNEdge(
 				GetAttributeI(pEdge, "ID"),
 				GetAttributeI(pEdge, "START_NODE_ID"),
@@ -83,7 +81,7 @@ void CBNSumProduct::Read_BN()
 
 #else
 
-	fs::path sPath = fs::current_path() / "Data" / "BayesianNetwork.yaml";
+	fs::path sPath = fs::current_path() / "Data" / (filename + ".yaml");
 	YAML::Node doc = YAML::LoadFile(sPath.string());
 
 	auto root = doc["BayesianNetwork"];
@@ -95,11 +93,11 @@ void CBNSumProduct::Read_BN()
 		bn_node.nNumberOfValues = node.second["numValues"].as<size_t>();
 		bn_node.ParentIDs = node.second["parants"].as<fidlist>(fidlist {});
 		bn_node.CPTRowValues = node.second["CPT"].as<fvallist>();
-		m_Nodes.push_back(std::move(bn_node));
+		bn.m_Nodes.push_back(std::move(bn_node));
 	}
 
 	for (auto edge : root["edges"]) {
-		m_Edges.emplace_back(
+		bn.m_Edges.emplace_back(
 			edge.first.as<fid_t>(),
 			edge.second["start"].as<fid_t>(),
 			edge.second["end"].as<fid_t>()
@@ -108,4 +106,5 @@ void CBNSumProduct::Read_BN()
 
 #endif // USE_YAML
 
+	return bn;
 }

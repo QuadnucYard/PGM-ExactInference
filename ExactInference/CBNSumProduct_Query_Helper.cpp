@@ -10,7 +10,7 @@
 
 
 //查询的辅助函数
-void CBNSumProduct::Query_Helper(const BNQuery& query, CFactorList Factors)
+fval_t CBNSumProduct::Query_Helper(const BNQuery& query, CFactorList Factors) const
 {
 	//步骤1：根据给定变量、规约因子列表
 	for (const GroundingVariable& v : query.GivenVariables)
@@ -20,5 +20,5 @@ void CBNSumProduct::Query_Helper(const BNQuery& query, CFactorList Factors)
 	}
 
 	//步骤2：计算边缘概率
-	Query_Marginal(query, Factors);
+	return Query_Marginal(query, Factors);
 }

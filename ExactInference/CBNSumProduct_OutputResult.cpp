@@ -5,56 +5,54 @@
 // Refined    by	QuadnucYard
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
-#include "CBNSumProduct.h"
+#include "CBNSumProduct_IO.h"
+
+
+//输出查询结果
+void CBNSumProductWriter::OutputResult(const std::string& filename, const fvallist& queryResults)
+{
+	namespace fs = std::filesystem;
 
 #ifndef USE_YAML
 
-//输出查询结果到XML文件
-void CBNSumProduct::OutputResult() const
-{
 	TiXmlDocument doc;
 	//设置文档属性
 	TiXmlDeclaration* pDecl = new TiXmlDeclaration("1.0", "GBK", "");
 	//连接描述信息到文档
 	doc.LinkEndChild(pDecl);
 
-	TiXmlElement *pRootElement = new TiXmlElement("Probilities");
+	TiXmlElement* pRootElement = new TiXmlElement("Probilities");
 	doc.LinkEndChild(pRootElement);
 
-	for (fval_t qr : m_QueryResults)
+	for (fval_t qr : queryResults)
 	{
 		TiXmlElement* pProbability = new TiXmlElement("Probability");
 		pProbability->SetAttribute("PROBABILITY_VALUE", std::format("{:.6f}", qr).c_str());
 		pRootElement->LinkEndChild(pProbability);
 	}
 
-	namespace fs = std::filesystem;
-	fs::path sFileName = fs::current_path() / "Data" / "Output.xml";
-	doc.SaveFile(sFileName.string().c_str());
+	
+	fs::path path = fs::current_path() / "Data" / (filename + ".xml");
+	doc.SaveFile(path.string().c_str());
 	doc.Clear();
-
-	//自动打开文件
-	ShellExecute(NULL, _T("open"), sFileName.c_str(), NULL, NULL, SW_SHOWNORMAL);
-}
 
 #else
 
-void CBNSumProduct::OutputResult() const
-{
 	YAML::Node root;
 
-	for (fval_t qr : m_QueryResults)
+	for (fval_t qr : queryResults)
 	{
 		root["prob"].push_back(std::format("{:.6f}", qr));
 	}
 
 	namespace fs = std::filesystem;
-	fs::path path = fs::current_path() / "Data" / "Output.yaml";
+	fs::path path = fs::current_path() / "Data" / (filename + ".yaml");
 	std::ofstream fout(path);
 	fout << root;
 	fout.close();
 
+#endif // !USE_YAML
+
 	ShellExecute(NULL, L"open", path.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
-#endif // !USE_YAML

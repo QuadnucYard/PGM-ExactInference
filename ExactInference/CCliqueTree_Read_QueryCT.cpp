@@ -5,34 +5,34 @@
 // Refined    by	QuadnucYard
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
-#include "CCliqueTree.h"
+#include "CCliqueTree_IO.h"
 
 
 //读取团树查询任务。包括查询节点、给定节点
-void CCliqueTree::Read_QueryCT()
+CCliqueTree::QueryList CCliqueTreeReader::Read_Query(const std::string& filename)
 {
 	namespace fs = std::filesystem;
+	CCliqueTree::QueryList queries;
 
 #ifndef USE_YAML
 
-	fs::path sPath = fs::current_path() / "Data" / "CliqueTree_Query.xml";
+	fs::path sPath = fs::current_path() / "Data" / (filename + ".xml");
 	if (!fs::exists(sPath))
 	{
-		return;
+		throw std::runtime_error("文件不存在：" + filename + ".xml");
 	}
 
 	TiXmlDocument aDoc(sPath.string().c_str());
 	if (!aDoc.LoadFile())
 	{
-		AfxMessageBox(_T("打开CliqueTree_Query.xml失败:"));
-		return exit(0);
+		throw std::runtime_error("打开文件失败：" + filename + ".xml");
 	}
 
 	//获取根结点
 	TiXmlElement* pQueries = aDoc.RootElement();
 	for (auto& pQuery : pQueries)
 	{
-		CTQuery ct_query;
+		CCliqueTree::CTQuery ct_query;
 
 		//步骤1：获取边缘指针
 		TiXmlElement* pMarginal = pQuery.FirstChildElement();
@@ -56,7 +56,7 @@ void CCliqueTree::Read_QueryCT()
 			);
 		}
 
-		m_CTQueries.push_back(std::move(ct_query));
+		queries.push_back(std::move(ct_query));
 	}
 
 	aDoc.Clear();
@@ -64,16 +64,17 @@ void CCliqueTree::Read_QueryCT()
 
 #else
 
-	fs::path sPath = fs::current_path() / "Data" / "CliqueTree_Query.yaml";
+	fs::path sPath = fs::current_path() / "Data" / (filename + ".yaml");
 	YAML::Node doc = YAML::LoadFile(sPath.string());
 
 	for (auto q : doc["queries"]) {
-		m_CTQueries.emplace_back(
-			q["marginal"].as<fidmap>(fidmap {}) | std::views::transform(GroundingVariable::fromPair) | qy::views::to<GVarList>,
-			q["given"].as<fidmap>(fidmap {}) | std::views::transform(GroundingVariable::fromPair) | qy::views::to<GVarList>
+		queries.emplace_back(
+			q["marginal"].as<fidmap>(fidmap {}) | std::views::transform(CCliqueTree::GroundingVariable::fromPair) | qy::views::to<CCliqueTree::GVarList>,
+			q["given"].as<fidmap>(fidmap {}) | std::views::transform(CCliqueTree::GroundingVariable::fromPair) | qy::views::to<CCliqueTree::GVarList>
 		);
 	}
 
 #endif // USE_YAML
 
+	return queries;
 }

@@ -9,14 +9,12 @@
 
 
 //查询
-void CCliqueTree::Query()
+fvallist CCliqueTree::Query(const QueryList& queries) const
 {
+	fvallist queryResult;
 	//遍历所有查询进行推理
-	for (const CTQuery& q : m_CTQueries)
-	{
-		Query_Helper(q);
-	}
+	std::ranges::transform(queries, std::back_inserter(queryResult),
+		[this](const CTQuery& q) { return Query_Helper(q); });
 
-	OutputResult();
-
+	return queryResult;
 }

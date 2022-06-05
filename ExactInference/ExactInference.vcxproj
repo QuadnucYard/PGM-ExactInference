@@ -209,8 +209,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CBNSumProduct.h" />
+    <ClInclude Include="CBNSumProduct_IO.h" />
     <ClInclude Include="CClique.h" />
     <ClInclude Include="CCliqueTree.h" />
+    <ClInclude Include="CCliqueTree_IO.h" />
     <ClInclude Include="CFactor.h" />
     <ClInclude Include="ExactInference.h" />
     <ClInclude Include="ExactInferenceDlg.h" />
@@ -233,7 +235,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBNSumProduct_GetFactor.cpp" />
-    <ClCompile Include="CBNSumProduct_Init.cpp" />
     <ClCompile Include="CBNSumProduct_OutputResult.cpp" />
     <ClCompile Include="CBNSumProduct_Preprocess.cpp" />
     <ClCompile Include="CBNSumProduct_Preprocess_BN.cpp" />

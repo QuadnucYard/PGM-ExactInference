@@ -14,6 +14,8 @@
 #include "tinyxmliterator.h"
 #include "Helper.h"
 
+class CCliqueTreeReader;
+
 using CTFactorRow = FactorRow;
 using CTFactorRowList = std::vector<FactorRow>;
 
@@ -38,6 +40,7 @@ struct CutSet
 //定义团树的精确推理类CCliqueTree
 class CCliqueTree
 {
+public:
 	//团树中的实例化变量类型
 	struct GroundingVariable
 	{
@@ -58,18 +61,15 @@ class CCliqueTree
 		GVarList GivenVariables;		//02 给定变量ID和值ID列表
 	};
 
+	using QueryList = std::vector<CTQuery>;
+
 public:
 	//初始化
 	void Init();
 	//查询
-	void Query();
+	fvallist Query(const QueryList&) const;
 
 private:
-	//读取团树
-	void Read_CT();
-
-	//读取团树查询的边缘变量、给定变量及其值
-	void Read_QueryCT();
 	//预处理
 	void Preprocess();
 	//根据团ID获取团位置。团存储在vector中，其位置和ID未必相等
@@ -110,17 +110,15 @@ private:
 	void SendCliqueMessage_Downward(fid_t, fid_t);
 
 	//查询的辅助函数
-	void Query_Helper(const CTQuery&);
+	fval_t Query_Helper(const CTQuery&) const;
 	//获取查询开始团的位置
 	const CClique& GetStartClique(const fidset&) const;
 
 	//查询概率分布
-	void Query_Probability(const CTQuery&, const fidset&, const CClique&);
+	fval_t Query_Probability(const CTQuery&, const fidset&, const CClique&) const;
 	//根据边的节点ID、获取割集位置
 	const CutSet& GetReadySEPSet(fid_t, fid_t) const;
 
-	//输出查询结果概率到文件
-	void OutputResult() const;
 
 private:
 	//团树
@@ -138,7 +136,5 @@ private:
 	std::vector<CClique> m_Cliques;					//团列表
 	std::vector<CutSet> m_SEPSets;					//割集列表
 
-	//查询
-	std::vector<CTQuery> m_CTQueries;				//团树查询列表。支持多个查询
-	std::vector<fval_t> m_CTQueryResults;			//团树查询结果列表
+	friend CCliqueTreeReader;
 };

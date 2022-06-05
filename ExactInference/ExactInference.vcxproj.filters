@@ -19,9 +19,6 @@
     <Filter Include="源文件\BNSumProduct">
       <UniqueIdentifier>{81d92dc6-4094-46d3-a453-67ae8390a65c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\BNSumProduct\初始化">
-      <UniqueIdentifier>{f0993eed-8744-4b24-a795-cef19f4b4b0c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\BNSumProduct\查询">
       <UniqueIdentifier>{273d079d-a72e-4489-9dbe-0600ca18b13b}</UniqueIdentifier>
     </Filter>
@@ -37,9 +34,6 @@
     <Filter Include="源文件\MFC\主对话框">
       <UniqueIdentifier>{aa809e9b-95b4-4fc1-a917-b10e133ada9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\BNSumProduct\输出">
-      <UniqueIdentifier>{2088af43-a400-4940-8aed-c5890592d1b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\Factor">
       <UniqueIdentifier>{b55417e5-681e-4b3e-ae1c-6be237695837}</UniqueIdentifier>
     </Filter>
@@ -48,12 +42,6 @@
     </Filter>
     <Filter Include="源文件\Factor\化简">
       <UniqueIdentifier>{9cdb13a6-0874-4da7-b887-e81831d507a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\BNSumProduct\初始化\预处理">
-      <UniqueIdentifier>{8e4b25f3-fba4-426d-84b2-41318b87b19b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\BNSumProduct\初始化\读取">
-      <UniqueIdentifier>{a60e104e-a540-44cb-ae1d-6477817a581e}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\Factor\求和掉变量">
       <UniqueIdentifier>{cc7b8053-57c8-4e9f-9051-082ca8314a09}</UniqueIdentifier>
@@ -75,9 +63,6 @@
     </Filter>
     <Filter Include="源文件\CliqueTree\初始化">
       <UniqueIdentifier>{b0565ad5-e306-47b9-81bb-e23ce8765511}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\初始化\读取">
-      <UniqueIdentifier>{b4e6b5dc-7bb1-4d47-bf72-b4017eb1297b}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\CliqueTree\初始化\预处理">
       <UniqueIdentifier>{6f713744-c64c-412a-b8df-1150d7b9719a}</UniqueIdentifier>
@@ -102,9 +87,6 @@
     </Filter>
     <Filter Include="源文件\CliqueTree\查询">
       <UniqueIdentifier>{c798c9f9-47ec-4c7c-9583-bdddf1833c19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\输出">
-      <UniqueIdentifier>{77558bd0-9b3a-485e-be68-715385809f58}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\CliqueTree\初始化\向上消息传递">
       <UniqueIdentifier>{dffaa1e6-a71a-41d6-b0d2-cfe8d38da9d9}</UniqueIdentifier>
@@ -132,6 +114,15 @@
     </Filter>
     <Filter Include="源文件\Common">
       <UniqueIdentifier>{511b8c37-2620-45b8-8cbc-941bf4140d5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\BNSumProduct\IO">
+      <UniqueIdentifier>{5b0f2a56-91bb-46c7-a97f-acd1b833e0e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\BNSumProduct\预处理">
+      <UniqueIdentifier>{8e4b25f3-fba4-426d-84b2-41318b87b19b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CliqueTree\IO">
+      <UniqueIdentifier>{ee47c332-b2ad-4328-81c8-66afebdbaaaa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -207,13 +198,16 @@
     <ClInclude Include="iohelper.h">
       <Filter>源文件\Common</Filter>
     </ClInclude>
+    <ClInclude Include="CBNSumProduct_IO.h">
+      <Filter>源文件\BNSumProduct\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="CCliqueTree_IO.h">
+      <Filter>源文件\CliqueTree\IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件\MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_Init.cpp">
-      <Filter>源文件\BNSumProduct\初始化</Filter>
     </ClCompile>
     <ClCompile Include="tinystr.cpp">
       <Filter>源文件\XML</Filter>
@@ -252,19 +246,13 @@
       <Filter>源文件\Factor\化简</Filter>
     </ClCompile>
     <ClCompile Include="CBNSumProduct_Preprocess.cpp">
-      <Filter>源文件\BNSumProduct\初始化\预处理</Filter>
+      <Filter>源文件\BNSumProduct\预处理</Filter>
     </ClCompile>
     <ClCompile Include="CBNSumProduct_Preprocess_BN.cpp">
-      <Filter>源文件\BNSumProduct\初始化\预处理</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_Read_BN.cpp">
-      <Filter>源文件\BNSumProduct\初始化\读取</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_Read_Query.cpp">
-      <Filter>源文件\BNSumProduct\初始化\读取</Filter>
+      <Filter>源文件\BNSumProduct\预处理</Filter>
     </ClCompile>
     <ClCompile Include="CBNSumProduct_Preprocess_Factor.cpp">
-      <Filter>源文件\BNSumProduct\初始化\预处理</Filter>
+      <Filter>源文件\BNSumProduct\预处理</Filter>
     </ClCompile>
     <ClCompile Include="CBNSumProduct_Query_Marginal.cpp">
       <Filter>源文件\BNSumProduct\查询</Filter>
@@ -292,12 +280,6 @@
     </ClCompile>
     <ClCompile Include="CCliqueTree_Init.cpp">
       <Filter>源文件\CliqueTree\初始化</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Read_CT.cpp">
-      <Filter>源文件\CliqueTree\初始化\读取</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Read_QueryCT.cpp">
-      <Filter>源文件\CliqueTree\初始化\读取</Filter>
     </ClCompile>
     <ClCompile Include="CClique_Init.cpp">
       <Filter>源文件\Clique\初始化</Filter>
@@ -344,9 +326,6 @@
     <ClCompile Include="CCliqueTree_IsCliqueReady.cpp">
       <Filter>源文件\CliqueTree\初始化\向上消息传递\判断团是否就绪</Filter>
     </ClCompile>
-    <ClCompile Include="CCliqueTree.SendCliqueMessage.cpp">
-      <Filter>源文件\CliqueTree\初始化\向上消息传递\发送消息</Filter>
-    </ClCompile>
     <ClCompile Include="CCliqueTree_DownwardPass.cpp">
       <Filter>源文件\CliqueTree\初始化\向下传递消息</Filter>
     </ClCompile>
@@ -365,11 +344,26 @@
     <ClCompile Include="CCliqueTree_Query_Probability.cpp">
       <Filter>源文件\CliqueTree\查询</Filter>
     </ClCompile>
+    <ClCompile Include="CCliqueTree_SendCliqueMessage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="CBNSumProduct_OutputResult.cpp">
-      <Filter>源文件\BNSumProduct\输出</Filter>
+      <Filter>源文件\BNSumProduct\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Read_BN.cpp">
+      <Filter>源文件\BNSumProduct\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct_Read_Query.cpp">
+      <Filter>源文件\BNSumProduct\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Read_CT.cpp">
+      <Filter>源文件\CliqueTree\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="CCliqueTree_Read_QueryCT.cpp">
+      <Filter>源文件\CliqueTree\IO</Filter>
     </ClCompile>
     <ClCompile Include="CCliqueTree_OutputResult.cpp">
-      <Filter>源文件\CliqueTree\输出</Filter>
+      <Filter>源文件\CliqueTree\IO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

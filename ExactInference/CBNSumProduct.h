@@ -8,7 +8,8 @@
 
 #include <string>
 #include "CFactor.h"
-#include "iohelper.h"
+
+class CBNSumProductReader;
 
 
 //贝叶斯网络节点
@@ -36,6 +37,7 @@ struct BNEdge
 //定义贝叶斯网络的精确推理类CBNSumProduct。采用和积变量消除法
 class CBNSumProduct
 {
+public:
 
 	//实例化变量类型
 	struct GroundingVariable
@@ -58,29 +60,24 @@ class CBNSumProduct
 		fidlist EliminateVariables;		//删除节点的顺序
 	};
 
+	using QueryList = std::vector<BNQuery>;
+
 public:
-	//初始化
-	void Init();
-	//查询
-	void Query();
-
-private:
-	//读取贝叶斯网络结构与参数
-	void Read_BN();
-	//读取查询变量、给定变量、变量消除顺序
-	void Read_Query();
-
 	//预处理
 	void Preprocess();
+	//查询
+	fvallist Query(const QueryList&) const;
+
+private:
 	//预处理贝叶斯网络结构与参数
 	void Preprocess_BN();
 	//预处理因子
 	void Preprocess_Factor();
 
 	//查询的辅助函数
-	void Query_Helper(const BNQuery&, CFactorList);
+	fval_t Query_Helper(const BNQuery&, CFactorList) const;
 	//查询边缘概率分布
-	void Query_Marginal(const BNQuery&, CFactorList&);
+	fval_t Query_Marginal(const BNQuery&, CFactorList&) const;
 
 	//排列父节点ID及其取值
 	void Arrange(fid_t, const fidlist&, const fidlist&, size_t, size_t&);
@@ -89,9 +86,6 @@ private:
 	//获取值的ID
 	fid_t GetValueID(fid_t, const GVarList&) const;
 
-	//输出概率分布到文件
-	void OutputResult() const;
-
 	//和积变量消除
 	void Sum_Product_Eliminate_Var(fid_t, CFactorList&) const;
 
@@ -99,6 +93,6 @@ private:
 	std::vector<BNNode> m_Nodes;		//BN的节点表
 	std::vector<BNEdge> m_Edges;		//BN的边表
 	CFactorList m_Factors;				//因子列表
-	std::vector<BNQuery> m_Queries;		//查询列表
-	fvallist m_QueryResults;			//查询结果列表
+
+	friend CBNSumProductReader;
 };
