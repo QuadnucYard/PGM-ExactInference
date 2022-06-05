@@ -9,12 +9,8 @@
 
 #include <string>
 #include <vector>
+#include <locale>
 
-
-//切分串。例如将输入的长的字符串切分为多个短串（无符号整数）等
-void Separate(const std::string&, std::vector<std::string>&);
-
-auto Separate(const std::string&);
 
 //将string转换为wstring
 std::wstring StoWs(const std::string& s);
@@ -29,3 +25,5 @@ inline double stod_(const std::string& str) {
 inline int stoi_(const std::string& str) {
 	return std::stoi(str);
 }
+
+void msgerr(const char* msg);

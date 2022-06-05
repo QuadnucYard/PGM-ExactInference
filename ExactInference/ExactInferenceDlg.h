@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "resource.h"
 
 // CExactInferenceDlg ¶Ô»°¿ò
 class CExactInferenceDlg : public CDialogEx
