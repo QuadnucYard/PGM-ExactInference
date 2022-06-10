@@ -7,6 +7,7 @@
 #include "stdafx.h"
 #include "CBNSumProduct_IO.h"
 
+namespace pgm {
 
 //输出查询结果
 void CBNSumProductWriter::OutputResult(const std::string& filename, const fvallist& queryResults)
@@ -56,3 +57,4 @@ void CBNSumProductWriter::OutputResult(const std::string& filename, const fvalli
 	ShellExecute(NULL, L"open", path.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
+}

@@ -2,12 +2,15 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <string>
+#include <valarray>
 
 // 类型定义
 using fid_t = unsigned int;
 using fval_t = double;
 using fidlist = std::vector<fid_t>;
 using fvallist = std::vector<fval_t>;
+using fvalarr = std::valarray<fval_t>;
 using fidset = std::set<fid_t>;
 using fidmap = std::map<fid_t, fid_t>;
 using fidpair = std::pair<fid_t, fid_t>;
@@ -43,3 +46,11 @@ struct CPTRow
 
 using CPTRowList = std::vector<CPTRow>;
 
+
+struct ProbQuery
+{
+	fidpairlist marginalVars;	//查询的变量及其取值
+	fidpairlist givenVars;		//给定的变量及其取值
+};
+
+using ProbQueryList = std::vector<ProbQuery>;

@@ -7,12 +7,13 @@
 #include "stdafx.h"
 #include "CBNSumProduct_IO.h"
 
+namespace pgm {
 
 //读取查询任务。包括查询节点、给定节点、删除节点顺序
-CBNSumProduct::QueryList CBNSumProductReader::Read_Query(const std::string& filename)
+ProbQueryList CBNSumProductReader::Read_Query(const std::string& filename)
 {
 	namespace fs = std::filesystem;
-	CBNSumProduct::QueryList queries;
+	ProbQueryList queries;
 
 #ifndef USE_YAML
 
@@ -74,15 +75,16 @@ CBNSumProduct::QueryList CBNSumProductReader::Read_Query(const std::string& file
 	fs::path sPath = fs::current_path() / "Data" / (filename + ".yaml");
 	YAML::Node doc = YAML::LoadFile(sPath.string());
 
-	for (auto q : doc["queries"]) {
+	for (auto&& q : doc["queries"]) {
 		queries.emplace_back(
-			q["marginal"].as<fidmap>(fidmap {}) | std::views::transform(CBNSumProduct::GroundingVariable::fromPair) | qy::views::to<CBNSumProduct::GVarList>,
-			q["given"].as<fidmap>(fidmap {}) | std::views::transform(CBNSumProduct::GroundingVariable::fromPair) | qy::views::to<CBNSumProduct::GVarList>,
-			q["eliminate"].as<fidlist>(fidlist {})
+			q["marginal"].as<fidmap>(fidmap {}) | qy::views::to<fidpairlist>,
+			q["given"].as<fidmap>(fidmap {}) | qy::views::to<fidpairlist>
 		);
 	}
 
 #endif // USE_YAML
 
 	return queries;
+}
+
 }

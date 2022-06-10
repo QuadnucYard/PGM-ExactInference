@@ -118,11 +118,11 @@
     <Filter Include="源文件\BNSumProduct\IO">
       <UniqueIdentifier>{5b0f2a56-91bb-46c7-a97f-acd1b833e0e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\BNSumProduct\预处理">
-      <UniqueIdentifier>{8e4b25f3-fba4-426d-84b2-41318b87b19b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\CliqueTree\IO">
       <UniqueIdentifier>{ee47c332-b2ad-4328-81c8-66afebdbaaaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\FactorNew">
+      <UniqueIdentifier>{710e9abe-185d-4aab-bf13-d05185b561e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +204,24 @@
     <ClInclude Include="CCliqueTree_IO.h">
       <Filter>源文件\CliqueTree\IO</Filter>
     </ClInclude>
+    <ClInclude Include="Variable.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="BayesianNetwork.h">
+      <Filter>源文件\BNSumProduct</Filter>
+    </ClInclude>
+    <ClInclude Include="Factor.h">
+      <Filter>源文件\FactorNew</Filter>
+    </ClInclude>
+    <ClInclude Include="qyalgo.hpp">
+      <Filter>源文件\myutils</Filter>
+    </ClInclude>
+    <ClInclude Include="qynumeric.hpp">
+      <Filter>源文件\myutils</Filter>
+    </ClInclude>
+    <ClInclude Include="qyviews_exp.hpp">
+      <Filter>源文件\myutils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -245,34 +263,16 @@
     <ClCompile Include="CFactorReduceGivenVariable.cpp">
       <Filter>源文件\Factor\化简</Filter>
     </ClCompile>
-    <ClCompile Include="CBNSumProduct_Preprocess.cpp">
-      <Filter>源文件\BNSumProduct\预处理</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_Preprocess_BN.cpp">
-      <Filter>源文件\BNSumProduct\预处理</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_Preprocess_Factor.cpp">
-      <Filter>源文件\BNSumProduct\预处理</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_Query_Marginal.cpp">
-      <Filter>源文件\BNSumProduct\查询</Filter>
-    </ClCompile>
     <ClCompile Include="CFactor_Normalize.cpp">
       <Filter>源文件\Factor\归一化</Filter>
     </ClCompile>
     <ClCompile Include="CFactor_Query.cpp">
       <Filter>源文件\Factor\查询</Filter>
     </ClCompile>
-    <ClCompile Include="CBNSumProduct_GetFactor.cpp">
-      <Filter>源文件\BNSumProduct\查询</Filter>
-    </ClCompile>
     <ClCompile Include="CBNSumProduct_SumPruductElimateVar.cpp">
       <Filter>源文件\BNSumProduct\查询</Filter>
     </ClCompile>
     <ClCompile Include="CBNSumProduct_Query.cpp">
-      <Filter>源文件\BNSumProduct\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_Query_Helper.cpp">
       <Filter>源文件\BNSumProduct\查询</Filter>
     </ClCompile>
     <ClCompile Include="CFactor_SumOutVariable.cpp">
@@ -364,6 +364,12 @@
     </ClCompile>
     <ClCompile Include="CCliqueTree_OutputResult.cpp">
       <Filter>源文件\CliqueTree\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Factor.cpp">
+      <Filter>源文件\FactorNew</Filter>
+    </ClCompile>
+    <ClCompile Include="CBNSumProduct.cpp">
+      <Filter>源文件\BNSumProduct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

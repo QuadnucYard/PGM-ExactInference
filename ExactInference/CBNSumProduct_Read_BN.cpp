@@ -7,12 +7,13 @@
 #include "stdafx.h"
 #include "CBNSumProduct_IO.h"
 
+namespace pgm {
 
 //读取贝叶斯网络结构和参数
-CBNSumProduct CBNSumProductReader::Read_BN(const std::string& filename)
+BayesianNetwork CBNSumProductReader::Read_BN(const std::string& filename)
 {
 	namespace fs = std::filesystem;
-	CBNSumProduct bn;
+	BayesianNetwork bn;
 
 #ifndef USE_YAML
 
@@ -84,27 +85,27 @@ CBNSumProduct CBNSumProductReader::Read_BN(const std::string& filename)
 	fs::path sPath = fs::current_path() / "Data" / (filename + ".yaml");
 	YAML::Node doc = YAML::LoadFile(sPath.string());
 
-	auto root = doc["BayesianNetwork"];
-	for (auto node : root["nodes"]) {
-		BNNode bn_node;
-		bn_node.nID = node.first.as<fid_t>();
-		bn_node.sName = node.second["name"].as<std::string>("");
-		bn_node.sAbbr = node.second["abbr"].as<std::string>("");
-		bn_node.nNumberOfValues = node.second["numValues"].as<size_t>();
-		bn_node.ParentIDs = node.second["parants"].as<fidlist>(fidlist {});
-		bn_node.CPTRowValues = node.second["CPT"].as<fvallist>();
-		bn.m_Nodes.push_back(std::move(bn_node));
+	auto&& root = doc["BayesianNetwork"];
+	for (auto&& node : root["variables"]) {
+		BayesianNetwork::Node bn_node;
+		bn.variables.emplace_back(
+			node.first.as<fid_t>(),
+			node.second["numValues"].as<size_t>(),
+			node.second["name"].as<std::string>(""),
+			node.second["abbr"].as<std::string>("")
+		);
 	}
-
-	for (auto edge : root["edges"]) {
-		bn.m_Edges.emplace_back(
-			edge.first.as<fid_t>(),
-			edge.second["start"].as<fid_t>(),
-			edge.second["end"].as<fid_t>()
+	for (auto&& node : root["nodes"]) {
+		bn.nodes.emplace_back(
+			node.first.as<fid_t>(),
+			node.second["parants"].as<fidlist>(fidlist {}),
+			node.second["CPT"].as<fvallist>()
 		);
 	}
 
 #endif // USE_YAML
 
 	return bn;
+}
+
 }

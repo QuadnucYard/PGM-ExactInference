@@ -208,6 +208,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BayesianNetwork.h" />
     <ClInclude Include="CBNSumProduct.h" />
     <ClInclude Include="CBNSumProduct_IO.h" />
     <ClInclude Include="CClique.h" />
@@ -216,12 +217,16 @@
     <ClInclude Include="CFactor.h" />
     <ClInclude Include="ExactInference.h" />
     <ClInclude Include="ExactInferenceDlg.h" />
+    <ClInclude Include="Factor.h" />
     <ClInclude Include="factordef.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="iohelper.h" />
+    <ClInclude Include="qyalgo.hpp" />
+    <ClInclude Include="qynumeric.hpp" />
     <ClInclude Include="qyrange.hpp" />
     <ClInclude Include="qyranges.hpp" />
     <ClInclude Include="qyviews.hpp" />
+    <ClInclude Include="qyviews_exp.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="stl_utils.h" />
@@ -230,18 +235,14 @@
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="tinyxmliterator.h" />
+    <ClInclude Include="Variable.h" />
     <ClInclude Include="xiterator.h" />
     <ClInclude Include="xmlutils.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CBNSumProduct_GetFactor.cpp" />
+    <ClCompile Include="CBNSumProduct.cpp" />
     <ClCompile Include="CBNSumProduct_OutputResult.cpp" />
-    <ClCompile Include="CBNSumProduct_Preprocess.cpp" />
-    <ClCompile Include="CBNSumProduct_Preprocess_BN.cpp" />
-    <ClCompile Include="CBNSumProduct_Preprocess_Factor.cpp" />
     <ClCompile Include="CBNSumProduct_Query.cpp" />
-    <ClCompile Include="CBNSumProduct_Query_Helper.cpp" />
-    <ClCompile Include="CBNSumProduct_Query_Marginal.cpp" />
     <ClCompile Include="CBNSumProduct_Read_BN.cpp" />
     <ClCompile Include="CBNSumProduct_Read_Query.cpp" />
     <ClCompile Include="CCliqueTree_SendCliqueMessage.cpp" />
@@ -280,6 +281,7 @@
     <ClCompile Include="ExactInference.cpp" />
     <ClCompile Include="ExactInferenceDlg.cpp" />
     <ClCompile Include="ExactInferenceDlg_User.cpp" />
+    <ClCompile Include="Factor.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
