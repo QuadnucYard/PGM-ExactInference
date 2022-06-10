@@ -42,7 +42,7 @@ namespace views {
 	public:
 		template <class Regex>
 		auto operator()(Regex re) {
-			return _Tokenize_impl(std::forward<std::regex>(re));
+			return _Tokenize_impl(std::forward<Regex>(re));
 		}
 	};
 
@@ -118,3 +118,71 @@ namespace views {
 
 }
 // 这个还无法编译通过
+
+template <_SR input_range _Vw>
+class enumerate_view: public _SR view_interface<enumerate_view<_Vw>>
+{
+private:
+	struct _Iterator: _SR iterator_t<_Vw>
+	{
+		using base = _SR iterator_t<_Vw>;
+		using value_type = std::pair<size_t, typename _SR range_value_t<_Vw>>;
+
+		_Iterator(base const& b): base {b}, index {0} {}
+
+		_Iterator& operator++() {
+			++static_cast<base&>(*this);
+			++index;
+			return *this;
+		}
+
+		value_type operator*() const {
+			return std::make_pair(index, *static_cast<base>(*this));
+		}
+
+	private:
+		size_t index;
+	};
+
+	_Vw _Range;
+
+public:
+	using iterator = _Iterator;
+	using const_iterator = _Iterator;
+
+	enumerate_view() = default;
+	constexpr enumerate_view(_Vw _Range): _Range(std::move(_Range)) {}
+
+	constexpr iterator begin() const {
+		return iterator(std::begin(_Range));
+	}
+	constexpr iterator end() const {
+		return iterator(std::end(_Range));
+	}
+	constexpr iterator begin() {
+		return iterator(std::begin(_Range));
+	}
+	constexpr iterator end() {
+		return iterator(std::end(_Range));
+	}
+};
+
+template <class _Rng>
+enumerate_view(_Rng&&)->enumerate_view<_SR views::all_t<_Rng>>;
+
+namespace views {
+
+	struct _Enumerate_fn {
+		template <_SR viewable_range _Vw>
+		constexpr auto operator()(_Vw&& _vw) const {
+			return enumerate_view {std::forward<_Vw>(_vw)};
+		}
+
+		constexpr auto operator()() const {
+			return _SR _Range_closure<_Enumerate_fn>{};
+		}
+	};
+
+	inline constexpr _Enumerate_fn enumerate;
+
+}

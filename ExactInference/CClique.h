@@ -9,6 +9,7 @@
 #include "factordef.h"
 #include "stl_utils.h"
 #include "qyranges.hpp"
+#include "qynumeric.hpp"
 
 
 using CliqueRow = FactorRow;

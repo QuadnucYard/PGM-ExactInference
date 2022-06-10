@@ -11,6 +11,7 @@
 #include "Helper.h"
 #include "stl_utils.h"
 #include "qyranges.hpp"
+#include "qynumeric.hpp"
 
 
 //Òò×ÓÀà
