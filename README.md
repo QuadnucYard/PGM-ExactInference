@@ -12,7 +12,17 @@
 
 `master` 分支版本支持 XML 和 YAML。最新版 `.xml` 经过格式化，转为utf8格式，把该死的用于分隔值的 `、` 换成 `, `，且修改代码不再支持 `、，；`。
 
-现在 I/O 已从推理结构中分离，并加入异常处理，输入输出文件名可在 `ExactInferenceDlg_User.cpp` 中修改。
+## ChangeLog
+
+### v0.3.0
+
+重写因子类、BeyasianNetwork、BNSumProduct。现在 `Factor` 类支持高效的因子存储和操作。可能可以利用 `valarray` 的一些操作进一步化简。
+
+修改 `BayesianNetwork.yaml` 的存储结构，把变量信息和网络结点分离。
+
+### v0.2.0
+
+I/O 已从推理结构中分离，并加入异常处理，输入输出文件名可在 `ExactInferenceDlg_User.cpp` 中修改。
 
 ## 关于 YAML 的支持
 

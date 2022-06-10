@@ -34,27 +34,6 @@
     <Filter Include="源文件\MFC\主对话框">
       <UniqueIdentifier>{aa809e9b-95b4-4fc1-a917-b10e133ada9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\Factor">
-      <UniqueIdentifier>{b55417e5-681e-4b3e-ae1c-6be237695837}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Factor\初始化">
-      <UniqueIdentifier>{d09cbc56-eb73-4662-90a5-71f61b4d4a52}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Factor\化简">
-      <UniqueIdentifier>{9cdb13a6-0874-4da7-b887-e81831d507a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Factor\求和掉变量">
-      <UniqueIdentifier>{cc7b8053-57c8-4e9f-9051-082ca8314a09}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Factor\归一化">
-      <UniqueIdentifier>{73eae015-aa74-449b-b191-b8cd0886e9cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Factor\查询">
-      <UniqueIdentifier>{4ef247e0-d935-4fa6-9244-eb51c6df4588}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Factor\操作符重载相关">
-      <UniqueIdentifier>{184a1438-f5dd-4ab4-b77a-9c1fe5a9c895}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\CliqueTree">
       <UniqueIdentifier>{57070edf-7280-4a62-80f8-eb6ab055ae70}</UniqueIdentifier>
     </Filter>
@@ -159,9 +138,6 @@
     <ClInclude Include="ExactInferenceDlg.h">
       <Filter>源文件\MFC\主对话框</Filter>
     </ClInclude>
-    <ClInclude Include="CFactor.h">
-      <Filter>源文件\Factor</Filter>
-    </ClInclude>
     <ClInclude Include="CCliqueTree.h">
       <Filter>源文件\CliqueTree</Filter>
     </ClInclude>
@@ -254,29 +230,11 @@
     <ClCompile Include="ExactInferenceDlg_User.cpp">
       <Filter>源文件\MFC\主对话框</Filter>
     </ClCompile>
-    <ClCompile Include="CFactor_Operator.cpp">
-      <Filter>源文件\Factor\操作符重载相关</Filter>
-    </ClCompile>
-    <ClCompile Include="CFactor_Init.cpp">
-      <Filter>源文件\Factor\初始化</Filter>
-    </ClCompile>
-    <ClCompile Include="CFactorReduceGivenVariable.cpp">
-      <Filter>源文件\Factor\化简</Filter>
-    </ClCompile>
-    <ClCompile Include="CFactor_Normalize.cpp">
-      <Filter>源文件\Factor\归一化</Filter>
-    </ClCompile>
-    <ClCompile Include="CFactor_Query.cpp">
-      <Filter>源文件\Factor\查询</Filter>
-    </ClCompile>
     <ClCompile Include="CBNSumProduct_SumPruductElimateVar.cpp">
       <Filter>源文件\BNSumProduct\查询</Filter>
     </ClCompile>
     <ClCompile Include="CBNSumProduct_Query.cpp">
       <Filter>源文件\BNSumProduct\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CFactor_SumOutVariable.cpp">
-      <Filter>源文件\Factor\求和掉变量</Filter>
     </ClCompile>
     <ClCompile Include="CCliqueTree_Init.cpp">
       <Filter>源文件\CliqueTree\初始化</Filter>

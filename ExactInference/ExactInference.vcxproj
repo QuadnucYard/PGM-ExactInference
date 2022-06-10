@@ -214,7 +214,6 @@
     <ClInclude Include="CClique.h" />
     <ClInclude Include="CCliqueTree.h" />
     <ClInclude Include="CCliqueTree_IO.h" />
-    <ClInclude Include="CFactor.h" />
     <ClInclude Include="ExactInference.h" />
     <ClInclude Include="ExactInferenceDlg.h" />
     <ClInclude Include="Factor.h" />
@@ -271,12 +270,6 @@
     <ClCompile Include="CClique_Query.cpp" />
     <ClCompile Include="CClique_ReduceGivenVariable.cpp" />
     <ClCompile Include="CClique_SumOutVariable.cpp" />
-    <ClCompile Include="CFactorReduceGivenVariable.cpp" />
-    <ClCompile Include="CFactor_Init.cpp" />
-    <ClCompile Include="CFactor_Normalize.cpp" />
-    <ClCompile Include="CFactor_Operator.cpp" />
-    <ClCompile Include="CFactor_Query.cpp" />
-    <ClCompile Include="CFactor_SumOutVariable.cpp" />
     <ClCompile Include="CBNSumProduct_SumPruductElimateVar.cpp" />
     <ClCompile Include="ExactInference.cpp" />
     <ClCompile Include="ExactInferenceDlg.cpp" />
