@@ -64,24 +64,27 @@ namespace qy {
 		return result;
 	}
 
-	template <class Result, std::ranges::input_range _Rng1, std::ranges::input_range _Rng2>
-	Result set_intersection(_Rng1&& first, _Rng2&& second) {
+	template <class Result, std::ranges::input_range _Rng1, std::ranges::input_range _Rng2,
+		class _Pj1 = std::identity, class _Pj2 = std::identity>
+	Result set_intersection(_Rng1&& first, _Rng2&& second, _Pj1 _Proj1 = {}, _Pj2 _Proj2 = {}) {
 		Result result {};
-		std::ranges::set_intersection(first, second, std::inserter(result, std::end(result)));
+		std::ranges::set_intersection(first, second, std::inserter(result, std::end(result)), {}, _Proj1, _Proj2);
 		return result;
 	}
 
-	template <class Result, std::ranges::input_range _Rng1, std::ranges::input_range _Rng2>
-	Result set_union(_Rng1&& first, _Rng2&& second) {
+	template <class Result, std::ranges::input_range _Rng1, std::ranges::input_range _Rng2,
+		class _Pj1 = std::identity, class _Pj2 = std::identity>
+	Result set_union(_Rng1&& first, _Rng2&& second, _Pj1 _Proj1 = {}, _Pj2 _Proj2 = {}) {
 		Result result {};
-		std::ranges::set_union(first, second, std::inserter(result, std::end(result)));
+		std::ranges::set_union(first, second, std::inserter(result, std::end(result)), {}, _Proj1, _Proj2);
 		return result;
 	}
 
-	template <class Result, std::ranges::input_range _Rng1, std::ranges::input_range _Rng2>
-	Result set_difference(_Rng1&& first, _Rng2&& second) {
+	template <class Result, std::ranges::input_range _Rng1, std::ranges::input_range _Rng2,
+		class _Pj1 = std::identity, class _Pj2 = std::identity>
+	Result set_difference(_Rng1&& first, _Rng2&& second, _Pj1 _Proj1 = {}, _Pj2 _Proj2 = {}) {
 		Result result {};
-		std::ranges::set_difference(first, second, std::inserter(result, std::end(result)));
+		std::ranges::set_difference(first, second, std::inserter(result, std::end(result)), {}, _Proj1, _Proj2);
 		return result;
 	}
 
