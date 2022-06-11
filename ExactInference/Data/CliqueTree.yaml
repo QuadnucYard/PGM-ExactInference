@@ -1,6 +1,6 @@
 CliqueTree:
   root: 1
-  vars:
+  variables:
     0:
       name: Difficulty
       abbr: D

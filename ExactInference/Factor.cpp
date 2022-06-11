@@ -40,7 +40,7 @@ namespace pgm {
 		fid_t offset = getVarsOffset(vars); // 被消除变量对应的偏移
 		auto stride = result.createRefStride(m_vars);
 		for (size_t i = 0; i < result.m_vals.size(); i++) {
-			fid_t k = result.getRefIndex(stride, i) + offset;
+			auto k = result.getRefIndex(stride, i) + offset;
 			result.m_vals[i] = m_vals[k];
 		}
 		return result;
@@ -49,9 +49,18 @@ namespace pgm {
 	Factor Factor::sumOutVariable(fid_t varId) const {
 		Factor result(qy::except(m_vars, varId, &fidpair::first));
 		fid_t stride = getStride(varId), card = getVar(varId).second;
-		result.m_vals.resize(result.rowSize());
 		for (size_t i = 0; i < result.m_vals.size(); i++) {
 			result.m_vals[i] = m_vals[std::slice(i / stride * stride * card + i % stride, card, stride)].sum();
+		}
+		return result;
+	}
+
+	Factor Factor::sumOutVariable(fidlist varIds) const {
+		Factor result(qy::except(m_vars, varIds, &fidpair::first));
+		auto stride = createRefStride(result.m_vars);
+		for (size_t i = 0; i < m_vals.size(); i++) {
+			auto k = getRefIndex(stride, i);
+			result.m_vals[k] += m_vals[i];
 		}
 		return result;
 	}
@@ -69,6 +78,16 @@ namespace pgm {
 		for (size_t i = 0; i < result.m_vals.size(); i++) {
 			auto k1 = result.getRefIndex(s1, i), k2 = result.getRefIndex(s2, i);
 			result.m_vals[i] = m_vals[k1] * o.m_vals[k2];
+		}
+		return result;
+	}
+
+	Factor Factor::operator/ (const Factor& o) const {
+		Factor result(m_vars);
+		auto stride = result.createRefStride(o.m_vars);
+		for (size_t i = 0; i < result.m_vals.size(); i++) {
+			auto k = result.getRefIndex(stride, i);
+			result.m_vals[i] = m_vals[i] == 0 && o.m_vals[k] == 0 ? 0 : m_vals[i] / o.m_vals[k];
 		}
 		return result;
 	}

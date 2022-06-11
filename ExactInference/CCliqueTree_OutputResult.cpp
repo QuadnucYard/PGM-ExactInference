@@ -7,6 +7,7 @@
 #include "stdafx.h"
 #include "CCliqueTree_IO.h"
 
+namespace pgm {
 
 //输出查询结果
 void CCliqueTreeWriter::OutputResult(const std::string& filename, const fvallist& queryResults)
@@ -49,4 +50,6 @@ void CCliqueTreeWriter::OutputResult(const std::string& filename, const fvallist
 #endif // !USE_YAML
 
 	ShellExecute(NULL, L"open", path.c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
 }

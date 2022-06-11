@@ -37,57 +37,6 @@
     <Filter Include="源文件\CliqueTree">
       <UniqueIdentifier>{57070edf-7280-4a62-80f8-eb6ab055ae70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\Clique">
-      <UniqueIdentifier>{910323cc-9798-4249-ad30-440f520b41e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\初始化">
-      <UniqueIdentifier>{b0565ad5-e306-47b9-81bb-e23ce8765511}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\初始化\预处理">
-      <UniqueIdentifier>{6f713744-c64c-412a-b8df-1150d7b9719a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Clique\初始化">
-      <UniqueIdentifier>{c2d69ac3-1b24-4005-9db6-7dc3c1b45279}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Clique\归一化">
-      <UniqueIdentifier>{27401bfe-3cd2-4283-9f5b-cebdd084cad8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Clique\求和掉变量">
-      <UniqueIdentifier>{8f4fcd7b-6781-4501-b33b-95b02ffbf775}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Clique\化简">
-      <UniqueIdentifier>{2a537581-4074-44b0-b6bc-a2d59cf51ab8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Clique\操作符重载相关">
-      <UniqueIdentifier>{b2cba203-9aa7-4f7d-8c40-cab9831dfc5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Clique\查询">
-      <UniqueIdentifier>{1b47a1a7-3a0d-4795-85ae-45b0e1cb12eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\查询">
-      <UniqueIdentifier>{c798c9f9-47ec-4c7c-9583-bdddf1833c19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\初始化\向上消息传递">
-      <UniqueIdentifier>{dffaa1e6-a71a-41d6-b0d2-cfe8d38da9d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\初始化\向上消息传递\判断团是否就绪">
-      <UniqueIdentifier>{8f6198e4-6e90-4514-b77d-a9136ea2d056}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\初始化\向上消息传递\查找就绪的团">
-      <UniqueIdentifier>{00d63ebd-10d9-44cf-becd-bd38cfd93312}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\初始化\向上消息传递\接收消息">
-      <UniqueIdentifier>{f3540f78-8116-4eba-9424-50215b047d86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\初始化\向上消息传递\发送消息">
-      <UniqueIdentifier>{2c10cba5-364a-4b4b-a7f8-586e7ea46a27}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\初始化\向下传递消息">
-      <UniqueIdentifier>{35366185-6746-4133-af1a-a7f69f245a6a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\初始化\向下传递消息\发送消息">
-      <UniqueIdentifier>{bf7d030d-d4e2-4d7b-8c0c-5a2e43106974}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\myutils">
       <UniqueIdentifier>{39ff0a65-1722-4a3a-8707-14c5c76ce804}</UniqueIdentifier>
     </Filter>
@@ -137,15 +86,6 @@
     </ClInclude>
     <ClInclude Include="ExactInferenceDlg.h">
       <Filter>源文件\MFC\主对话框</Filter>
-    </ClInclude>
-    <ClInclude Include="CCliqueTree.h">
-      <Filter>源文件\CliqueTree</Filter>
-    </ClInclude>
-    <ClInclude Include="CClique.h">
-      <Filter>源文件\Clique</Filter>
-    </ClInclude>
-    <ClInclude Include="CFactor.h">
-      <Filter>源文件\Factor</Filter>
     </ClInclude>
     <ClInclude Include="stl_utils.h">
       <Filter>源文件\myutils</Filter>
@@ -198,6 +138,12 @@
     <ClInclude Include="qyviews_exp.hpp">
       <Filter>源文件\myutils</Filter>
     </ClInclude>
+    <ClInclude Include="CliqueTree.h">
+      <Filter>源文件\CliqueTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CliqueTreeMethod.h">
+      <Filter>源文件\CliqueTree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -236,75 +182,6 @@
     <ClCompile Include="CBNSumProduct_Query.cpp">
       <Filter>源文件\BNSumProduct\查询</Filter>
     </ClCompile>
-    <ClCompile Include="CCliqueTree_Init.cpp">
-      <Filter>源文件\CliqueTree\初始化</Filter>
-    </ClCompile>
-    <ClCompile Include="CClique_Init.cpp">
-      <Filter>源文件\Clique\初始化</Filter>
-    </ClCompile>
-    <ClCompile Include="CClique_Normalize.cpp">
-      <Filter>源文件\Clique\归一化</Filter>
-    </ClCompile>
-    <ClCompile Include="CClique_SumOutVariable.cpp">
-      <Filter>源文件\Clique\求和掉变量</Filter>
-    </ClCompile>
-    <ClCompile Include="CClique_ReduceGivenVariable.cpp">
-      <Filter>源文件\Clique\化简</Filter>
-    </ClCompile>
-    <ClCompile Include="CClique_Operator.cpp">
-      <Filter>源文件\Clique\操作符重载相关</Filter>
-    </ClCompile>
-    <ClCompile Include="CClique_Query.cpp">
-      <Filter>源文件\Clique\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Preprocess.cpp">
-      <Filter>源文件\CliqueTree\初始化\预处理</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Query.cpp">
-      <Filter>源文件\CliqueTree\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Query_Helper.cpp">
-      <Filter>源文件\CliqueTree\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_UpwardPass.cpp">
-      <Filter>源文件\CliqueTree\初始化\向上消息传递</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_BuildUpwardTree.cpp">
-      <Filter>源文件\CliqueTree\初始化\向上消息传递</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_FindReadyClique.cpp">
-      <Filter>源文件\CliqueTree\初始化\向上消息传递\查找就绪的团</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_ReceiveMessages.cpp">
-      <Filter>源文件\CliqueTree\初始化\向上消息传递\接收消息</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_CreateCliqueWaitedMessages.cpp">
-      <Filter>源文件\CliqueTree\初始化\向上消息传递</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_IsCliqueReady.cpp">
-      <Filter>源文件\CliqueTree\初始化\向上消息传递\判断团是否就绪</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_DownwardPass.cpp">
-      <Filter>源文件\CliqueTree\初始化\向下传递消息</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_CreateCliqueWaitedMessages_Downward.cpp">
-      <Filter>源文件\CliqueTree\初始化\向下传递消息</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_SendCliqueMessage_Downward.cpp">
-      <Filter>源文件\CliqueTree\初始化\向下传递消息\发送消息</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Query_helper_GetStartedCliquePos.cpp">
-      <Filter>源文件\CliqueTree\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Query_Probability_GetSEPSetPos.cpp">
-      <Filter>源文件\CliqueTree\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Query_Probability.cpp">
-      <Filter>源文件\CliqueTree\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_SendCliqueMessage.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="CBNSumProduct_OutputResult.cpp">
       <Filter>源文件\BNSumProduct\IO</Filter>
     </ClCompile>
@@ -328,6 +205,12 @@
     </ClCompile>
     <ClCompile Include="CBNSumProduct.cpp">
       <Filter>源文件\BNSumProduct</Filter>
+    </ClCompile>
+    <ClCompile Include="CliqueTreeMethod.cpp">
+      <Filter>源文件\CliqueTree</Filter>
+    </ClCompile>
+    <ClCompile Include="CliqueTree.cpp">
+      <Filter>源文件\CliqueTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

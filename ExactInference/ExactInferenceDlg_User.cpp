@@ -8,8 +8,8 @@
 #include "ExactInferenceDlg.h"
 #include "CBNSumProduct.h"
 #include "CBNSumProduct_IO.h"
-//#include "CCliqueTree.h"
-//#include "CCliqueTree_IO.h"
+#include "CliqueTreeMethod.h"
+#include "CCliqueTree_IO.h"
 #include "Helper.h"
 
 
@@ -34,16 +34,16 @@ void CExactInferenceDlg::OnBnClickedButtonBnInit()
 //响应基于团树的初始化、查询命令
 void CExactInferenceDlg::OnBnClickedButtonCt()
 {
-	/*try {
-		CCliqueTree theCliqueTree = CCliqueTreeReader::Read_CT("CliqueTree");
-		theCliqueTree.Init();
+	using namespace pgm;
+	try {
+		CliqueTreeMethod theCT(CCliqueTreeReader::Read_CT("CliqueTree"));
 
 		AfxMessageBox(L"完成读取团树和校准，准备开始推理……请按确定键继续");
 
 		auto queries = CCliqueTreeReader::Read_Query("CliqueTree_Query");
-		CCliqueTreeWriter::OutputResult("CliqueTree_Output", theCliqueTree.Query(queries));
+		CCliqueTreeWriter::OutputResult("CliqueTree_Output", theCT.query(queries));
 
 	} catch (std::exception e) {
 		msgerr(e.what());
-	}*/
+	}
 }

@@ -12,11 +12,16 @@ namespace pgm {
 		// 有一个方案，存储所有因子，但标记是否有
 
 	private:
-		Factor() = delete; // 禁用无参构造函数
-
+		//Factor() = delete; // 禁用无参构造函数
+		
 	public:
+		Factor() = default;
 		Factor(const fidpairlist& vars);
 		Factor(const fidpairlist& vars, const fvallist& vals);
+
+		inline fidlist getVarIds() const {
+			return std::views::transform(m_vars, LAMBDA(t, t.first)) | qy::views::to<fidlist>;
+		}
 
 		fid_t rowSize() const;
 
@@ -29,11 +34,16 @@ namespace pgm {
 
 		Factor sumOutVariable(fid_t varId) const;
 
+		Factor sumOutVariable(fidlist varIds) const;
+
 		// 对具有给定变量的行求和
 		fval_t query(const fidpairlist& vars) const;
 
 		// 因子积
 		Factor operator* (const Factor& o) const;
+
+		// 因子除
+		Factor operator/ (const Factor& o) const;
 
 	private:
 
@@ -70,6 +80,7 @@ namespace pgm {
 			return getRefIndex(m_stride, s1, i);
 		}
 
+		// 获取原本在s中的i在s1中的索引
 		fid_t getRefIndex(const fidlist& s, const fidlist& s1, fid_t i) const;
 
 		fid_t getVarsOffset(const fidpairlist& vars) const;

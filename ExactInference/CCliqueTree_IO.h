@@ -1,14 +1,16 @@
 #pragma once
 
-#include "CCliqueTree.h"
+#include "CliqueTree.h"
 #include "iohelper.h"
+
+namespace pgm {
 
 class CCliqueTreeReader {
 private:
 	CCliqueTreeReader() = delete;
 public:
-	static CCliqueTree Read_CT(const std::string&);
-	static CCliqueTree::QueryList Read_Query(const std::string&);
+	static CliqueTree Read_CT(const std::string&);
+	static ProbQueryList Read_Query(const std::string&);
 };
 
 class CCliqueTreeWriter {
@@ -17,3 +19,5 @@ private:
 public:
 	static void OutputResult(const std::string&, const fvallist&);
 };
+
+}
