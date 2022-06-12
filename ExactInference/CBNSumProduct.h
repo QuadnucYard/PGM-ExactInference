@@ -1,17 +1,9 @@
-////////////////////////////////////////////////////////////////////////////////
-// CBNSumProduct.h
-// 定义贝叶斯网络的精确推理类。采用和积变量消除法
-// Originated by	高志强
-// Refined    by	QuadnucYard
-////////////////////////////////////////////////////////////////////////////////
 #pragma once
-
 #include "BayesianNetwork.h"
 #include "Factor.h"
 
 namespace pgm {
 
-	//定义贝叶斯网络的精确推理类CBNSumProduct。采用和积变量消除法
 	class CBNSumProduct
 	{
 	public:

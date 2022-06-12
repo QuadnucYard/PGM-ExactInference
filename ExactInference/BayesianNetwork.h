@@ -1,5 +1,5 @@
 #pragma once
-#include "Variable.h"
+#include "factordef.h"
 #include "qyranges.hpp"
 
 namespace pgm {
@@ -21,4 +21,9 @@ namespace pgm {
 			return *std::ranges::find(variables, id, &Variable::id);
 		}
 	};
+
+	namespace io {
+		//读取贝叶斯网络结构和参数
+		BayesianNetwork readBayesianNetwork(const std::string& filename);
+	}
 }

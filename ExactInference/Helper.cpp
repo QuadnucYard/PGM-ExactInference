@@ -32,3 +32,8 @@ void msgerr(const char* msg) {
 	swprintf(buf, sizeof(buf) / sizeof(wchar_t), L"%hs", msg);
 	AfxMessageBox(buf);
 }
+
+//打开文件
+void shellOpen(const wchar_t* path) {
+	ShellExecute(NULL, L"open", path, NULL, NULL, SW_SHOWNORMAL);
+}

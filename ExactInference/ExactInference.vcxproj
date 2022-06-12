@@ -210,10 +210,9 @@
   <ItemGroup>
     <ClInclude Include="BayesianNetwork.h" />
     <ClInclude Include="CBNSumProduct.h" />
-    <ClInclude Include="CBNSumProduct_IO.h" />
-    <ClInclude Include="CCliqueTree_IO.h" />
     <ClInclude Include="CliqueTree.h" />
     <ClInclude Include="CliqueTreeMethod.h" />
+    <ClInclude Include="CommonIO.h" />
     <ClInclude Include="ExactInference.h" />
     <ClInclude Include="ExactInferenceDlg.h" />
     <ClInclude Include="Factor.h" />
@@ -234,22 +233,16 @@
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="tinyxmliterator.h" />
-    <ClInclude Include="Variable.h" />
     <ClInclude Include="xiterator.h" />
     <ClInclude Include="xmlutils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBNSumProduct.cpp" />
-    <ClCompile Include="CBNSumProduct_OutputResult.cpp" />
-    <ClCompile Include="CBNSumProduct_Query.cpp" />
-    <ClCompile Include="CBNSumProduct_Read_BN.cpp" />
-    <ClCompile Include="CBNSumProduct_Read_Query.cpp" />
-    <ClCompile Include="CCliqueTree_OutputResult.cpp" />
-    <ClCompile Include="CCliqueTree_Read_CT.cpp" />
-    <ClCompile Include="CCliqueTree_Read_QueryCT.cpp" />
-    <ClCompile Include="CBNSumProduct_SumPruductElimateVar.cpp" />
+    <ClCompile Include="BayesianNetwork_Input.cpp" />
+    <ClCompile Include="CliqueTree_Input.cpp" />
     <ClCompile Include="CliqueTree.cpp" />
     <ClCompile Include="CliqueTreeMethod.cpp" />
+    <ClCompile Include="CommonIO.cpp" />
     <ClCompile Include="ExactInference.cpp" />
     <ClCompile Include="ExactInferenceDlg.cpp" />
     <ClCompile Include="ExactInferenceDlg_User.cpp" />

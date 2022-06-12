@@ -67,9 +67,9 @@ namespace pgm {
 
 	void CliqueTreeMethod::sendMessages() {
 		// 先从下往上发消息，割集存在指向的点上
-		for (auto&& u : std::views::reverse(m_tree.orderseq)) {
+		for (fid_t u : std::views::reverse(m_tree.orderseq)) {
 			// Receive
-			for (auto&& v : m_tree.nodes[u].children) { //对所有子结点
+			for (fid_t v : m_tree.nodes[u].children) { //对所有子结点
 				m_cliques[u] = m_cliques[u] * m_cutsets[v];
 			}
 			// Send Upward
@@ -79,13 +79,13 @@ namespace pgm {
 			}
 		}
 		// 然后从上往下发消息
-		for (auto&& u : m_tree.orderseq) {
+		for (fid_t u : m_tree.orderseq) {
 			// Receive
 			if (fid_t p = m_tree.nodes[u].parent; p != -1) { //对父结点
 				m_cliques[u] = m_cliques[u] * m_cutsets[u];
 			}
 			// Send Downward
-			for (auto&& v : m_tree.nodes[u].children) { //对所有子结点
+			for (fid_t v : m_tree.nodes[u].children) { //对所有子结点
 				auto elimilatedVars = qy::set_difference<fidlist>(m_cliques[u].getVarIds(), m_cliques[v].getVarIds());
 				m_cutsets[v] = m_cliques[u].sumOutVariable(elimilatedVars);
 			}

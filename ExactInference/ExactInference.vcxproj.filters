@@ -19,9 +19,6 @@
     <Filter Include="源文件\BNSumProduct">
       <UniqueIdentifier>{81d92dc6-4094-46d3-a453-67ae8390a65c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\BNSumProduct\查询">
-      <UniqueIdentifier>{273d079d-a72e-4489-9dbe-0600ca18b13b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\XML">
       <UniqueIdentifier>{5aa82186-9bff-440b-9226-f22784196df1}</UniqueIdentifier>
     </Filter>
@@ -42,12 +39,6 @@
     </Filter>
     <Filter Include="源文件\Common">
       <UniqueIdentifier>{511b8c37-2620-45b8-8cbc-941bf4140d5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\BNSumProduct\IO">
-      <UniqueIdentifier>{5b0f2a56-91bb-46c7-a97f-acd1b833e0e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\CliqueTree\IO">
-      <UniqueIdentifier>{ee47c332-b2ad-4328-81c8-66afebdbaaaa}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\FactorNew">
       <UniqueIdentifier>{710e9abe-185d-4aab-bf13-d05185b561e4}</UniqueIdentifier>
@@ -114,15 +105,6 @@
     <ClInclude Include="iohelper.h">
       <Filter>源文件\Common</Filter>
     </ClInclude>
-    <ClInclude Include="CBNSumProduct_IO.h">
-      <Filter>源文件\BNSumProduct\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="CCliqueTree_IO.h">
-      <Filter>源文件\CliqueTree\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="Variable.h">
-      <Filter>源文件\Common</Filter>
-    </ClInclude>
     <ClInclude Include="BayesianNetwork.h">
       <Filter>源文件\BNSumProduct</Filter>
     </ClInclude>
@@ -143,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="CliqueTreeMethod.h">
       <Filter>源文件\CliqueTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonIO.h">
+      <Filter>源文件\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -176,30 +161,6 @@
     <ClCompile Include="ExactInferenceDlg_User.cpp">
       <Filter>源文件\MFC\主对话框</Filter>
     </ClCompile>
-    <ClCompile Include="CBNSumProduct_SumPruductElimateVar.cpp">
-      <Filter>源文件\BNSumProduct\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_Query.cpp">
-      <Filter>源文件\BNSumProduct\查询</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_OutputResult.cpp">
-      <Filter>源文件\BNSumProduct\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_Read_BN.cpp">
-      <Filter>源文件\BNSumProduct\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="CBNSumProduct_Read_Query.cpp">
-      <Filter>源文件\BNSumProduct\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Read_CT.cpp">
-      <Filter>源文件\CliqueTree\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_Read_QueryCT.cpp">
-      <Filter>源文件\CliqueTree\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="CCliqueTree_OutputResult.cpp">
-      <Filter>源文件\CliqueTree\IO</Filter>
-    </ClCompile>
     <ClCompile Include="Factor.cpp">
       <Filter>源文件\FactorNew</Filter>
     </ClCompile>
@@ -210,6 +171,15 @@
       <Filter>源文件\CliqueTree</Filter>
     </ClCompile>
     <ClCompile Include="CliqueTree.cpp">
+      <Filter>源文件\CliqueTree</Filter>
+    </ClCompile>
+    <ClCompile Include="CommonIO.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BayesianNetwork_Input.cpp">
+      <Filter>源文件\BNSumProduct</Filter>
+    </ClCompile>
+    <ClCompile Include="CliqueTree_Input.cpp">
       <Filter>源文件\CliqueTree</Filter>
     </ClCompile>
   </ItemGroup>

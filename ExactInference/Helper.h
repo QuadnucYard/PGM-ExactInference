@@ -6,9 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-
 #include <string>
-#include <vector>
 #include <locale>
 
 
@@ -17,13 +15,7 @@ std::wstring StoWs(const std::string& s);
 //将wstring转换为string
 std::string WS2S(const std::wstring& ws);
 
-//将字符串转换为双精度数
-inline double stod_(const std::string& str) {
-	return std::stod(str);
-}
-//将字符串转换为整数
-inline int stoi_(const std::string& str) {
-	return std::stoi(str);
-}
-
 void msgerr(const char* msg);
+
+//打开文件
+void shellOpen(const wchar_t* path);

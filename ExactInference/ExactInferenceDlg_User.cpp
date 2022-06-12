@@ -7,9 +7,8 @@
 #include "stdafx.h"
 #include "ExactInferenceDlg.h"
 #include "CBNSumProduct.h"
-#include "CBNSumProduct_IO.h"
 #include "CliqueTreeMethod.h"
-#include "CCliqueTree_IO.h"
+#include "CommonIO.h"
 #include "Helper.h"
 
 
@@ -18,12 +17,12 @@ void CExactInferenceDlg::OnBnClickedButtonBnInit()
 {
 	using namespace pgm;
 	try {
-		CBNSumProduct theBN(CBNSumProductReader::Read_BN("BayesianNetwork"));
+		CBNSumProduct theBN(io::readBayesianNetwork("BayesianNetwork"));
 
 		AfxMessageBox(L"完成读取贝叶斯网络的结构和参数……请按确定键继续");
 
-		auto queries = CBNSumProductReader::Read_Query("BayesianNetwork_Query");
-		CBNSumProductWriter::OutputResult("Output", theBN.query(queries));
+		auto queries = io::readQuery("BayesianNetwork_Query");
+		shellOpen(io::outputQueryResult("Output", theBN.query(queries)).c_str());
 
 	} catch (std::exception e) {
 		msgerr(e.what());
@@ -36,12 +35,12 @@ void CExactInferenceDlg::OnBnClickedButtonCt()
 {
 	using namespace pgm;
 	try {
-		CliqueTreeMethod theCT(CCliqueTreeReader::Read_CT("CliqueTree"));
+		CliqueTreeMethod theCT(io::readCliqueTree("CliqueTree"));
 
 		AfxMessageBox(L"完成读取团树和校准，准备开始推理……请按确定键继续");
 
-		auto queries = CCliqueTreeReader::Read_Query("CliqueTree_Query");
-		CCliqueTreeWriter::OutputResult("CliqueTree_Output", theCT.query(queries));
+		auto queries = io::readQuery("CliqueTree_Query");
+		shellOpen(io::outputQueryResult("CliqueTree_Output", theCT.query(queries)).c_str());
 
 	} catch (std::exception e) {
 		msgerr(e.what());
