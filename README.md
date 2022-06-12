@@ -12,6 +12,10 @@
 
 ## ChangeLog
 
+### v0.5.0
+
+进一步精简文件，统一 IO 接口。**彻底移除 xml 支持。**
+
 ### v0.4.0
 
 在因子类的基础上重写团树法（`CliqueTreeMethod`），并增加团树类（`CliqueTree`）。

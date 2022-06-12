@@ -19,9 +19,6 @@
     <Filter Include="源文件\BNSumProduct">
       <UniqueIdentifier>{81d92dc6-4094-46d3-a453-67ae8390a65c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\XML">
-      <UniqueIdentifier>{5aa82186-9bff-440b-9226-f22784196df1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\辅助函数">
       <UniqueIdentifier>{08703bdc-6d9f-4eb5-ac1d-a1d583f5c35e}</UniqueIdentifier>
     </Filter>
@@ -60,15 +57,6 @@
     <ClInclude Include="CBNSumProduct.h">
       <Filter>源文件\BNSumProduct</Filter>
     </ClInclude>
-    <ClInclude Include="tinystr.h">
-      <Filter>源文件\XML</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml.h">
-      <Filter>源文件\XML</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml2.h">
-      <Filter>源文件\XML</Filter>
-    </ClInclude>
     <ClInclude Include="Helper.h">
       <Filter>源文件\辅助函数</Filter>
     </ClInclude>
@@ -81,16 +69,7 @@
     <ClInclude Include="stl_utils.h">
       <Filter>源文件\myutils</Filter>
     </ClInclude>
-    <ClInclude Include="xiterator.h">
-      <Filter>源文件\myutils</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxmliterator.h">
-      <Filter>源文件\XML</Filter>
-    </ClInclude>
     <ClInclude Include="qyranges.hpp">
-      <Filter>源文件\myutils</Filter>
-    </ClInclude>
-    <ClInclude Include="xmlutils.hpp">
       <Filter>源文件\myutils</Filter>
     </ClInclude>
     <ClInclude Include="qyrange.hpp">
@@ -131,24 +110,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>源文件\MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="tinystr.cpp">
-      <Filter>源文件\XML</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml.cpp">
-      <Filter>源文件\XML</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml2.cpp">
-      <Filter>源文件\XML</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlerror.cpp">
-      <Filter>源文件\XML</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlparser.cpp">
-      <Filter>源文件\XML</Filter>
-    </ClCompile>
     <ClCompile Include="Helper.cpp">
       <Filter>源文件\辅助函数</Filter>
     </ClCompile>
@@ -181,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="CliqueTree_Input.cpp">
       <Filter>源文件\CliqueTree</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件\MFC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
