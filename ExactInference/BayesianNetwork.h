@@ -1,6 +1,7 @@
 #pragma once
 #include "factordef.h"
 #include "qyranges.hpp"
+#include "iohelper.h"
 
 namespace pgm {
 
@@ -24,6 +25,6 @@ namespace pgm {
 
 	namespace io {
 		//读取贝叶斯网络结构和参数
-		BayesianNetwork readBayesianNetwork(const std::string& filename);
+		BayesianNetwork readBayesianNetwork(const fs::path& path);
 	}
 }

@@ -5,6 +5,13 @@ VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExactInference", "ExactInference\ExactInference.vcxproj", "{03F819D1-A351-4307-8EC1-A8835656BB9A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExactInferenceTest", "ExactInferenceTest\ExactInferenceTest.vcxproj", "{B3B03EC8-799F-401B-AD10-6B179EA29110}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExactInference_CLI", "ExactInference_CLI\ExactInference_CLI.vcxproj", "{0A366550-A218-4602-945B-0294F7612289}"
+	ProjectSection(ProjectDependencies) = postProject
+		{03F819D1-A351-4307-8EC1-A8835656BB9A} = {03F819D1-A351-4307-8EC1-A8835656BB9A}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +28,22 @@ Global
 		{03F819D1-A351-4307-8EC1-A8835656BB9A}.Release|Win32.Build.0 = Release|Win32
 		{03F819D1-A351-4307-8EC1-A8835656BB9A}.Release|x64.ActiveCfg = Release|x64
 		{03F819D1-A351-4307-8EC1-A8835656BB9A}.Release|x64.Build.0 = Release|x64
+		{B3B03EC8-799F-401B-AD10-6B179EA29110}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B3B03EC8-799F-401B-AD10-6B179EA29110}.Debug|Win32.Build.0 = Debug|Win32
+		{B3B03EC8-799F-401B-AD10-6B179EA29110}.Debug|x64.ActiveCfg = Debug|x64
+		{B3B03EC8-799F-401B-AD10-6B179EA29110}.Debug|x64.Build.0 = Debug|x64
+		{B3B03EC8-799F-401B-AD10-6B179EA29110}.Release|Win32.ActiveCfg = Release|Win32
+		{B3B03EC8-799F-401B-AD10-6B179EA29110}.Release|Win32.Build.0 = Release|Win32
+		{B3B03EC8-799F-401B-AD10-6B179EA29110}.Release|x64.ActiveCfg = Release|x64
+		{B3B03EC8-799F-401B-AD10-6B179EA29110}.Release|x64.Build.0 = Release|x64
+		{0A366550-A218-4602-945B-0294F7612289}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0A366550-A218-4602-945B-0294F7612289}.Debug|Win32.Build.0 = Debug|Win32
+		{0A366550-A218-4602-945B-0294F7612289}.Debug|x64.ActiveCfg = Debug|x64
+		{0A366550-A218-4602-945B-0294F7612289}.Debug|x64.Build.0 = Debug|x64
+		{0A366550-A218-4602-945B-0294F7612289}.Release|Win32.ActiveCfg = Release|Win32
+		{0A366550-A218-4602-945B-0294F7612289}.Release|Win32.Build.0 = Release|Win32
+		{0A366550-A218-4602-945B-0294F7612289}.Release|x64.ActiveCfg = Release|x64
+		{0A366550-A218-4602-945B-0294F7612289}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

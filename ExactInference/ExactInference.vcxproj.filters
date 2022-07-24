@@ -9,24 +9,8 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="源文件\MFC">
-      <UniqueIdentifier>{9fe0e9d0-1ce8-42de-8881-b93cb7625286}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\BNSumProduct">
       <UniqueIdentifier>{81d92dc6-4094-46d3-a453-67ae8390a65c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\辅助函数">
-      <UniqueIdentifier>{08703bdc-6d9f-4eb5-ac1d-a1d583f5c35e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\MFC\应用程序">
-      <UniqueIdentifier>{6191b8a3-56e7-4b78-ba9d-9c3f8f9e4c18}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\MFC\主对话框">
-      <UniqueIdentifier>{aa809e9b-95b4-4fc1-a917-b10e133ada9e}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\CliqueTree">
       <UniqueIdentifier>{57070edf-7280-4a62-80f8-eb6ab055ae70}</UniqueIdentifier>
@@ -37,34 +21,13 @@
     <Filter Include="源文件\Common">
       <UniqueIdentifier>{511b8c37-2620-45b8-8cbc-941bf4140d5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\FactorNew">
+    <Filter Include="源文件\Factor">
       <UniqueIdentifier>{710e9abe-185d-4aab-bf13-d05185b561e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>源文件\MFC</Filter>
-    </ClInclude>
     <ClInclude Include="CBNSumProduct.h">
       <Filter>源文件\BNSumProduct</Filter>
-    </ClInclude>
-    <ClInclude Include="Helper.h">
-      <Filter>源文件\辅助函数</Filter>
-    </ClInclude>
-    <ClInclude Include="ExactInference.h">
-      <Filter>源文件\MFC\应用程序</Filter>
-    </ClInclude>
-    <ClInclude Include="ExactInferenceDlg.h">
-      <Filter>源文件\MFC\主对话框</Filter>
     </ClInclude>
     <ClInclude Include="stl_utils.h">
       <Filter>源文件\myutils</Filter>
@@ -88,7 +51,7 @@
       <Filter>源文件\BNSumProduct</Filter>
     </ClInclude>
     <ClInclude Include="Factor.h">
-      <Filter>源文件\FactorNew</Filter>
+      <Filter>源文件\Factor</Filter>
     </ClInclude>
     <ClInclude Include="qyalgo.hpp">
       <Filter>源文件\myutils</Filter>
@@ -110,57 +73,29 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Helper.cpp">
-      <Filter>源文件\辅助函数</Filter>
-    </ClCompile>
-    <ClCompile Include="ExactInference.cpp">
-      <Filter>源文件\MFC\应用程序</Filter>
-    </ClCompile>
-    <ClCompile Include="ExactInferenceDlg.cpp">
-      <Filter>源文件\MFC\主对话框</Filter>
-    </ClCompile>
-    <ClCompile Include="ExactInferenceDlg_User.cpp">
-      <Filter>源文件\MFC\主对话框</Filter>
-    </ClCompile>
-    <ClCompile Include="Factor.cpp">
-      <Filter>源文件\FactorNew</Filter>
+    <None Include="..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BayesianNetwork_Input.cpp">
+      <Filter>源文件\BNSumProduct</Filter>
     </ClCompile>
     <ClCompile Include="CBNSumProduct.cpp">
       <Filter>源文件\BNSumProduct</Filter>
     </ClCompile>
-    <ClCompile Include="CliqueTreeMethod.cpp">
+    <ClCompile Include="CliqueTree.cpp">
       <Filter>源文件\CliqueTree</Filter>
     </ClCompile>
-    <ClCompile Include="CliqueTree.cpp">
+    <ClCompile Include="CliqueTree_Input.cpp">
+      <Filter>源文件\CliqueTree</Filter>
+    </ClCompile>
+    <ClCompile Include="CliqueTreeMethod.cpp">
       <Filter>源文件\CliqueTree</Filter>
     </ClCompile>
     <ClCompile Include="CommonIO.cpp">
       <Filter>源文件\Common</Filter>
     </ClCompile>
-    <ClCompile Include="BayesianNetwork_Input.cpp">
-      <Filter>源文件\BNSumProduct</Filter>
+    <ClCompile Include="Factor.cpp">
+      <Filter>源文件\Factor</Filter>
     </ClCompile>
-    <ClCompile Include="CliqueTree_Input.cpp">
-      <Filter>源文件\CliqueTree</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>源文件\MFC</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="ExactInference.rc">
-      <Filter>资源文件</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\ExactInference.rc2">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="..\README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="res\ExactInference.ico">
-      <Filter>资源文件</Filter>
-    </Image>
   </ItemGroup>
 </Project>

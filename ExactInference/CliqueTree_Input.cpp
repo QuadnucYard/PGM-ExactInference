@@ -1,16 +1,12 @@
-#include "stdafx.h"
 #include "CliqueTree.h"
 #include "iohelper.h"
 
 namespace pgm::io {
 
-	CliqueTree readCliqueTree(const std::string& filename) {
-		namespace fs = std::filesystem;
+	CliqueTree readCliqueTree(const fs::path& path) {
 		CliqueTree ct;
 
-#ifdef USE_YAML
-		fs::path sPath = fs::current_path() / "Data" / (filename + ".yaml");
-		YAML::Node doc = YAML::LoadFile(sPath.string());
+		YAML::Node doc = YAML::LoadFile(path.string());
 
 		auto&& root = doc["CliqueTree"];
 		for (auto&& node : root["variables"]) {
@@ -33,7 +29,6 @@ namespace pgm::io {
 		}
 		ct.build(root["root"].as<fid_t>());
 
-#endif // USE_YAML
 		return ct;
 	}
 

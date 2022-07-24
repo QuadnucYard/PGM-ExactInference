@@ -1,6 +1,7 @@
 #pragma once
 #include "factordef.h"
 #include "qyranges.hpp"
+#include "iohelper.h"
 #include <queue>
 
 namespace pgm {
@@ -37,7 +38,7 @@ namespace pgm {
 
 	namespace io {
 		//∂¡»°Õ≈ ˜
-		CliqueTree readCliqueTree(const std::string& filename);
+		CliqueTree readCliqueTree(const fs::path& path);
 	}
 
 }

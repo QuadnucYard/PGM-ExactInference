@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "CliqueTreeMethod.h"
 
 namespace pgm {

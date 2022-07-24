@@ -1,13 +1,10 @@
-#include "stdafx.h"
 #include "CommonIO.h"
 
 namespace pgm::io {
 
-	ProbQueryList readQuery(const std::string& filename) {
-		namespace fs = std::filesystem;
+	ProbQueryList readQuery(const fs::path& path) {
 		ProbQueryList queries;
-#ifdef USE_YAML
-		fs::path path = fs::current_path() / "Data" / (filename + ".yaml");
+
 		YAML::Node doc = YAML::LoadFile(path.string());
 
 		for (auto&& q : doc["queries"]) {
@@ -16,23 +13,29 @@ namespace pgm::io {
 				q["given"].as<fidmap>(fidmap {}) | qy::views::to<fidpairlist>
 			);
 		}
-#endif // USE_YAML
 		return queries;
 	}
 
-	std::filesystem::path outputQueryResult(const std::string& filename, const fvallist& queryResults) {
-		namespace fs = std::filesystem;
-#ifdef USE_YAML
+	void outputQueryResult(const fs::path& path, const fvallist& queryResults) {
 		YAML::Node root;
 		for (fval_t qr : queryResults) {
 			root["prob"].push_back(std::format("{:.6f}", qr));
 		}
-		fs::path path = fs::current_path() / "Data" / (filename + ".yaml");
 		std::ofstream fout(path);
 		fout << root;
 		fout.close();
-		return path;
-#endif // !USE_YAML
+	}
+
+	std::string toQueryString(const ProbQueryList& queries) {
+		return "";
+	}
+
+	std::string toResultString(const fvallist& queryResults) {
+		std::string res;
+		for (fval_t v : queryResults) {
+			res += std::format("  - {0:.6f}\n", v);
+		}
+		return res;
 	}
 
 }

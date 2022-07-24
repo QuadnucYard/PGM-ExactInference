@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "CBNSumProduct.h"
 #include <queue>
 

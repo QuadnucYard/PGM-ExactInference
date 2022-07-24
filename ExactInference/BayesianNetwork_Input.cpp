@@ -1,15 +1,10 @@
-#include "stdafx.h"
 #include "BayesianNetwork.h"
-#include "iohelper.h"
 
 namespace pgm::io {
 
-	BayesianNetwork readBayesianNetwork(const std::string& filename) {
-		namespace fs = std::filesystem;
+	BayesianNetwork readBayesianNetwork(const fs::path& path) {
 		BayesianNetwork bn;
 
-#ifdef USE_YAML
-		fs::path path = fs::current_path() / "Data" / (filename + ".yaml");
 		YAML::Node doc = YAML::LoadFile(path.string());
 
 		auto&& root = doc["BayesianNetwork"];
@@ -29,7 +24,7 @@ namespace pgm::io {
 				node.second["CPT"].as<fvallist>()
 			);
 		}
-#endif // USE_YAML
+
 		return bn;
 	}
 

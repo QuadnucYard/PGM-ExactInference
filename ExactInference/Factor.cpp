@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Factor.h"
 
 namespace pgm {
