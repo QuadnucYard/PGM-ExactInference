@@ -13,6 +13,14 @@ namespace pgm {
 			}
 			vars.emplace_back(node.id, bn.getVar(node.id).numValues);
 			std::ranges::reverse(vars);
+
+			/* auto vars2 = std::views::join(
+							 {node.parents | std::views::transform([&bn](fid_t id) {
+								  return fidpair{id, bn.getVar(id).numValues};
+							  }),
+							  std::views::single(fidpair{node.id, bn.getVar(node.id).numValues})}) |
+						 std::views::reverse; */
+
 			m_Factors.emplace_back(vars, node.cpt);
 		}
 	}
@@ -55,7 +63,8 @@ namespace pgm {
 			order.push_back(open.front());
 			open.pop();
 			for (auto&& node : m_net.nodes) {
-				if (!close.contains(node.id) && std::ranges::all_of(node.parents, LAMBDA(t, close.contains(t)))) {
+				if (!close.contains(node.id) &&
+					std::ranges::all_of(node.parents, LAMBDA(t, close.contains(t)))) {
 					open.push(node.id);
 					close.insert(node.id);
 				}
@@ -68,8 +77,9 @@ namespace pgm {
 	void VariableElimination::eliminateVar(fid_t varId, FactorList& factors) const {
 		// 这个函数本质是把包含var的因子乘起来合并成一个
 		auto it = std::partition(factors.begin(), factors.end(), LAMBDA(t, !t.containsVar(varId)));
-		if (it == factors.end()) return; //没有因子包含给定变量，直接返回
+		if (it == factors.end())
+			return; //没有因子包含给定变量，直接返回
 		*it = qy::ranges::product(it, factors.end()).sumOverVariable(varId); // 后面的因子求积
 		factors.erase(++it, factors.end());
 	}
-}
+} // namespace pgm

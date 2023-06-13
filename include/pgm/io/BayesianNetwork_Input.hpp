@@ -4,8 +4,7 @@
 namespace pgm::io {
 
 	inline BayesianNetwork readBayesianNetwork(const char* path) {
-		std::string contents = file_get_contents<std::string>(path);
-		auto tree = ryml::parse_in_arena(ryml::to_csubstr(contents));
+		auto tree = parse_yaml(path);
 		auto const& root = tree["BayesianNetwork"];
 
 		BayesianNetwork bn;
@@ -16,7 +15,7 @@ namespace pgm::io {
 			n["numValues"] >> var.numValues;
 			n["name"] >> var.name;
 			n["abbr"] >> var.abbr;
-			bn.addVar(var);
+			bn.addVar(std::move(var));
 		}
 		for (auto&& n : root["nodes"]) {
 			BayesianNetwork::Node node;
@@ -24,7 +23,7 @@ namespace pgm::io {
 			if (n.has_child("parents"))
 				n["parents"] >> node.parents;
 			n["CPT"] >> node.cpt;
-			bn.nodes.push_back(node);
+			bn.nodes.push_back(std::move(node));
 		}
 		return bn;
 	}

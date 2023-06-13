@@ -1,4 +1,5 @@
-#include "pgm/infer/exact/CliqueTree.hpp"
+#include "pgm/models/CliqueTree.hpp"
+#include <queue>
 
 namespace pgm {
 
