@@ -12,14 +12,14 @@ namespace pgm {
 		fval_t query(const ProbQuery&) const;
 
 	private:
-		//获取变量消除顺序
+		//鑾峰彇鍙橀噺娑堥櫎椤哄簭
 		fidlist getEliminationOrder(const ProbQuery& query) const;
-		//和积变量消除
+		//鍜岀Н鍙橀噺娑堥櫎
 		void eliminateVar(fid_t, FactorList&) const;
 
 	private:
 		BayesianNetwork m_net;
-		FactorList m_Factors;	//因子列表
+		FactorList m_Factors;	//鍥犲瓙鍒楄〃
 
 	};
 

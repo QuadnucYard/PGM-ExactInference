@@ -17,12 +17,12 @@ namespace pgm {
 		};
 
 		VariableList variables;
-		std::vector<Node> nodes; // ÒªÇóÏÂ±ê±ØĞë´Ó0¿ªÊ¼Á¬Ğø
+		std::vector<Node> nodes; // è¦æ±‚ä¸‹æ ‡å¿…é¡»ä»0å¼€å§‹è¿ç»­
 		fid_t root;
 		fidmultimap edges;
-		fidlist orderseq; // ½¨Ê÷ĞòÁĞ
+		fidlist orderseq; // å»ºæ ‘åºåˆ—
 
-		// ½¨Ê÷µÄÎÊÌâ¡£¶ÁÈëÊÇÒ»¸öÎŞÏòÊ÷£¬Òª¸ã³ÉÓĞÏòÊ÷
+		// å»ºæ ‘çš„é—®é¢˜ã€‚è¯»å…¥æ˜¯ä¸€ä¸ªæ— å‘æ ‘ï¼Œè¦ææˆæœ‰å‘æ ‘
 
 		inline void addEdge(fid_t u, fid_t v) {
 			edges.emplace(u, v);
@@ -37,7 +37,7 @@ namespace pgm {
 	};
 
 	namespace io {
-		//¶ÁÈ¡ÍÅÊ÷
+		//è¯»å–å›¢æ ‘
 		CliqueTree readCliqueTree(const fs::path& path);
 	}
 

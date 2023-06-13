@@ -9,7 +9,7 @@ namespace pgm {
 	}
 
 	Factor::Factor(const fidpairlist& vars, const fvallist& vals): Factor(vars) {
-		// ÏÂÃæ°´ÕÕ±äÁ¿id½øĞĞÖØÅÅ£¬Ğ¡Òò×ÓÅÅÇ°Ãæ
+		// ä¸‹é¢æŒ‰ç…§å˜é‡idè¿›è¡Œé‡æ’ï¼Œå°å› å­æ’å‰é¢
 		auto stride_old = createRefStride(vars);
 		for (size_t i = 0; i < m_vals.size(); i++) {
 			auto k = getRefIndex(stride_old, i);
@@ -33,10 +33,10 @@ namespace pgm {
 	}
 
 	Factor Factor::reduceGivenVariables(const fidpairlist& vars) const {
-		// Ò»¸öÎÊÌâ£¬Õâ¸öº¯ÊıÖ´ĞĞºó£¬¸Ã±äÁ¿idµÄÈ¡Öµ¾ÍÊÇÆäÖĞÒ»¸öÁË£¬²»ºÃÓÃË÷Òı±íÊ¾³öÀ´
-		// ÊÂÊµÉÏµ÷ÓÃÕßÖªµÀÄã±£ÁôÁËÄÄĞ©£¬²»ÖØÒª
+		// ä¸€ä¸ªé—®é¢˜ï¼Œè¿™ä¸ªå‡½æ•°æ‰§è¡Œåï¼Œè¯¥å˜é‡idçš„å–å€¼å°±æ˜¯å…¶ä¸­ä¸€ä¸ªäº†ï¼Œä¸å¥½ç”¨ç´¢å¼•è¡¨ç¤ºå‡ºæ¥
+		// äº‹å®ä¸Šè°ƒç”¨è€…çŸ¥é“ä½ ä¿ç•™äº†å“ªäº›ï¼Œä¸é‡è¦
 		Factor result(qy::except(m_vars, vars, &fidpair::first, &fidpair::first));
-		fid_t offset = getVarsOffset(vars); // ±»Ïû³ı±äÁ¿¶ÔÓ¦µÄÆ«ÒÆ
+		fid_t offset = getVarsOffset(vars); // è¢«æ¶ˆé™¤å˜é‡å¯¹åº”çš„åç§»
 		auto stride = result.createRefStride(m_vars);
 		for (size_t i = 0; i < result.m_vals.size(); i++) {
 			auto k = result.getRefIndex(stride, i) + offset;
@@ -65,7 +65,7 @@ namespace pgm {
 	}
 
 	fval_t Factor::query(const fidpairlist& vars) const {
-		// Ö»Òª°ÑÏà¹ØĞĞÌô³öÀ´ÇóºÍ¾ÍĞĞÁË£¿£¿
+		// åªè¦æŠŠç›¸å…³è¡ŒæŒ‘å‡ºæ¥æ±‚å’Œå°±è¡Œäº†ï¼Ÿï¼Ÿ
 		return reduceGivenVariables(vars).m_vals.sum();
 	}
 
@@ -120,7 +120,7 @@ namespace pgm {
 			if (p.first == varId) return result;
 			result *= p.second;
 		}
-		return 0; // ²»´æÔÚµÄidµÄstrideÎª0
+		return 0; // ä¸å­˜åœ¨çš„idçš„strideä¸º0
 	}
 
 }

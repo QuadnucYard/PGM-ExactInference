@@ -7,7 +7,7 @@
 
 namespace pgm {
 
-	// ÀàĞÍ¶¨Òå
+	// ç±»å‹å®šä¹‰
 	using fid_t = unsigned int;
 	using fval_t = double;
 	using fidlist = std::vector<fid_t>;
@@ -20,7 +20,7 @@ namespace pgm {
 	using fidmultimap = std::multimap<fid_t, fid_t>;
 	using fidpairlist = std::vector<fidpair>;
 
-	// Ëæ»ú±äÁ¿
+	// éšæœºå˜é‡
 	struct Variable
 	{
 		fid_t id;
@@ -31,11 +31,11 @@ namespace pgm {
 
 	using VariableList = std::vector<Variable>;
 
-	// ²éÑ¯
+	// æŸ¥è¯¢
 	struct ProbQuery
 	{
-		fidpairlist marginalVars;	//²éÑ¯µÄ±äÁ¿¼°ÆäÈ¡Öµ
-		fidpairlist givenVars;		//¸ø¶¨µÄ±äÁ¿¼°ÆäÈ¡Öµ
+		fidpairlist marginalVars;	//æŸ¥è¯¢çš„å˜é‡åŠå…¶å–å€¼
+		fidpairlist givenVars;		//ç»™å®šçš„å˜é‡åŠå…¶å–å€¼
 	};
 
 	using ProbQueryList = std::vector<ProbQuery>;

@@ -9,10 +9,10 @@
 namespace pgm {
 
 	class Factor {
-		// ÓĞÒ»¸ö·½°¸£¬´æ´¢ËùÓĞÒò×Ó£¬µ«±ê¼ÇÊÇ·ñÓĞ
+		// æœ‰ä¸€ä¸ªæ–¹æ¡ˆï¼Œå­˜å‚¨æ‰€æœ‰å› å­ï¼Œä½†æ ‡è®°æ˜¯å¦æœ‰
 
 	private:
-		//Factor() = delete; // ½ûÓÃÎŞ²Î¹¹Ôìº¯Êı
+		//Factor() = delete; // ç¦ç”¨æ— å‚æ„é€ å‡½æ•°
 		
 	public:
 		Factor() = default;
@@ -29,20 +29,20 @@ namespace pgm {
 
 		Factor normalized() const;
 
-		// ·µ»Ø¾ßÓĞÓë¸ø¶¨±äÁ¿Æ¥ÅäµÄĞĞµÄÒò×Ó
+		// è¿”å›å…·æœ‰ä¸ç»™å®šå˜é‡åŒ¹é…çš„è¡Œçš„å› å­
 		Factor reduceGivenVariables(const fidpairlist& vars) const;
 
 		Factor sumOutVariable(fid_t varId) const;
 
 		Factor sumOutVariable(fidlist varIds) const;
 
-		// ¶Ô¾ßÓĞ¸ø¶¨±äÁ¿µÄĞĞÇóºÍ
+		// å¯¹å…·æœ‰ç»™å®šå˜é‡çš„è¡Œæ±‚å’Œ
 		fval_t query(const fidpairlist& vars) const;
 
-		// Òò×Ó»ı
+		// å› å­ç§¯
 		Factor operator* (const Factor& o) const;
 
-		// Òò×Ó³ı
+		// å› å­é™¤
 		Factor operator/ (const Factor& o) const;
 
 	private:
@@ -66,12 +66,12 @@ namespace pgm {
 			return getStride(m_vars, varId);
 		}
 
-		// ¸ù¾İCPTË÷Òı»ñÈ¡±äÁ¿µÄÖµ
+		// æ ¹æ®CPTç´¢å¼•è·å–å˜é‡çš„å€¼
 		inline fid_t getVarValueId(fid_t varIndex, fid_t i) const {
 			return i / m_stride[varIndex] % m_vars[varIndex].second;
 		}
 
-		// »ñÈ¡×ÔÉí±äÁ¿ÔÚÁíÒ»×é±äÁ¿ÀïµÄstride
+		// è·å–è‡ªèº«å˜é‡åœ¨å¦ä¸€ç»„å˜é‡é‡Œçš„stride
 		inline fidlist createRefStride(const fidpairlist& vars) const {
 			return m_vars | std::views::transform(LAMBDA(p, getStride(vars, p.first))) | qy::views::to<fidlist>;
 		}
@@ -80,7 +80,7 @@ namespace pgm {
 			return getRefIndex(m_stride, s1, i);
 		}
 
-		// »ñÈ¡Ô­±¾ÔÚsÖĞµÄiÔÚs1ÖĞµÄË÷Òı
+		// è·å–åŸæœ¬åœ¨sä¸­çš„iåœ¨s1ä¸­çš„ç´¢å¼•
 		fid_t getRefIndex(const fidlist& s, const fidlist& s1, fid_t i) const;
 
 		fid_t getVarsOffset(const fidpairlist& vars) const;
@@ -90,9 +90,9 @@ namespace pgm {
 		static fid_t getStride(const fidpairlist& vars, fid_t varId);
 
 	private:
-		fidpairlist m_vars;// ±äÁ¿¼°Æäcard
-		fvalarr m_vals;// °´Ë÷ÒıË³ĞòµÄCPTÖµ
-		fidlist m_stride; // ²½³¤
+		fidpairlist m_vars;// å˜é‡åŠå…¶card
+		fvalarr m_vals;// æŒ‰ç´¢å¼•é¡ºåºçš„CPTå€¼
+		fidlist m_stride; // æ­¥é•¿
 	};
 
 	using FactorList = std::vector<Factor>;

@@ -10,12 +10,12 @@ namespace pgm {
 	public:
 		struct Node {
 			fid_t id;
-			fidlist parents;	//¸¸½áµãid
-			fvallist cptvals;	//CPT±íÖµ
+			fidlist parents;	//çˆ¶ç»“ç‚¹id
+			fvallist cptvals;	//CPTè¡¨å€¼
 		};
 
-		VariableList variables;		//±äÁ¿¼¯
-		std::vector<Node> nodes;	//½áµãÁĞ±í
+		VariableList variables;		//å˜é‡é›†
+		std::vector<Node> nodes;	//ç»“ç‚¹åˆ—è¡¨
 
 	public:
 		inline const Variable& getVar(fid_t id) const {
@@ -24,7 +24,7 @@ namespace pgm {
 	};
 
 	namespace io {
-		//¶ÁÈ¡±´Ò¶Ë¹ÍøÂç½á¹¹ºÍ²ÎÊı
+		//è¯»å–è´å¶æ–¯ç½‘ç»œç»“æ„å’Œå‚æ•°
 		BayesianNetwork readBayesianNetwork(const fs::path& path);
 	}
 }

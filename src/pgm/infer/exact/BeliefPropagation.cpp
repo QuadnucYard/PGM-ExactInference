@@ -25,13 +25,13 @@ namespace pgm {
 		std::ranges::transform(query.givenVars, std::back_inserter(queryVars), &fidpair::first);
 		std::ranges::sort(queryVars);
 
-		//´Ó°üº¬²éÑ¯±äÁ¿×î¶àµÄÒ»¸öÍÅ¿ªÊ¼
+		//ä»åŒ…å«æŸ¥è¯¢å˜é‡æœ€å¤šçš„ä¸€ä¸ªå›¢å¼€å§‹
 		fid_t startCliqueId = qy::ranges::argmax(m_cliques, {}, [&](auto&& c) {
 			return qy::set_intersection<fidlist>(c.getVarIds(), queryVars).size();
 		});
 		Factor theClique = m_cliques[startCliqueId];
 
-		//¹ã¶ÈÓÅÏÈ¹¹Ôì²éÑ¯Éæ¼°µÄ×ÓÊ÷¡¢²¢Í¬Ê±¼ÆËãµ±Ç°Òò×Ó
+		//å¹¿åº¦ä¼˜å…ˆæ„é€ æŸ¥è¯¢æ¶‰åŠçš„å­æ ‘ã€å¹¶åŒæ—¶è®¡ç®—å½“å‰å› å­
 		std::queue<fid_t> open;
 		open.push(startCliqueId);
 		fidset close;
@@ -40,23 +40,23 @@ namespace pgm {
 			fid_t u = open.front();
 			open.pop();
 			close.insert(u);
-			//²éÕÒµ±Ç°ÍÅIDµÄºó¼Ì
+			//æŸ¥æ‰¾å½“å‰å›¢IDçš„åç»§
 			auto er = m_tree.edges.equal_range(u);
 			for (auto&& [_, v] : std::ranges::subrange(er.first, er.second)) {
 				if (close.contains(v)) continue;
-				//½«µ±Ç°Òò×ÓºÍºó¼ÌÍÅ×öÒò×Ó»ı£¬×öºÍ¸î¼¯µÄÒò×Ó³ı
-				//×¢Òâ£¬ÕâÀï¸î¼¯ÒªÕÒ×Ó½áµã¶ÔÓ¦µÄÄÇ¸ö
+				//å°†å½“å‰å› å­å’Œåç»§å›¢åšå› å­ç§¯ï¼Œåšå’Œå‰²é›†çš„å› å­é™¤
+				//æ³¨æ„ï¼Œè¿™é‡Œå‰²é›†è¦æ‰¾å­ç»“ç‚¹å¯¹åº”çš„é‚£ä¸ª
 				fid_t cutsetId = m_tree.nodes[v].parent == u ? v : u;
 				theClique = theClique * m_cliques[v] / m_cutsets[cutsetId];
 				open.push(v);
-				//µ±¸ÃÍÅÒÑ¾­¸²¸ÇËùÓĞ²éÑ¯±äÁ¿Ê±ÖÕÖ¹ËùÓĞÑ­»·
+				//å½“è¯¥å›¢å·²ç»è¦†ç›–æ‰€æœ‰æŸ¥è¯¢å˜é‡æ—¶ç»ˆæ­¢æ‰€æœ‰å¾ªç¯
 				if (std::ranges::includes(theClique.getVarIds(), queryVars)) {
 					finished = true;
 					break;
 				}
 			}
 		}
-		//ÇóºÍµôÎŞ¹Ø²éÑ¯µÄ¶àÓà±äÁ¿
+		//æ±‚å’Œæ‰æ— å…³æŸ¥è¯¢çš„å¤šä½™å˜é‡
 		theClique = theClique
 			.sumOutVariable(qy::set_difference<fidlist>(theClique.getVarIds(), queryVars))
 			.reduceGivenVariables(query.givenVars)
@@ -65,26 +65,26 @@ namespace pgm {
 	}
 
 	void CliqueTreeMethod::sendMessages() {
-		// ÏÈ´ÓÏÂÍùÉÏ·¢ÏûÏ¢£¬¸î¼¯´æÔÚÖ¸ÏòµÄµãÉÏ
+		// å…ˆä»ä¸‹å¾€ä¸Šå‘æ¶ˆæ¯ï¼Œå‰²é›†å­˜åœ¨æŒ‡å‘çš„ç‚¹ä¸Š
 		for (fid_t u : std::views::reverse(m_tree.orderseq)) {
 			// Receive
-			for (fid_t v : m_tree.nodes[u].children) { //¶ÔËùÓĞ×Ó½áµã
+			for (fid_t v : m_tree.nodes[u].children) { //å¯¹æ‰€æœ‰å­ç»“ç‚¹
 				m_cliques[u] = m_cliques[u] * m_cutsets[v];
 			}
 			// Send Upward
-			if (fid_t p = m_tree.nodes[u].parent; p != -1) { //¶Ô¸¸½áµã
+			if (fid_t p = m_tree.nodes[u].parent; p != -1) { //å¯¹çˆ¶ç»“ç‚¹
 				auto elimilatedVars = qy::set_difference<fidlist>(m_cliques[u].getVarIds(), m_cliques[p].getVarIds());
 				m_cutsets[u] = m_cliques[u].sumOutVariable(elimilatedVars);
 			}
 		}
-		// È»ºó´ÓÉÏÍùÏÂ·¢ÏûÏ¢
+		// ç„¶åä»ä¸Šå¾€ä¸‹å‘æ¶ˆæ¯
 		for (fid_t u : m_tree.orderseq) {
 			// Receive
-			if (fid_t p = m_tree.nodes[u].parent; p != -1) { //¶Ô¸¸½áµã
+			if (fid_t p = m_tree.nodes[u].parent; p != -1) { //å¯¹çˆ¶ç»“ç‚¹
 				m_cliques[u] = m_cliques[u] * m_cutsets[u];
 			}
 			// Send Downward
-			for (fid_t v : m_tree.nodes[u].children) { //¶ÔËùÓĞ×Ó½áµã
+			for (fid_t v : m_tree.nodes[u].children) { //å¯¹æ‰€æœ‰å­ç»“ç‚¹
 				auto elimilatedVars = qy::set_difference<fidlist>(m_cliques[u].getVarIds(), m_cliques[v].getVarIds());
 				m_cutsets[v] = m_cliques[u].sumOutVariable(elimilatedVars);
 			}

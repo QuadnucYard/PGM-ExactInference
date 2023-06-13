@@ -117,7 +117,7 @@ namespace views {
 	inline constexpr _Except_fn except;
 
 }
-// 这个还无法编译通过
+// 杩欎釜杩樻棤娉曠紪璇戦�氳繃
 
 template <_SR input_range _Vw>
 class enumerate_view: public _SR view_interface<enumerate_view<_Vw>>

@@ -4,9 +4,9 @@
 namespace pgm {
 
 	CBNSumProduct::CBNSumProduct(const BayesianNetwork& bn): m_net(bn) {
-		// °ÑÒò×ÓÕû³öÀ´
+		// æŠŠå› å­æ•´å‡ºæ¥
 		for (auto&& node : bn.nodes) {
-			// Éú³É(id,card)µÄÁĞ±í£¨°üÀ¨¸¸½áµãºÍ×ÔÉí£©£¬²¢·´×ª
+			// ç”Ÿæˆ(id,card)çš„åˆ—è¡¨ï¼ˆåŒ…æ‹¬çˆ¶ç»“ç‚¹å’Œè‡ªèº«ï¼‰ï¼Œå¹¶åè½¬
 			fidpairlist vars;
 			for (fid_t id : node.parents) {
 				vars.emplace_back(id, bn.getVar(id).numValues);
@@ -22,22 +22,22 @@ namespace pgm {
 	}
 
 	fval_t CBNSumProduct::query(const ProbQuery& query) const {
-		//²½Öè1£º¸ù¾İ¸ø¶¨±äÁ¿¡¢¹æÔ¼Òò×ÓÁĞ±í
+		//æ­¥éª¤1ï¼šæ ¹æ®ç»™å®šå˜é‡ã€è§„çº¦å› å­åˆ—è¡¨
 		FactorList reducedFactors;
 		for (auto&& factor : m_Factors) {
 			reducedFactors.push_back(factor.reduceGivenVariables(query.givenVars));
 		}
 
-		//²½Öè2£º¼ÆËã±ßÔµ¸ÅÂÊ
-		//±éÀúËùÓĞÉ¾³ı±äÁ¿£¬²¢½øĞĞ±ßÔµ¸ÅÂÊ¼ÆËã
+		//æ­¥éª¤2ï¼šè®¡ç®—è¾¹ç¼˜æ¦‚ç‡
+		//éå†æ‰€æœ‰åˆ é™¤å˜é‡ï¼Œå¹¶è¿›è¡Œè¾¹ç¼˜æ¦‚ç‡è®¡ç®—
 		for (fid_t ev : getEliminationOrder(query)) {
 			eliminateVar(ev, reducedFactors);
 		}
 
-		//²½Öè2£º¼ÆËãÊ£ÓàµÄÒò×Ó»ı
-		//¶Ô×îºóµÃµ½µÄÒò×Ó¹éÒ»»¯£¬Õâ¸öÊÇ±ØÒªµÄ
+		//æ­¥éª¤2ï¼šè®¡ç®—å‰©ä½™çš„å› å­ç§¯
+		//å¯¹æœ€åå¾—åˆ°çš„å› å­å½’ä¸€åŒ–ï¼Œè¿™ä¸ªæ˜¯å¿…è¦çš„
 		Factor phi = qy::ranges::product(reducedFactors).normalized();
-		//¶ÔÒò×Ó½øĞĞ²éÑ¯
+		//å¯¹å› å­è¿›è¡ŒæŸ¥è¯¢
 		return phi.query(query.marginalVars);
 	}
 
@@ -67,10 +67,10 @@ namespace pgm {
 
 	void CBNSumProduct::eliminateVar(fid_t varId, FactorList& factors) const
 	{
-		// Õâ¸öº¯Êı±¾ÖÊÊÇ°Ñ°üº¬varµÄÒò×Ó³ËÆğÀ´ºÏ²¢³ÉÒ»¸ö
+		// è¿™ä¸ªå‡½æ•°æœ¬è´¨æ˜¯æŠŠåŒ…å«varçš„å› å­ä¹˜èµ·æ¥åˆå¹¶æˆä¸€ä¸ª
 		auto it = std::partition(factors.begin(), factors.end(), LAMBDA(t, !t.containsVar(varId)));
-		if (it == factors.end()) return; //Ã»ÓĞÒò×Ó°üº¬¸ø¶¨±äÁ¿£¬Ö±½Ó·µ»Ø
-		*it = qy::ranges::product(it, factors.end()).sumOutVariable(varId); // ºóÃæµÄÒò×ÓÇó»ı
+		if (it == factors.end()) return; //æ²¡æœ‰å› å­åŒ…å«ç»™å®šå˜é‡ï¼Œç›´æ¥è¿”å›
+		*it = qy::ranges::product(it, factors.end()).sumOutVariable(varId); // åé¢çš„å› å­æ±‚ç§¯
 		factors.erase(++it, factors.end());
 	}
 

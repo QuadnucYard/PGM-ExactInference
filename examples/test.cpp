@@ -104,7 +104,7 @@ int main() {
 	qy::ranges::argsort(a, b.begin());
 	std::ranges::copy(b, std::ostream_iterator<int>(cout, ","));
 	cout << endl;
-	//5,4,3,2,6,1,7,0,  Ã¿¸öÎ»ÖÃÔªËØÔÚÅÅÐòÇ°µÄÎ»ÖÃ
+	//5,4,3,2,6,1,7,0,  æ¯ä¸ªä½ç½®å…ƒç´ åœ¨æŽ’åºå‰çš„ä½ç½®
 
 	cout << "==================\n";
 
@@ -117,7 +117,7 @@ int main() {
 		for (auto&& p : a | qy_exp::ranges::views::enumerate()) {
 			cout << p.first << ":" << p.second << endl;
 		}
-		// transformÖ®ÀàµÄÊÇ»áÖØ¸´¼ÆËãµÄ
+		// transformä¹‹ç±»çš„æ˜¯ä¼šé‡å¤è®¡ç®—çš„
 
 		//vector<int> b {6, 4, 5};
 		//auto xx = a | qy_exp::views::except(b);

@@ -5,10 +5,10 @@
 
 namespace pgm::io {
 
-	// 读取查询
+	// 璇诲彇鏌ヨ
 	ProbQueryList readQuery(const fs::path& path);
 
-	//输出查询结果
+	//杈撳嚭鏌ヨ缁撴灉
 	void outputQueryResult(const fs::path& path, const fvallist& queryResults);
 
 	std::string toQueryString(const ProbQueryList& queries);
