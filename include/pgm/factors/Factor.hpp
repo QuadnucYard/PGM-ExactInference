@@ -15,8 +15,10 @@ namespace pgm {
 
 	public:
 		Factor() = default;
-		Factor(fidpairlist vars);
-		Factor(fidpairlist vars, const fvallist& vals);
+
+		Factor(fidpairlist const& vars);
+
+		Factor(fidpairlist const& vars, fvallist const& vals);
 
 		inline fidlist getVarIds() const {
 			return std::views::transform(m_vars, LAMBDA(t, t.first)) | std::ranges::to<fidlist>();
@@ -30,16 +32,22 @@ namespace pgm {
 			return std::ranges::contains(m_vars, varId, &fidpair::first);
 		}
 
-		void normalize();
+		inline void normalize() {
+			m_vals /= m_vals.sum();
+		}
 
-		Factor normalized() const;
+		inline Factor normalized() const {
+			Factor result{*this};
+			result.normalize();
+			return result;
+		}
 
 		// 返回具有与给定变量匹配的行的因子
 		Factor reduceGivenVariables(const fidpairlist& vars) const;
 
-		Factor sumOutVariable(fid_t varId) const;
+		Factor sumOverVariable(fid_t varId) const;
 
-		Factor sumOutVariable(fidlist varIds) const;
+		Factor sumOverVariable(fidlist varIds) const;
 
 		// 对具有给定变量的行求和
 		fval_t query(const fidpairlist& vars) const;
@@ -51,19 +59,25 @@ namespace pgm {
 		Factor operator/(const Factor& o) const;
 
 	private:
-		inline fid_t getVarIndex(fid_t varId) const {
+		/* inline fid_t getVarIndex(fid_t varId) const {
 			return qy::ranges::index_of(m_vars, varId, &fidpair::first);
-		}
+		} */
 
 		inline const fidpair& getVar(fid_t varId) const {
 			return *std::ranges::find(m_vars, varId, &fidpair::first);
 		}
 
-		inline void createStrideSelf() { m_stride = createStride(m_vars); }
+		inline void createStrideSelf() {
+			m_stride = createStride(m_vars);
+		}
 
-		inline fidlist createStride() const { return createStride(m_vars); }
+		inline fidlist createStride() const {
+			return createStride(m_vars);
+		}
 
-		inline fid_t getStride(fid_t varId) const { return getStride(m_vars, varId); }
+		inline fid_t getStride(fid_t varId) const {
+			return getStride(m_vars, varId);
+		}
 
 		// 根据CPT索引获取变量的值
 		inline fid_t getVarValueId(fid_t varIndex, fid_t i) const {
@@ -95,9 +109,22 @@ namespace pgm {
 			return offset;
 		}
 
-		static fidlist createStride(const fidpairlist& vars);
+		static fidlist createStride(const fidpairlist& vars) {
+			fidlist stride(vars.size());
+			std::exclusive_scan(vars.begin(), vars.end(), stride.begin(), 1,
+								[](auto&& x, auto&& y) { return x * y.second; });
+			return stride;
+		}
 
-		static fid_t getStride(const fidpairlist& vars, fid_t varId);
+		static fid_t getStride(const fidpairlist& vars, fid_t varId) {
+			fid_t result = 1;
+			for (auto&& p : vars) {
+				if (p.first == varId)
+					return result;
+				result *= p.second;
+			}
+			return 0; // 不存在的id的stride为0
+		}
 
 	private:
 		fidpairlist m_vars; // 变量及其card

@@ -4,9 +4,9 @@
 
 namespace pgm {
 
-	class CBNSumProduct {
+	class VariableElimination {
 	public:
-		CBNSumProduct(const BayesianNetwork& bn);
+		VariableElimination(const BayesianNetwork& bn);
 		fvallist query(const ProbQueryList&) const;
 		fval_t query(const ProbQuery&) const;
 
@@ -17,7 +17,7 @@ namespace pgm {
 		void eliminateVar(fid_t, FactorList&) const;
 
 	private:
-		BayesianNetwork m_net;
+		const BayesianNetwork& m_net;
 		FactorList m_Factors; //因子列表
 	};
 

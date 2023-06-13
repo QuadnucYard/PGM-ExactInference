@@ -3,7 +3,7 @@
 
 namespace pgm {
 
-	CBNSumProduct::CBNSumProduct(const BayesianNetwork& bn): m_net(bn) {
+	VariableElimination::VariableElimination(const BayesianNetwork& bn) : m_net(bn) {
 		// 把因子整出来
 		for (auto&& node : bn.nodes) {
 			// 生成(id,card)的列表（包括父结点和自身），并反转
@@ -13,19 +13,19 @@ namespace pgm {
 			}
 			vars.emplace_back(node.id, bn.getVar(node.id).numValues);
 			std::ranges::reverse(vars);
-			m_Factors.emplace_back(vars, node.cptvals);
+			m_Factors.emplace_back(vars, node.cpt);
 		}
 	}
 
-	fvallist CBNSumProduct::query(const ProbQueryList& queries) const {
+	fvallist VariableElimination::query(const ProbQueryList& queries) const {
 		return queries | std::views::transform(LAMBDA(q, query(q))) | std::ranges::to<fvallist>();
 	}
 
-	fval_t CBNSumProduct::query(const ProbQuery& query) const {
+	fval_t VariableElimination::query(const ProbQuery& query) const {
 		//步骤1：根据给定变量、规约因子列表
 		FactorList reducedFactors;
 		for (auto&& factor : m_Factors) {
-			reducedFactors.push_back(factor.reduceGivenVariables(query.givenVars));
+			reducedFactors.push_back(factor.reduceGivenVariables(query.given));
 		}
 
 		//步骤2：计算边缘概率
@@ -38,11 +38,10 @@ namespace pgm {
 		//对最后得到的因子归一化，这个是必要的
 		Factor phi = qy::ranges::product(reducedFactors).normalized();
 		//对因子进行查询
-		return phi.query(query.marginalVars);
+		return phi.query(query.marginal);
 	}
 
-
-	fidlist CBNSumProduct::getEliminationOrder(const ProbQuery& query) const {
+	fidlist VariableElimination::getEliminationOrder(const ProbQuery& query) const {
 		fidlist order;
 		fidset close;
 		std::queue<fid_t> open;
@@ -62,16 +61,15 @@ namespace pgm {
 				}
 			}
 		}
-		return qy::except(qy::except(order, query.marginalVars, {}, &fidpair::first), query.givenVars, {}, &fidpair::first);
+		return qy::except(qy::except(order, query.marginal, {}, &fidpair::first), query.given, {},
+						  &fidpair::first);
 	}
 
-	void CBNSumProduct::eliminateVar(fid_t varId, FactorList& factors) const
-	{
+	void VariableElimination::eliminateVar(fid_t varId, FactorList& factors) const {
 		// 这个函数本质是把包含var的因子乘起来合并成一个
 		auto it = std::partition(factors.begin(), factors.end(), LAMBDA(t, !t.containsVar(varId)));
 		if (it == factors.end()) return; //没有因子包含给定变量，直接返回
-		*it = qy::ranges::product(it, factors.end()).sumOutVariable(varId); // 后面的因子求积
+		*it = qy::ranges::product(it, factors.end()).sumOverVariable(varId); // 后面的因子求积
 		factors.erase(++it, factors.end());
 	}
-
 }

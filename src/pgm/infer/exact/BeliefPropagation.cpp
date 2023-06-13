@@ -21,8 +21,8 @@ namespace pgm {
 
 	fval_t CliqueTreeMethod::query(const ProbQuery& query) const {
 		fidlist queryVars;
-		std::ranges::transform(query.marginalVars, std::back_inserter(queryVars), &fidpair::first);
-		std::ranges::transform(query.givenVars, std::back_inserter(queryVars), &fidpair::first);
+		std::ranges::transform(query.marginal, std::back_inserter(queryVars), &fidpair::first);
+		std::ranges::transform(query.given, std::back_inserter(queryVars), &fidpair::first);
 		std::ranges::sort(queryVars);
 
 		//从包含查询变量最多的一个团开始
@@ -58,10 +58,11 @@ namespace pgm {
 		}
 		//求和掉无关查询的多余变量
 		theClique = theClique
-			.sumOutVariable(qy::set_difference<fidlist>(theClique.getVarIds(), queryVars))
-			.reduceGivenVariables(query.givenVars)
-			.normalized();
-		return theClique.query(query.marginalVars);
+						.sumOverVariable(
+							qy::set_difference<fidlist>(theClique.getVarIds(), queryVars))
+						.reduceGivenVariables(query.given)
+						.normalized();
+		return theClique.query(query.marginal);
 	}
 
 	void CliqueTreeMethod::sendMessages() {
@@ -74,7 +75,7 @@ namespace pgm {
 			// Send Upward
 			if (fid_t p = m_tree.nodes[u].parent; p != -1) { //对父结点
 				auto elimilatedVars = qy::set_difference<fidlist>(m_cliques[u].getVarIds(), m_cliques[p].getVarIds());
-				m_cutsets[u] = m_cliques[u].sumOutVariable(elimilatedVars);
+				m_cutsets[u] = m_cliques[u].sumOverVariable(elimilatedVars);
 			}
 		}
 		// 然后从上往下发消息
@@ -86,7 +87,7 @@ namespace pgm {
 			// Send Downward
 			for (fid_t v : m_tree.nodes[u].children) { //对所有子结点
 				auto elimilatedVars = qy::set_difference<fidlist>(m_cliques[u].getVarIds(), m_cliques[v].getVarIds());
-				m_cutsets[v] = m_cliques[u].sumOutVariable(elimilatedVars);
+				m_cutsets[v] = m_cliques[u].sumOverVariable(elimilatedVars);
 			}
 		}
 	}

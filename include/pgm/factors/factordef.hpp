@@ -32,8 +32,8 @@ namespace pgm {
 
 	// 查询
 	struct ProbQuery {
-		fidpairlist marginalVars; //查询的变量及其取值
-		fidpairlist givenVars;	  //给定的变量及其取值
+		fidpairlist marginal; //查询的变量及其取值
+		fidpairlist given;	  //给定的变量及其取值
 	};
 
 	using ProbQueryList = std::vector<ProbQuery>;

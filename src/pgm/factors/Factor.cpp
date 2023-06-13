@@ -2,27 +2,19 @@
 
 namespace pgm {
 
-	Factor::Factor(fidpairlist vars) : m_vars(std::move(vars)) {
+	Factor::Factor(fidpairlist const& vars) : m_vars(vars) {
 		std::ranges::sort(m_vars);
 		createStrideSelf();
 		m_vals.resize(rowSize());
 	}
 
-	Factor::Factor(fidpairlist vars, const fvallist& vals) : Factor(std::move(vars)) {
+	Factor::Factor(fidpairlist const& vars, fvallist const& vals) : Factor(vars) {
 		// 下面按照变量id进行重排，小因子排前面
 		auto stride_old = createRefStride(vars);
 		for (size_t i = 0; i < m_vals.size(); i++) {
 			auto k = getRefIndex(stride_old, i);
 			m_vals[i] = vals[k];
 		}
-	}
-
-	void Factor::normalize() { m_vals /= m_vals.sum(); }
-
-	Factor Factor::normalized() const {
-		Factor result{*this};
-		result.normalize();
-		return result;
 	}
 
 	Factor Factor::reduceGivenVariables(const fidpairlist& vars) const {
@@ -38,7 +30,7 @@ namespace pgm {
 		return result;
 	}
 
-	Factor Factor::sumOutVariable(fid_t varId) const {
+	Factor Factor::sumOverVariable(fid_t varId) const {
 		Factor result(qy::except(m_vars, varId, &fidpair::first));
 		fid_t stride = getStride(varId), card = getVar(varId).second;
 		for (size_t i = 0; i < result.m_vals.size(); i++) {
@@ -48,7 +40,7 @@ namespace pgm {
 		return result;
 	}
 
-	Factor Factor::sumOutVariable(fidlist varIds) const {
+	Factor Factor::sumOverVariable(fidlist varIds) const {
 		Factor result(qy::except(m_vars, varIds, &fidpair::first));
 		auto stride = createRefStride(result.m_vars);
 		for (size_t i = 0; i < m_vals.size(); i++) {
@@ -83,23 +75,6 @@ namespace pgm {
 			result.m_vals[i] = m_vals[i] == 0 && o.m_vals[k] == 0 ? 0 : m_vals[i] / o.m_vals[k];
 		}
 		return result;
-	}
-
-	fidlist Factor::createStride(const fidpairlist& vars) {
-		fidlist stride(vars.size());
-		std::exclusive_scan(vars.begin(), vars.end(), stride.begin(), 1,
-							[](auto&& x, auto&& y) { return x * y.second; });
-		return stride;
-	}
-
-	fid_t Factor::getStride(const fidpairlist& vars, fid_t varId) {
-		fid_t result = 1;
-		for (auto&& p : vars) {
-			if (p.first == varId)
-				return result;
-			result *= p.second;
-		}
-		return 0; // 不存在的id的stride为0
 	}
 
 } // namespace pgm
