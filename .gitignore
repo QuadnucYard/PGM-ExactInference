@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Xmake cache
+.xmake/
+build/
+
+.vscode
+
+vsxmake*/
