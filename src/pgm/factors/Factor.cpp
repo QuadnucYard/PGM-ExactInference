@@ -1,14 +1,14 @@
-#include "Factor.h"
+#include "pgm/factors/Factor.hpp"
 
 namespace pgm {
 
-	Factor::Factor(const fidpairlist& vars): m_vars(vars) {
+	Factor::Factor(fidpairlist vars) : m_vars(std::move(vars)) {
 		std::ranges::sort(m_vars);
 		createStrideSelf();
 		m_vals.resize(rowSize());
 	}
 
-	Factor::Factor(const fidpairlist& vars, const fvallist& vals): Factor(vars) {
+	Factor::Factor(fidpairlist vars, const fvallist& vals) : Factor(std::move(vars)) {
 		// 下面按照变量id进行重排，小因子排前面
 		auto stride_old = createRefStride(vars);
 		for (size_t i = 0; i < m_vals.size(); i++) {
@@ -17,18 +17,11 @@ namespace pgm {
 		}
 	}
 
-	fid_t Factor::rowSize() const {
-		if (m_vars.empty()) return 1;
-		return qy::ranges::product(m_vars, &fidpair::second);
-	}
-
-	bool Factor::containsVar(fid_t varId) const {
-		return std::ranges::find(m_vars, varId, &fidpair::first) != m_vars.end();
-	}
+	void Factor::normalize() { m_vals /= m_vals.sum(); }
 
 	Factor Factor::normalized() const {
-		Factor result {*this};
-		result.m_vals /= m_vals.sum();
+		Factor result{*this};
+		result.normalize();
 		return result;
 	}
 
@@ -49,7 +42,8 @@ namespace pgm {
 		Factor result(qy::except(m_vars, varId, &fidpair::first));
 		fid_t stride = getStride(varId), card = getVar(varId).second;
 		for (size_t i = 0; i < result.m_vals.size(); i++) {
-			result.m_vals[i] = m_vals[std::slice(i / stride * stride * card + i % stride, card, stride)].sum();
+			result.m_vals[i] =
+				m_vals[std::slice(i / stride * stride * card + i % stride, card, stride)].sum();
 		}
 		return result;
 	}
@@ -69,7 +63,7 @@ namespace pgm {
 		return reduceGivenVariables(vars).m_vals.sum();
 	}
 
-	Factor Factor::operator* (const Factor& o) const {
+	Factor Factor::operator*(const Factor& o) const {
 		Factor result(qy::set_union<fidpairlist>(m_vars, o.m_vars));
 		auto s1 = result.createRefStride(m_vars);
 		auto s2 = result.createRefStride(o.m_vars);
@@ -81,7 +75,7 @@ namespace pgm {
 		return result;
 	}
 
-	Factor Factor::operator/ (const Factor& o) const {
+	Factor Factor::operator/(const Factor& o) const {
 		Factor result(m_vars);
 		auto stride = result.createRefStride(o.m_vars);
 		for (size_t i = 0; i < result.m_vals.size(); i++) {
@@ -91,37 +85,21 @@ namespace pgm {
 		return result;
 	}
 
-	fid_t Factor::getRefIndex(const fidlist& s, const fidlist& s1, fid_t i) const {
-		fid_t k = 0;
-		for (size_t j = 0; j < s.size(); j++) {
-			k += i / s[j] % m_vars[j].second * s1[j];
-		}
-		return k;
-	}
-
-	fid_t Factor::getVarsOffset(const fidpairlist& vars) const {
-		fid_t offset = 0;
-		for (auto&& p : vars) {
-			offset += p.second * getStride(p.first);
-		}
-		return offset;
-	}
-
 	fidlist Factor::createStride(const fidpairlist& vars) {
 		fidlist stride(vars.size());
 		std::exclusive_scan(vars.begin(), vars.end(), stride.begin(), 1,
-			[](auto&& x, auto&& y) {return x * y.second; });
+							[](auto&& x, auto&& y) { return x * y.second; });
 		return stride;
 	}
 
 	fid_t Factor::getStride(const fidpairlist& vars, fid_t varId) {
 		fid_t result = 1;
 		for (auto&& p : vars) {
-			if (p.first == varId) return result;
+			if (p.first == varId)
+				return result;
 			result *= p.second;
 		}
 		return 0; // 不存在的id的stride为0
 	}
 
-}
-
+} // namespace pgm

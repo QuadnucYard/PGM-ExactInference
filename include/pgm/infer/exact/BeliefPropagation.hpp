@@ -1,6 +1,6 @@
 #pragma once
-#include "CliqueTree.h"
-#include "Factor.h"
+#include "CliqueTree.hpp"
+#include "pgm/factors/Factor.hpp"
 
 namespace pgm {
 

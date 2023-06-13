@@ -1,13 +1,12 @@
 #pragma once
-#include "factordef.h"
-#include "qyranges.hpp"
-#include "iohelper.h"
+#include "pgm/factors/factordef.hpp"
+#include "pgm/io/iohelper.hpp"
+#include "utils/qyranges.hpp"
 #include <queue>
 
 namespace pgm {
 
 	struct CliqueTree {
-
 		struct Node {
 			//fid_t id;
 			fidlist varids;
@@ -36,9 +35,4 @@ namespace pgm {
 		}
 	};
 
-	namespace io {
-		//读取团树
-		CliqueTree readCliqueTree(const fs::path& path);
-	}
-
-}
+} // namespace pgm

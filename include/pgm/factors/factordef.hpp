@@ -1,9 +1,9 @@
 #pragma once
-#include <vector>
-#include <set>
 #include <map>
+#include <set>
 #include <string>
 #include <valarray>
+#include <vector>
 
 namespace pgm {
 
@@ -21,8 +21,7 @@ namespace pgm {
 	using fidpairlist = std::vector<fidpair>;
 
 	// 随机变量
-	struct Variable
-	{
+	struct Variable {
 		fid_t id;
 		fid_t numValues;
 		std::string name;
@@ -32,12 +31,11 @@ namespace pgm {
 	using VariableList = std::vector<Variable>;
 
 	// 查询
-	struct ProbQuery
-	{
-		fidpairlist marginalVars;	//查询的变量及其取值
-		fidpairlist givenVars;		//给定的变量及其取值
+	struct ProbQuery {
+		fidpairlist marginalVars; //查询的变量及其取值
+		fidpairlist givenVars;	  //给定的变量及其取值
 	};
 
 	using ProbQueryList = std::vector<ProbQuery>;
 
-}
+} // namespace pgm

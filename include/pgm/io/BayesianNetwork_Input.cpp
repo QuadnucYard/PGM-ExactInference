@@ -1,4 +1,4 @@
-#include "BayesianNetwork.h"
+/* #include "BayesianNetwork.h"
 
 namespace pgm::io {
 
@@ -28,4 +28,4 @@ namespace pgm::io {
 		return bn;
 	}
 
-}
+} */

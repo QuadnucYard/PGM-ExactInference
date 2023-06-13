@@ -1,20 +1,4 @@
 
-namespace views {
-
-	template <class T>
-	class _To_fn {
-	public:
-		template <_SR viewable_range R>
-		friend constexpr auto operator|(R&& __r, _To_fn self) {
-			return T(_SR begin(__r), _SR end(__r));
-		}
-	};
-
-	template <class T>
-	inline constexpr _To_fn<T> to;
-
-}
-
 
 class _Tokenize_view {
 	using tokenit = std::sregex_token_iterator;

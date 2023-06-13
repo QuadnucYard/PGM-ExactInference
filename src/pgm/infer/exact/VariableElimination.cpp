@@ -1,4 +1,4 @@
-#include "CBNSumProduct.h"
+#include "pgm/infer/exact/VariableElimination.hpp"
 #include <queue>
 
 namespace pgm {
@@ -18,7 +18,7 @@ namespace pgm {
 	}
 
 	fvallist CBNSumProduct::query(const ProbQueryList& queries) const {
-		return queries | std::views::transform(LAMBDA(q, query(q))) | qy::views::to<fvallist>;
+		return queries | std::views::transform(LAMBDA(q, query(q))) | std::ranges::to<fvallist>();
 	}
 
 	fval_t CBNSumProduct::query(const ProbQuery& query) const {

@@ -1,4 +1,4 @@
-#pragma once
+/* #pragma once
 #include "iohelper.h"
 #include "factordef.h"
 #include "qyranges.hpp"
@@ -14,4 +14,4 @@ namespace pgm::io {
 	std::string toQueryString(const ProbQueryList& queries);
 
 	std::string toResultString(const fvallist& queryResults);
-}
+} */

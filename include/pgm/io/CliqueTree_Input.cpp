@@ -1,4 +1,4 @@
-#include "CliqueTree.h"
+/* #include "CliqueTree.h"
 #include "iohelper.h"
 
 namespace pgm::io {
@@ -32,4 +32,4 @@ namespace pgm::io {
 		return ct;
 	}
 
-}
+} */

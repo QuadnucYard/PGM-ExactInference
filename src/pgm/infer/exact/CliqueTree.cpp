@@ -1,4 +1,4 @@
-#include "CliqueTree.h"
+#include "pgm/infer/exact/CliqueTree.hpp"
 
 namespace pgm {
 

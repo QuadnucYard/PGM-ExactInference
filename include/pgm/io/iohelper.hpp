@@ -1,4 +1,4 @@
-#pragma once
+/* #pragma once
 #include "yaml-cpp/yaml.h"
 #include <fstream>
 #include <filesystem>
@@ -6,4 +6,4 @@
 
 namespace pgm::io {
 	namespace fs = std::filesystem;
-}
+} */

@@ -1,10 +1,9 @@
 #pragma once
-#include "factordef.h"
-#include "stl_utils.h"
-#include "qyalgo.hpp"
-#include "qynumeric.hpp"
-#include "qyranges.hpp"
-
+#include "factordef.hpp"
+#include "utils/qyalgo.hpp"
+#include "utils/qynumeric.hpp"
+#include "utils/qyranges.hpp"
+#include "utils/stl_utils.hpp"
 
 namespace pgm {
 
@@ -13,19 +12,25 @@ namespace pgm {
 
 	private:
 		//Factor() = delete; // 禁用无参构造函数
-		
+
 	public:
 		Factor() = default;
-		Factor(const fidpairlist& vars);
-		Factor(const fidpairlist& vars, const fvallist& vals);
+		Factor(fidpairlist vars);
+		Factor(fidpairlist vars, const fvallist& vals);
 
 		inline fidlist getVarIds() const {
-			return std::views::transform(m_vars, LAMBDA(t, t.first)) | qy::views::to<fidlist>;
+			return std::views::transform(m_vars, LAMBDA(t, t.first)) | std::ranges::to<fidlist>();
 		}
 
-		fid_t rowSize() const;
+		inline fid_t rowSize() const {
+			return m_vars.empty() ? 1 : qy::ranges::product(m_vars, &fidpair::second);
+		}
 
-		bool containsVar(fid_t varId) const;
+		inline bool containsVar(fid_t varId) const {
+			return std::ranges::contains(m_vars, varId, &fidpair::first);
+		}
+
+		void normalize();
 
 		Factor normalized() const;
 
@@ -40,31 +45,25 @@ namespace pgm {
 		fval_t query(const fidpairlist& vars) const;
 
 		// 因子积
-		Factor operator* (const Factor& o) const;
+		Factor operator*(const Factor& o) const;
 
 		// 因子除
-		Factor operator/ (const Factor& o) const;
+		Factor operator/(const Factor& o) const;
 
 	private:
-
 		inline fid_t getVarIndex(fid_t varId) const {
 			return qy::ranges::index_of(m_vars, varId, &fidpair::first);
 		}
+
 		inline const fidpair& getVar(fid_t varId) const {
 			return *std::ranges::find(m_vars, varId, &fidpair::first);
 		}
 
-		inline void createStrideSelf() {
-			m_stride = createStride(m_vars);
-		}
+		inline void createStrideSelf() { m_stride = createStride(m_vars); }
 
-		inline fidlist createStride() const {
-			return createStride(m_vars);
-		}
+		inline fidlist createStride() const { return createStride(m_vars); }
 
-		inline fid_t getStride(fid_t varId) const {
-			return getStride(m_vars, varId);
-		}
+		inline fid_t getStride(fid_t varId) const { return getStride(m_vars, varId); }
 
 		// 根据CPT索引获取变量的值
 		inline fid_t getVarValueId(fid_t varIndex, fid_t i) const {
@@ -73,28 +72,39 @@ namespace pgm {
 
 		// 获取自身变量在另一组变量里的stride
 		inline fidlist createRefStride(const fidpairlist& vars) const {
-			return m_vars | std::views::transform(LAMBDA(p, getStride(vars, p.first))) | qy::views::to<fidlist>;
+			return m_vars | std::views::transform(LAMBDA(p, getStride(vars, p.first))) |
+				   std::ranges::to<fidlist>();
 		}
 
-		inline fid_t getRefIndex(const fidlist& s1, fid_t i) const {
+		inline size_t getRefIndex(const fidlist& s1, size_t i) const {
 			return getRefIndex(m_stride, s1, i);
 		}
 
 		// 获取原本在s中的i在s1中的索引
-		fid_t getRefIndex(const fidlist& s, const fidlist& s1, fid_t i) const;
+		inline size_t getRefIndex(const fidlist& s, const fidlist& s1, size_t i) const {
+			fid_t k = 0;
+			for (size_t j = 0; j < s.size(); j++)
+				k += i / s[j] % m_vars[j].second * s1[j];
+			return k;
+		}
 
-		fid_t getVarsOffset(const fidpairlist& vars) const;
+		inline fid_t getVarsOffset(const fidpairlist& vars) const {
+			fid_t offset = 0;
+			for (auto&& p : vars)
+				offset += p.second * getStride(p.first);
+			return offset;
+		}
 
 		static fidlist createStride(const fidpairlist& vars);
 
 		static fid_t getStride(const fidpairlist& vars, fid_t varId);
 
 	private:
-		fidpairlist m_vars;// 变量及其card
-		fvalarr m_vals;// 按索引顺序的CPT值
-		fidlist m_stride; // 步长
+		fidpairlist m_vars; // 变量及其card
+		fvalarr m_vals;		// 按索引顺序的CPT值
+		fidlist m_stride;	// 步长
 	};
 
 	using FactorList = std::vector<Factor>;
 
-}
+} // namespace pgm

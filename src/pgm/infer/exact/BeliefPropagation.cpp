@@ -1,4 +1,4 @@
-#include "CliqueTreeMethod.h"
+#include "pgm/infer/exact/BeliefPropagation.hpp"
 
 namespace pgm {
 
@@ -16,7 +16,7 @@ namespace pgm {
 	}
 
 	fvallist CliqueTreeMethod::query(const ProbQueryList& queries) const {
-		return queries | std::views::transform(LAMBDA(q, query(q))) | qy::views::to<fvallist>;
+		return queries | std::views::transform(LAMBDA(q, query(q))) | std::ranges::to<fvallist>();
 	}
 
 	fval_t CliqueTreeMethod::query(const ProbQuery& query) const {

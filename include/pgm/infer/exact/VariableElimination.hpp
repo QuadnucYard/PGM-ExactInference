@@ -1,11 +1,10 @@
 #pragma once
-#include "BayesianNetwork.h"
-#include "Factor.h"
+#include "pgm/factors/Factor.hpp"
+#include "pgm/models/BayesianNetwork.hpp"
 
 namespace pgm {
 
-	class CBNSumProduct
-	{
+	class CBNSumProduct {
 	public:
 		CBNSumProduct(const BayesianNetwork& bn);
 		fvallist query(const ProbQueryList&) const;
@@ -19,8 +18,7 @@ namespace pgm {
 
 	private:
 		BayesianNetwork m_net;
-		FactorList m_Factors;	//因子列表
-
+		FactorList m_Factors; //因子列表
 	};
 
-}
+} // namespace pgm
